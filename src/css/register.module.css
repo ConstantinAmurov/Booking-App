@@ -7,19 +7,19 @@
   align-items: center;
   justify-content: center;
 }
-.greeting img {
-  margin-top: 4rem;
-  width: auto;
-}
-.greeting {
-  margin: 2rem 0 0 0;
-}
 .main h1 {
   font-size: 40px;
 }
 
 .main > div {
   margin: 0 2rem;
+}
+.greeting img {
+  margin-top: 4rem;
+  width: auto;
+}
+.greeting {
+  margin: 2rem 0 0 0;
 }
 .signup {
   width: 625px;

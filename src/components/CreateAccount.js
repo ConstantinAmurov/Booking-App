@@ -1,5 +1,5 @@
 import React from "react";
-import registerForm from "./registerForm"
+
 import styles from "../css/register.module.css";
 import googleLogo from "../img/google-icon.svg"
 import facebookLogo from "../img/facebook-icon.svg"
