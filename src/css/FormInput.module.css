@@ -1,0 +1,35 @@
+.label {
+  display: block;
+  float: left;
+  color: var(--gray-1);
+  margin: 0.5rem;
+}
+.input {
+  margin: auto;
+  display: block;
+  width: 100%;
+  height: 44px;
+  left: 871px;
+  top: 343px;
+  border: 2px solid #bdbdbd;
+  padding: 1rem;
+
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  left: 871px;
+  top: 669px;
+
+  /* Gray 3 */
+
+  border: 1px solid #828282;
+  box-sizing: border-box;
+  border-radius: 5px;
+  display: inline;
+  border: 1px solid #828282;
+  box-sizing: border-box;
+  border-radius: 5px;
+}

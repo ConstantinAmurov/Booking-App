@@ -3,6 +3,7 @@ import registerForm from "./registerForm"
 import styles from "../css/register.module.css";
 import googleLogo from "../img/google-icon.svg"
 import facebookLogo from "../img/facebook-icon.svg"
+import FormInput from "./FormInput"
 const CreateAccount = () => {
   return (
     <div className={styles.signup}>
@@ -16,21 +17,15 @@ const CreateAccount = () => {
       </div>
       <div className={styles.formdiv}>
         <form className={styles.form}>
-          <label class={styles.label} for="first-name" >  First Name</label>
+          <FormInput labelText="First Name" type="text" name="first-name"></FormInput>
 
-          <input class={styles.input} type="text" name="first-name" />
+          <FormInput labelText="Last Name" type="text" name="last-name"></FormInput>
+          <FormInput labelText="Email" type="email" name="email"></FormInput>
+          <FormInput labelText="Password" type="email" name="password"></FormInput>
+          <div className={styles.termsagree}>
 
-          <label class={styles.label}> Last name</label>
-          <input class={styles.input} type="text" name="last-name" />
-          <label class={styles.label}> Email</label>
+            <FormInput labelText="" type="checkbox" name="termsagree"></FormInput>
 
-
-          <input class={styles.input} type="email" name="email" />
-
-          <label class={styles.label}>Password </label>
-          <input class={styles.input} type="password" name="password" />
-
-          <div className={styles.termsagree}><input class={styles.checkbox} type="checkbox" name="terms-agree" />
             <p>I agree with term and services</p></div>
           <input class={styles.btnCreate} type="submit" value="Create account" />
         </form>
