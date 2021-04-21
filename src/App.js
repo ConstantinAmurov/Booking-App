@@ -1,54 +1,31 @@
 
-import './App.css';
-import Login from "./components/Login"
-import React, { useState, useEffect } from "react";
-import firebase from "./Firebase"
+import React, { useState } from "react";
+import Register from "./components/Register";
+import firebase from "firebase/app";
+// If you are using v7 or any earlier version of the JS SDK, you should import firebase using namespace import
+// import * as firebase from "firebase/app"
+
+// If you enabled Analytics in your project, add the Firebase SDK for Analytics
+import "firebase/analytics";
+
+// Add the Firebase products that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+import "./App.css"
 
 function App() {
-  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(false);
-  const ref = firebase.firestore().collection("users");
-
-  function getUsers() {
-    setLoading(true);
-    ref.onSnapshot((querySnapshot) => {
-      const items = [];
-      querySnapshot.forEach((doc) => {
-        items.push(doc.data());
-      });
-      setUsers(items);
-      setLoading(false);
-    })
-  }
-
-  useEffect(() => {
-    getUsers();
-  }, []);
 
 
   if (loading) {
     return <h1>Loading...</h1>
   }
 
-  console.log(users);
   return (
-    <div>
-      {
-
-
-        users.map((user) => {
-          return (
-            <div key={user.id}>asd
-              <h2>{user.firstName}</h2>
-              <h3>{user.email}</h3>
-            </div>
-          )
-
-
-        })
-      }
-    </div>
-  );
+    <>
+      <Register></Register>
+    </>
+  )
 }
 
 export default App;
