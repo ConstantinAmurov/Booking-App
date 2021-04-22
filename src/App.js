@@ -1,18 +1,15 @@
 import React, { useState } from "react";
 import Register from "./components/Register";
+import Dashboard from "./components/Dashboard";
 import Login from "./components/Login";
-import firebase from "firebase/app";
-// If you are using v7 or any earlier version of the JS SDK, you should import firebase using namespace import
-// import * as firebase from "firebase/app"
-
-// If you enabled Analytics in your project, add the Firebase SDK for Analytics
-import "firebase/analytics";
+import ForgotPassword from "./components/ForgotPassword";
+import PrivateRoute from "./components/PrivateRoute";
 
 // Add the Firebase products that you want to use
 import "firebase/auth";
-import "firebase/firestore";
 import "./App.css";
-import CreateAccount from "./components/CreateAccount";
+import AuthProvider from "./contexts/AuthContext";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -20,11 +17,19 @@ function App() {
   if (loading) {
     return <h1>Loading...</h1>;
   }
-
   return (
-    <>
-      <Register></Register>
-    </>
+    <div>
+      <Router>
+        <AuthProvider>
+          <Switch>
+            <PrivateRoute exact path="/" component={Dashboard}></PrivateRoute>
+            <Route path="/signup" component={Register}></Route>
+            <Route path="/login" component={Login}></Route>
+            <Route path="/forgot-password" component={ForgotPassword}></Route>
+          </Switch>
+        </AuthProvider>
+      </Router>
+    </div>
   );
 }
 

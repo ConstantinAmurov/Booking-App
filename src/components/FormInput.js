@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../css/FormInput.module.css";
 const FormInput = (props) => {
-  const { labelText, type, name, onChange } = props;
+  const { labelText, type, name } = props;
 
   if (type !== "checkbox")
     return (
