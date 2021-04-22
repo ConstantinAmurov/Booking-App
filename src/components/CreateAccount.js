@@ -1,10 +1,39 @@
-import React from "react";
+import React, { useState } from "react";
 
 import styles from "../css/register.module.css";
 import googleLogo from "../img/google-icon.svg"
 import facebookLogo from "../img/facebook-icon.svg"
 import FormInput from "./FormInput"
+
+
+
 const CreateAccount = () => {
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+
+  })
+  const { firstName, lastName, email, password } = formData;
+
+  const onChange = (e) => {
+    console.log(e.target.name, e.target.value);
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  }
+
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    //need to implement validation;
+    const newUser = {
+      firstName, lastName, email, password
+    };
+    console.log("new user submited");
+    console.log(newUser);
+  }
+
+
   return (
     <div className={styles.signup}>
 
@@ -16,12 +45,13 @@ const CreateAccount = () => {
 
       </div>
       <div className={styles.formdiv}>
-        <form className={styles.form}>
-          <FormInput labelText="First Name" type="text" name="first-name"></FormInput>
+        <form className={styles.form} onSubmit={(e) => onSubmit(e)}>
 
-          <FormInput labelText="Last Name" type="text" name="last-name"></FormInput>
-          <FormInput labelText="Email" type="email" name="email"></FormInput>
-          <FormInput labelText="Password" type="email" name="password"></FormInput>
+          <FormInput labelText="First Name" type="text" name="firstName" onChange={onChange} ></FormInput>
+
+          <FormInput labelText="Last Name" type="text" name="lastName" onChange={onChange}></FormInput>
+          <FormInput labelText="Email" type="email" name="email" onChange={onChange}></FormInput>
+          <FormInput labelText="Password" type="password" name="password" onChange={onChange}></FormInput>
           <div className={styles.termsagree}>
 
             <FormInput labelText="" type="checkbox" name="termsagree"></FormInput>

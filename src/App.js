@@ -12,6 +12,7 @@ import "firebase/analytics";
 import "firebase/auth";
 import "firebase/firestore";
 import "./App.css";
+import CreateAccount from "./components/CreateAccount";
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -22,7 +23,7 @@ function App() {
 
   return (
     <>
-      <Login></Login>
+      <Register></Register>
     </>
   );
 }
