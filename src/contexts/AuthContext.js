@@ -3,7 +3,6 @@ import { auth } from "../Firebase";
 const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
-  debugger;
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   function signup(props) {
@@ -24,10 +23,10 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setCurrentUser(user);
+      console.log(user);
       setLoading(false);
-
-      return unsubscribe;
     });
+    return unsubscribe;
   }, []);
 
   const value = {
@@ -47,4 +46,5 @@ const AuthProvider = ({ children }) => {
 export function useAuth() {
   return useContext(AuthContext);
 }
+
 export default AuthProvider;

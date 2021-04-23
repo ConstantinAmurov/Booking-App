@@ -7,7 +7,7 @@ const forgotPassImg = require("../img/forgot-password.svg").default;
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
   const { resetPassword } = useAuth();
@@ -19,13 +19,12 @@ const ForgotPassword = () => {
     e.preventDefault();
     try {
       setMessage("");
-      setError("");
       console.log(email);
       setLoading(true);
       await resetPassword(email);
       setMessage("Check your inbox for further instructions");
     } catch {
-      setError("Failed to reset password");
+      console.log("Failed to reset password");
     }
     //need to implement validation;
     setLoading(false);
@@ -34,7 +33,6 @@ const ForgotPassword = () => {
 
   return (
     <div className={styles.forgotPass}>
-      {error & alert(error)}
       <img src={forgotPassImg} alt="" srcset="" />
       <h1>Reset password</h1>
       <div className={styles.formdiv}>

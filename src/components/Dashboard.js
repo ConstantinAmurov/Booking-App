@@ -2,23 +2,20 @@ import React, { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 export default function Dashboard() {
-  const [error, setError] = useState("");
   const { currentUser, logout } = useAuth();
   const history = useHistory();
 
   async function handleLogout() {
-    setError("");
     try {
       await logout();
       history.push("/login");
     } catch {
-      setError("Failed to log out");
+      console.log("error in logging out");
     }
   }
 
   return (
     <>
-      {error & alert(error)}
       <strong>Email: </strong> {currentUser.email}
       <Link to="/update-profile">Update profile</Link>
       <button onClick={handleLogout}>Log out</button>

@@ -10,7 +10,7 @@ const LoginAccount = () => {
   });
   const { email, password, firstName, lastName } = formData;
   const { login } = useAuth();
-  const [error, setError] = useState("");
+
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
@@ -23,7 +23,6 @@ const LoginAccount = () => {
     e.preventDefault();
     //need to implement validation;
     try {
-      setError("");
       setLoading(true);
       const newUser = {
         email,
@@ -34,13 +33,12 @@ const LoginAccount = () => {
       console.log(newUser);
       history.push("/");
     } catch {
-      setError("Failed to log in");
+      console.log("error");
     }
   }
 
   return (
     <div className={styles.login}>
-      {error & alert(error)}
       <div className={styles.formdiv}>
         <h1>Login</h1>
         <form className={styles.form} onSubmit={(e) => onSubmit(e)}>

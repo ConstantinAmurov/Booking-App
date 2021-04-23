@@ -15,10 +15,10 @@ const CreateAccount = () => {
   });
   const { firstName, lastName, email, password } = formData;
   const { signup } = useAuth();
-  const [error, setError] = useState("createAccount");
+
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
+  debugger;
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -27,8 +27,8 @@ const CreateAccount = () => {
     e.preventDefault();
     //need to implement validation;
     try {
-      setError("");
       setLoading(true);
+
       const newUser = {
         firstName,
         lastName,
@@ -39,14 +39,14 @@ const CreateAccount = () => {
       history.push("/");
       console.log(newUser);
     } catch {
-      setError("Failed to create an account");
+      console.log("Failed to create an account");
     }
     setLoading(false);
   }
 
   return (
     <div className={styles.signup}>
-      {error & alert(error)}
+      {/* {error & alert(error)} */}
       <div>
         <h1>Create Account</h1>
         <button class={styles.btngoogle}>
