@@ -1,24 +1,19 @@
 import React, { useState } from "react";
-import Register from "./components/Register";
-import Dashboard from "./components/Dashboard";
+
 import Login from "./components/Login";
 import ForgotPassword from "./components/ForgotPassword";
+import Register from "./components/Register";
+import Dashboard from "./components/Dashboard";
 import PrivateRoute from "./components/PrivateRoute";
-
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AuthProvider from "./contexts/AuthContext";
 // Add the Firebase products that you want to use
 import "firebase/auth";
 import "./App.css";
-import AuthProvider from "./contexts/AuthContext";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
-  const [loading, setLoading] = useState(false);
-
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
   return (
-    <div>
+    <>
       <Router>
         <AuthProvider>
           <Switch>
@@ -29,7 +24,7 @@ function App() {
           </Switch>
         </AuthProvider>
       </Router>
-    </div>
+    </>
   );
 }
 

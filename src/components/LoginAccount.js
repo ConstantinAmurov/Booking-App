@@ -8,8 +8,10 @@ const LoginAccount = () => {
     email: "",
     password: "",
   });
-  const { email, password } = formData;
+  const { email, password, firstName, lastName } = formData;
   const { login } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const onChange = (e) => {
@@ -17,21 +19,28 @@ const LoginAccount = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
     //need to implement validation;
-    const newUser = {
-      email,
-      password,
-    };
-    debugger;
-    login(newUser);
-    history.push("/");
-    console.log(newUser);
-  };
+    try {
+      setError("");
+      setLoading(true);
+      const newUser = {
+        email,
+        password,
+      };
+      debugger;
+      await login(newUser);
+      console.log(newUser);
+      history.push("/");
+    } catch {
+      setError("Failed to log in");
+    }
+  }
 
   return (
     <div className={styles.login}>
+      {error & alert(error)}
       <div className={styles.formdiv}>
         <h1>Login</h1>
         <form className={styles.form} onSubmit={(e) => onSubmit(e)}>

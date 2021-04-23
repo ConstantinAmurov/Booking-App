@@ -15,7 +15,7 @@ const ForgotPassword = () => {
     setEmail(e.target.value);
   };
 
-  const onSubmit = async (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
     try {
       setMessage("");
@@ -28,12 +28,13 @@ const ForgotPassword = () => {
       setError("Failed to reset password");
     }
     //need to implement validation;
-
+    setLoading(false);
     //signup(newUser);
-  };
+  }
 
   return (
     <div className={styles.forgotPass}>
+      {error & alert(error)}
       <img src={forgotPassImg} alt="" srcset="" />
       <h1>Reset password</h1>
       <div className={styles.formdiv}>

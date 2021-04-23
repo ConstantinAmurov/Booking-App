@@ -14,31 +14,39 @@ const CreateAccount = () => {
     password: "",
   });
   const { firstName, lastName, email, password } = formData;
-  const { signup, currentUser } = useAuth();
+  const { signup } = useAuth();
+  const [error, setError] = useState("createAccount");
+  const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const onSubmit = async (e) => {
+  async function onSubmit(e) {
     e.preventDefault();
     //need to implement validation;
-    const newUser = {
-      firstName,
-      lastName,
-      email,
-      password,
-    };
-    debugger;
-    signup(newUser);
-    history.push("/");
-    console.log(newUser);
-  };
+    try {
+      setError("");
+      setLoading(true);
+      const newUser = {
+        firstName,
+        lastName,
+        email,
+        password,
+      };
+      await signup(newUser);
+      history.push("/");
+      console.log(newUser);
+    } catch {
+      setError("Failed to create an account");
+    }
+    setLoading(false);
+  }
 
   return (
     <div className={styles.signup}>
+      {error & alert(error)}
       <div>
         <h1>Create Account</h1>
         <button class={styles.btngoogle}>
