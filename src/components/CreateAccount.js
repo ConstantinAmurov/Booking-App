@@ -5,7 +5,10 @@ import googleLogo from "../img/google-icon.svg";
 import facebookLogo from "../img/facebook-icon.svg";
 import FormInput from "./FormInput";
 import { useAuth } from "../contexts/AuthContext";
-
+import {
+  validateForm,
+  validateRegister,
+} from "../services/ValidateForm.service";
 const CreateAccount = () => {
   const [formData, setFormData] = useState({
     firstName: "",
@@ -14,38 +17,53 @@ const CreateAccount = () => {
     password: "",
   });
   const { firstName, lastName, email, password } = formData;
+  const [checkbox, setCheckbox] = useState();
   const { signup } = useAuth();
-
+  const [errors, setErrors] = useState({
+    firstNameError: "",
+    lastNameError: "",
+    emailError: "",
+    passwordError: "",
+  });
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const onCheck = (e) => {
+    setCheckbox(e.target.checked);
+    console.log(e.target.checked);
+  };
 
   async function onSubmit(e) {
+    validateRegister(errors, formData);
+    setErrors({ ...errors, errors });
+
     e.preventDefault();
     //need to implement validation;
     try {
-      setLoading(true);
+      if (validateForm(errors) && checkbox) {
+        setLoading(true);
 
-      const newUser = {
-        firstName,
-        lastName,
-        email,
-        password,
-      };
-      await signup(newUser);
-      history.push("/");
-      console.log(newUser);
+        const newUser = {
+          firstName,
+          lastName,
+          email,
+          password,
+        };
+        await signup(newUser);
+        history.push("/");
+        console.log(newUser);
+      }
     } catch {
-      console.log("Failed to create an account");
+      debugger;
+      alert("Failed to create an account");
     }
     setLoading(false);
   }
 
   return (
     <div className={styles.signup}>
-      {/* {error & alert(error)} */}
       <div>
         <h1>Create Account</h1>
         <button class={styles.btngoogle}>
@@ -69,30 +87,34 @@ const CreateAccount = () => {
             name="firstName"
             onChange={onChange}
           ></FormInput>
-
+          <div className={styles.error}>{errors.firstNameError}</div>
           <FormInput
             labelText="Last Name"
             type="text"
             name="lastName"
             onChange={onChange}
           ></FormInput>
+          <div className={styles.error}>{errors.lastNameError}</div>
           <FormInput
             labelText="Email"
             type="email"
             name="email"
             onChange={onChange}
           ></FormInput>
+          <div className={styles.error}>{errors.emailError}</div>
           <FormInput
             labelText="Password"
             type="password"
             name="password"
             onChange={onChange}
           ></FormInput>
+          <div className={styles.error}>{errors.passwordError}</div>
           <div className={styles.termsagree}>
             <FormInput
               labelText=""
               type="checkbox"
               name="termsagree"
+              onChange={onCheck}
             ></FormInput>
 
             <p>I agree with term and services</p>

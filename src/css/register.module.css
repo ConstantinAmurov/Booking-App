@@ -125,3 +125,8 @@ p span {
   width: 20px;
   margin: 5px;
 }
+.error {
+  position: relative;
+  text-align: left;
+  color: red;
+}

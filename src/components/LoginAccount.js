@@ -3,37 +3,52 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "../css/login.module.css";
 import FormInput from "./FormInput";
 import { useAuth } from "../contexts/AuthContext";
+import { validateForm, validateLogin } from "../services/ValidateForm.service";
 const LoginAccount = () => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const { email, password, firstName, lastName } = formData;
+  const [errors, setErrors] = useState({
+    emailError: "",
+    passwordError: "",
+  });
+
+  const { email, password } = formData;
   const { login } = useAuth();
 
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   const onChange = (e) => {
-    console.log(e.target.name, e.target.value);
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   async function onSubmit(e) {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
     e.preventDefault();
+    validateLogin(errors, formData);
+    setErrors({ ...errors, errors });
+
+    // const formValues = reduceFormValues(form.elements);
+    // console.log(formValues);
+    // const allFieldsValid = checkAllFieldsValid(formValues);
+
     //need to implement validation;
     try {
-      setLoading(true);
-      const newUser = {
-        email,
-        password,
-      };
-      debugger;
-      await login(newUser);
-      console.log(newUser);
-      history.push("/");
+      if (validateForm(errors)) {
+        setLoading(true);
+        const newUser = {
+          email,
+          password,
+        };
+
+        await login(newUser);
+        console.log(newUser);
+        history.push("/");
+      }
     } catch {
-      console.log("error");
+      alert("Not correct credentials");
     }
   }
 
@@ -48,12 +63,14 @@ const LoginAccount = () => {
             name="email"
             onChange={onChange}
           ></FormInput>
+          <div className={styles.error}>{errors.emailError}</div>
           <FormInput
             labelText="Password"
             type="password"
             name="password"
             onChange={onChange}
           ></FormInput>
+          <div className={styles.error}>{errors.passwordError}</div>
           <Link to="/forgot-password">Forgot Password?</Link>
 
           <input class={styles.btnLogin} type="submit" value="Login" />

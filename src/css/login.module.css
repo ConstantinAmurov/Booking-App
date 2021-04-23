@@ -58,3 +58,9 @@ a {
 span {
   float: left;
 }
+
+.error {
+  position: relative;
+  text-align: left;
+  color: red;
+}

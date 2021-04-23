@@ -6,7 +6,7 @@ const FormInput = (props) => {
   if (type !== "checkbox")
     return (
       <>
-        <label class={styles.label} for="first-name">
+        <label class={styles.label} for="">
           {labelText}
         </label>
 
