@@ -36,7 +36,7 @@ const ForgotPassword = () => {
       <img src={forgotPassImg} alt="" srcset="" />
       <h1>Reset password</h1>
       <div className={styles.formdiv}>
-        <form className={styles.form} onSubmit={(e) => onSubmit(e)}>
+        <form className={styles.form} onSubmit={(e) => onSubmit(e)} noValidate>
           <FormInput
             labelText="Email"
             type="email"

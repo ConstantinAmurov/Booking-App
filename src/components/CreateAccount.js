@@ -18,7 +18,6 @@ const CreateAccount = () => {
 
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  debugger;
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -63,7 +62,7 @@ const CreateAccount = () => {
         </p>
       </div>
       <div className={styles.formdiv}>
-        <form className={styles.form} onSubmit={(e) => onSubmit(e)}>
+        <form className={styles.form} onSubmit={(e) => onSubmit(e)} noValidate>
           <FormInput
             labelText="First Name"
             type="text"

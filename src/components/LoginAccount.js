@@ -41,7 +41,7 @@ const LoginAccount = () => {
     <div className={styles.login}>
       <div className={styles.formdiv}>
         <h1>Login</h1>
-        <form className={styles.form} onSubmit={(e) => onSubmit(e)}>
+        <form className={styles.form} onSubmit={(e) => onSubmit(e)} noValidate>
           <FormInput
             labelText="Email"
             type="email"
