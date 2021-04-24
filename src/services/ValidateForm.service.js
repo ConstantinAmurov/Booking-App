@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 
-const validEmailRegex = RegExp(
-  /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
-);
+function validateEmail(email) {
+  const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+}
 
 export const validateForm = (errors) => {
   let valid = true;
@@ -10,8 +11,7 @@ export const validateForm = (errors) => {
   return valid;
 };
 export function validateLogin(errors, formData) {
-  debugger;
-  if ((formData.email = validEmailRegex.test(formData.email))) {
+  if (validateEmail(formData.email)) {
     errors.emailError = "";
   } else errors.emailError = "Email is not Valid!";
 
@@ -21,7 +21,7 @@ export function validateLogin(errors, formData) {
 }
 
 export function validateRegister(errors, formData) {
-  if ((formData.email = validEmailRegex.test(formData.email))) {
+  if (validateEmail(formData.email)) {
     errors.emailError = "";
   } else errors.emailError = "Email is not Valid!";
 
@@ -29,16 +29,15 @@ export function validateRegister(errors, formData) {
     ? (errors.passwordError = "Password must be at least 6 characters long!")
     : (errors.passwordError = "");
 
-  if (formData.firstName == "") {
-    debugger;
+  if (formData.firstName === "") {
     errors.firstNameError = "First name should not be empty";
-  }
-  if (formData.lastName.length == "") {
+  } else errors.firstNameError = "";
+  if (formData.lastName === "") {
     errors.lastNameError = "Last name should not be empty";
-  }
+  } else errors.lastNameError = "";
 }
 export function validateReset(email) {
-  if ((email = validEmailRegex.test(email))) {
+  if (validateEmail(email)) {
     return "";
   } else return "Email is not Valid!";
 }

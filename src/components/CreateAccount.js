@@ -16,15 +16,23 @@ const CreateAccount = () => {
     email: "",
     password: "",
   });
+
   const { firstName, lastName, email, password } = formData;
-  const [checkbox, setCheckbox] = useState();
-  const { signup } = useAuth();
   const [errors, setErrors] = useState({
     firstNameError: "",
     lastNameError: "",
     emailError: "",
     passwordError: "",
   });
+  const initialErrorsState = {
+    firstNameError: "",
+    lastNameError: "",
+    emailError: "",
+    passwordError: "",
+  };
+  const [checkbox, setCheckbox] = useState();
+  const { signup } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const onChange = (e) => {
@@ -32,19 +40,18 @@ const CreateAccount = () => {
   };
   const onCheck = (e) => {
     setCheckbox(e.target.checked);
-    console.log(e.target.checked);
   };
 
   async function onSubmit(e) {
+    e.preventDefault();
     validateRegister(errors, formData);
+
     setErrors({ ...errors, errors });
 
-    e.preventDefault();
-    //need to implement validation;
     try {
       if (validateForm(errors) && checkbox) {
+        debugger;
         setLoading(true);
-
         const newUser = {
           firstName,
           lastName,
@@ -56,7 +63,6 @@ const CreateAccount = () => {
         console.log(newUser);
       }
     } catch {
-      debugger;
       alert("Failed to create an account");
     }
     setLoading(false);

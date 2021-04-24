@@ -25,16 +25,10 @@ const LoginAccount = () => {
   };
 
   async function onSubmit(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
     e.preventDefault();
     validateLogin(errors, formData);
     setErrors({ ...errors, errors });
 
-    // const formValues = reduceFormValues(form.elements);
-    // console.log(formValues);
-    // const allFieldsValid = checkAllFieldsValid(formValues);
-
-    //need to implement validation;
     try {
       if (validateForm(errors)) {
         setLoading(true);
