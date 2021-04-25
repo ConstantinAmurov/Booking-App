@@ -32,7 +32,7 @@ const CreateAccount = () => {
   };
   const [checkbox, setCheckbox] = useState();
   const { signup } = useAuth();
-
+  const { signUpWithGoogle } = useAuth();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const onChange = (e) => {
@@ -72,7 +72,7 @@ const CreateAccount = () => {
     <div className={styles.signup}>
       <div>
         <h1>Create Account</h1>
-        <button class={styles.btngoogle}>
+        <button class={styles.btngoogle} onClick={() => signUpWithGoogle()}>
           <img className={styles.icon} src={googleLogo}></img>sign up with
           google
         </button>

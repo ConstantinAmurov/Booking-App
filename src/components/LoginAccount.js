@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "../css/login.module.css";
 import FormInput from "./FormInput";
+
 import { useAuth } from "../contexts/AuthContext";
 import { validateForm, validateLogin } from "../services/ValidateForm.service";
 const LoginAccount = () => {
@@ -27,7 +28,6 @@ const LoginAccount = () => {
   async function onSubmit(e) {
     e.preventDefault();
     validateLogin(errors, formData);
-    setErrors({ ...errors, errors });
 
     try {
       if (validateForm(errors)) {
