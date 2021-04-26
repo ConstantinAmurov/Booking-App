@@ -1,9 +1,9 @@
 import React from "react";
-import CreateAccount from "./CreateAccount";
-import styles from "../css/register.module.css";
-import "../App.css";
+import RegisterForm from "./RegisterForm";
+import styles from "../../css/register.module.css";
+import "../../css/App.css";
 
-const helloImg = require("../img/hotel-booking.svg").default;
+const helloImg = require("../../img/hotel-booking.svg").default;
 const Register = () => {
   return (
     <div className={styles.main}>
@@ -12,7 +12,7 @@ const Register = () => {
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
         <img src={helloImg} alt="" srcset="" />
       </div>
-      <CreateAccount></CreateAccount>
+      <RegisterForm />
     </div>
   );
 };

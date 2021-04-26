@@ -1,16 +1,16 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-import styles from "../css/register.module.css";
-import googleLogo from "../img/google-icon.svg";
-import facebookLogo from "../img/facebook-icon.svg";
-import FormInput from "./FormInput";
+import styles from "../../css/register.module.css";
+import googleLogo from "../../img/google-icon.svg";
+import facebookLogo from "../../img/facebook-icon.svg";
+import FormInput from "../FormInput";
 import { FiEye, FiEyeOff } from "react-icons/fi";
-import { facebookProvider, googleProvider } from "../Firebase";
-import { useAuth } from "../contexts/AuthContext";
+import { facebookProvider, googleProvider } from "../../Firebase";
+import { useAuth } from "../../contexts/AuthContext";
 import {
   validateForm,
   validateRegister,
-} from "../services/ValidateForm.service";
+} from "../../services/ValidateForm.service";
 const CreateAccount = () => {
   const [visible, setVisible] = useState(false);
   const [, updateState] = React.useState();

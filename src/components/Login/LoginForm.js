@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
-import styles from "../css/login.module.css";
-import FormInput from "./FormInput";
+import styles from "../../css/login.module.css";
+import FormInput from "../FormInput";
 
-import { useAuth } from "../contexts/AuthContext";
-import { validateForm, validateLogin } from "../services/ValidateForm.service";
+import { useAuth } from "../../contexts/AuthContext";
+import {
+  validateForm,
+  validateLogin,
+} from "../../services/ValidateForm.service";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 const LoginAccount = () => {
   const [visible, setVisible] = useState(false);
@@ -19,6 +22,7 @@ const LoginAccount = () => {
     emailError: "",
     passwordError: "",
   });
+  const [logInError, setLogInError] = useState("");
 
   const { email, password } = formData;
   const { login } = useAuth();
@@ -44,10 +48,11 @@ const LoginAccount = () => {
         };
 
         await login(newUser);
+        debugger;
         history.push("/");
       }
     } catch {
-      alert("Not correct credentials");
+      alert("user not found");
     }
     setLoading(false);
   }
@@ -82,6 +87,7 @@ const LoginAccount = () => {
           <div className={styles.error}>{errors.passwordError}</div>
           <Link to="/forgot-password">Forgot Password?</Link>
           <input class={styles.btnLogin} type="submit" value="Login" />
+          <p className="errors">{logInError}</p>
         </form>
 
         <div>

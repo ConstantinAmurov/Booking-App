@@ -1,0 +1,38 @@
+.menu {
+  width: 270px;
+  height: 100vh;
+  background-color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  float: left;
+}
+.menu button {
+  background-color: transparent;
+  text-align: left;
+  width: 70%;
+  padding: 1rem;
+  font-weight: 300;
+  font-size: 1rem;
+  color: var(--gray-1);
+  float: right;
+}
+
+.menu div:hover {
+  background-color: #f1f5f8;
+}
+.menu svg {
+  padding-right: 5px;
+  font-size: 20px;
+}
+.selected {
+  background-color: #f1f5f8;
+  border-left: 3px solid #4149b9;
+}
+
+.topNav {
+  display: block;
+  background-color: white;
+
+  width: 100%;
+}

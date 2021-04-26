@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link, Redirect } from "react-router-dom";
-import FormInput from "./FormInput";
-import styles from "../css/forgotpassword.module.css";
-import { useAuth } from "../contexts/AuthContext";
-import { validateReset } from "../services/ValidateForm.service";
-const forgotPassImg = require("../img/forgot-password.svg").default;
+import FormInput from "../FormInput";
+import styles from "../../css/forgotpassword.module.css";
+import { useAuth } from "../../contexts/AuthContext";
+import { validateReset } from "../../services/ValidateForm.service";
+const forgotPassImg = require("../../img/forgot-password.svg").default;
 
 const ForgotPassword = () => {
   const [, updateState] = React.useState();

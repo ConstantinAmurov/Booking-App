@@ -5,6 +5,11 @@ function validateEmail(email) {
   return re.test(String(email).toLowerCase());
 }
 
+function validatePassword(password) {
+  const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{12,}$/;
+  return re.test(password);
+}
+
 export const validateForm = (errors) => {
   let valid = true;
   Object.values(errors).forEach((val) => val.length > 0 && (valid = false));
@@ -15,9 +20,8 @@ export function validateLogin(errors, formData) {
     errors.emailError = "";
   } else errors.emailError = "Email is not Valid!";
 
-  formData.password.length < 6
-    ? (errors.passwordError = "Password must be at least 6 characters long!")
-    : (errors.passwordError = "");
+  if (validatePassword(formData.password)) errors.passwordError = "";
+  else errors.passwordError = "Password is not Valid!";
 }
 
 export function validateRegister(errors, formData) {
