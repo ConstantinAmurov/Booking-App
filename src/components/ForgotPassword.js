@@ -7,6 +7,8 @@ import { validateReset } from "../services/ValidateForm.service";
 const forgotPassImg = require("../img/forgot-password.svg").default;
 
 const ForgotPassword = () => {
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);

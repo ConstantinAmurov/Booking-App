@@ -5,7 +5,12 @@ import FormInput from "./FormInput";
 
 import { useAuth } from "../contexts/AuthContext";
 import { validateForm, validateLogin } from "../services/ValidateForm.service";
+import { FiEye, FiEyeOff } from "react-icons/fi";
 const LoginAccount = () => {
+  const [visible, setVisible] = useState(false);
+
+  const [, updateState] = useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -28,6 +33,7 @@ const LoginAccount = () => {
   async function onSubmit(e) {
     e.preventDefault();
     validateLogin(errors, formData);
+    forceUpdate();
 
     try {
       if (validateForm(errors)) {
@@ -38,12 +44,12 @@ const LoginAccount = () => {
         };
 
         await login(newUser);
-        console.log(newUser);
         history.push("/");
       }
     } catch {
       alert("Not correct credentials");
     }
+    setLoading(false);
   }
 
   return (
@@ -58,15 +64,23 @@ const LoginAccount = () => {
             onChange={onChange}
           ></FormInput>
           <div className={styles.error}>{errors.emailError}</div>
-          <FormInput
-            labelText="Password"
-            type="password"
-            name="password"
-            onChange={onChange}
-          ></FormInput>
+          <div>
+            <FormInput
+              labelText="Password"
+              type={visible ? "text" : "password"}
+              name="password"
+              onChange={onChange}
+            ></FormInput>
+            <span
+              id={styles.passwordInput}
+              onClick={() => setVisible(!visible)}
+            >
+              {visible ? <FiEye /> : <FiEyeOff />}
+            </span>
+          </div>
+
           <div className={styles.error}>{errors.passwordError}</div>
           <Link to="/forgot-password">Forgot Password?</Link>
-
           <input class={styles.btnLogin} type="submit" value="Login" />
         </form>
 

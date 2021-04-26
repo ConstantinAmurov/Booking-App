@@ -64,3 +64,8 @@ span {
   text-align: left;
   color: red;
 }
+#passwordInput {
+  position: absolute;
+  right: 20px;
+  transform: translateY(-30px);
+}

@@ -20,13 +20,3 @@ p {
   font-family: "Roboto", sans-serif;
   color: var(--gray-2);
 }
-
-form > input,
-button {
-  border: 0;
-  font-family: "Rubik", sans-serif;
-  color: var(--gray-4);
-}
-label {
-  font-family: "Roboto", sans-serif;
-}
