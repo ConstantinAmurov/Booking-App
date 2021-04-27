@@ -34,22 +34,6 @@ const TopNav = () => {
           </button>
         </div>
       </div>
-      {/* <Container fluid>
-        <Row className="justify-content-lg-end">
-          <Col lg={1}>
-            <img src={photoURL} className={styles.userImg}></img>
-          </Col>
-          <Col className={styles.userInfo} lg={1}>
-            <p>{currentUser.displayName}</p>
-            <p className={styles.role}>Admin</p>
-          </Col>
-          <Col lg={1}>
-            <button className={styles.btnLogOut} onClick={handleLogout}>
-              Log Out
-            </button>
-          </Col>
-        </Row>
-      </Container> */}
     </div>
   );
 };

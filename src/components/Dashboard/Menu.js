@@ -8,28 +8,32 @@ const Menu = ({ selected }) => {
   });
 
   return (
-    <div className={styles.menu}>
-      <p>Booking.app</p>
-      <div id="dashboard">
-        <Link to="/">
-          <button>
-            <FiGrid></FiGrid> Dashboard
-          </button>
-        </Link>
-      </div>
-      <div id="service">
-        <Link to="/service">
-          <button>
-            <FiBriefcase></FiBriefcase> Service
-          </button>
-        </Link>
-      </div>
-      <div id="booking">
-        <Link to="/booking">
-          <button>
-            <FiFileText></FiFileText> Booking
-          </button>
-        </Link>
+    <div className={styles.sideBar}>
+      <div className={styles.menu}>
+        <div className={styles.appName}>
+          <p>Booking.app</p>
+        </div>
+        <div id="dashboard">
+          <Link to="/">
+            <button>
+              <FiGrid></FiGrid> Dashboard
+            </button>
+          </Link>
+        </div>
+        <div id="service">
+          <Link to="/service">
+            <button>
+              <FiBriefcase></FiBriefcase> Service
+            </button>
+          </Link>
+        </div>
+        <div id="booking">
+          <Link to="/booking">
+            <button>
+              <FiFileText></FiFileText> Booking
+            </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -20,3 +20,14 @@ export function addNewSocialUser(user) {
     email: user.email,
   });
 }
+
+export function getCompanies(setCompanies, companies) {
+  db.collection("companies")
+    .get()
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        console.log(true);
+        setCompanies({ ...companies }, doc.data());
+      });
+    });
+}
