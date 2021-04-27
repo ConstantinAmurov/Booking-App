@@ -9,6 +9,8 @@ import Booking from "./components/Dashboard/Booking";
 import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AuthProvider from "./contexts/AuthContext";
+
+import "bootstrap/dist/css/bootstrap.min.css";
 // Add the Firebase products that you want to use
 
 import "./css/App.css";

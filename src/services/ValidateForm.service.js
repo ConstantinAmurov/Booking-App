@@ -7,6 +7,8 @@ function validateEmail(email) {
 
 function validatePassword(password) {
   const re = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-_]).{12,}$/;
+  //separate each regex in a switch
+
   return re.test(password);
 }
 

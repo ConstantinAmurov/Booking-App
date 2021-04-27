@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { getAuth, signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { useHistory } from "react-router-dom";
 import firebase, { facebookProvider, googleProvider, auth } from "../Firebase";
+import { addNewUser, addNewSocialUser } from "./DatabaseContext";
 const AuthContext = React.createContext();
 
 const AuthProvider = ({ children }) => {
@@ -9,21 +10,22 @@ const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
   function signup(props) {
-    const { email, password } = props;
-    return auth.createUserWithEmailAndPassword(email, password);
+    const { firstName, lastName, email, password } = props;
+
+    auth.createUserWithEmailAndPassword(email, password).then((cred) => {
+      addNewUser(props, cred.user);
+    });
   }
   async function signUpWithSocialMedia(provider) {
-    debugger;
     setLoading(true);
     try {
-      const result_1 = await firebase.auth().signInWithPopup(provider);
-      /** @type {firebase.auth.OAuthCredential} */
-      var credential = result_1.credential;
-      // This gives you a Google Access Token. You can use it to access the Google API.
-      var token = credential.accessToken;
-      // The signed-in user info.
-      var user = result_1.user;
-      // ...
+      await firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then((cred) => {
+          addNewSocialUser(cred.user);
+        });
+
       setLoading(false);
       history.push("/");
     } catch (error) {

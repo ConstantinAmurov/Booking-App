@@ -7,6 +7,7 @@ import FormInput from "../FormInput";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { facebookProvider, googleProvider } from "../../Firebase";
 import { useAuth } from "../../contexts/AuthContext";
+
 import {
   validateForm,
   validateRegister,
@@ -55,7 +56,6 @@ const CreateAccount = () => {
 
     try {
       if (validateForm(errors) && checkbox) {
-        debugger;
         setLoading(true);
         const newUser = {
           firstName,
@@ -64,11 +64,12 @@ const CreateAccount = () => {
           password,
         };
         await signup(newUser);
+
         history.push("/");
         console.log(newUser);
       }
     } catch {
-      alert("Failed to create an account");
+      console.log("Failed to create an account");
     }
     setLoading(false);
   }

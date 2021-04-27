@@ -33,6 +33,36 @@
 .topNav {
   display: block;
   background-color: white;
+  height: auto;
 
   width: 100%;
+  padding: 0.5rem;
+}
+.userInfo > p {
+  margin: 0;
+}
+.btnLogOut {
+  background-color: #4149b9;
+  width: 91px;
+  height: 42px;
+  color: white;
+  box-shadow: 0px 4px 8px rgba(65, 73, 185, 0.14);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: "Rubik", sans-serif;
+}
+.userImg {
+  border-radius: 10px;
+  display: inline;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  background-color: black;
+  width: 47px;
+  height: 47px;
+}
+.role {
+  font-size: 14px;
 }

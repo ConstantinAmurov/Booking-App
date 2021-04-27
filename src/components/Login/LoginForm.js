@@ -11,7 +11,6 @@ import {
 import { FiEye, FiEyeOff } from "react-icons/fi";
 const LoginAccount = () => {
   const [visible, setVisible] = useState(false);
-
   const [, updateState] = useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
   const [formData, setFormData] = useState({
@@ -48,11 +47,11 @@ const LoginAccount = () => {
         };
 
         await login(newUser);
-        debugger;
+
         history.push("/");
       }
     } catch {
-      alert("user not found");
+      console.log("user not found");
     }
     setLoading(false);
   }
