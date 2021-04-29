@@ -19,16 +19,16 @@ function App() {
   return (
     <>
       <Router>
-        <AuthProvider>
-          <Switch>
-            <PrivateRoute exact path="/" component={Dashboard}></PrivateRoute>
-            <Route path="/signup" component={Register}></Route>
-            <Route path="/login" component={Login}></Route>
-            <Route path="/forgot-password" component={ForgotPassword}></Route>
-            <Route path="/service" component={Service}></Route>
-            <Route path="/booking" component={Booking}></Route>
-          </Switch>
-        </AuthProvider>
+        {/* <AuthProvider> */}
+        <Switch>
+          <PrivateRoute exact path="/" component={Dashboard}></PrivateRoute>
+          <Route path="/signup" component={Register}></Route>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/forgot-password" component={ForgotPassword}></Route>
+          <Route path="/service" component={Service}></Route>
+          <Route path="/booking" component={Booking}></Route>
+        </Switch>
+        {/* </AuthProvider> */}
       </Router>
     </>
   );
