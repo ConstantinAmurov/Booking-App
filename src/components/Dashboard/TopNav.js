@@ -9,7 +9,7 @@ const TopNav = () => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const history = useHistory();
-  debugger;
+
   console.log(user);
   const userName = user.displayName;
   const photoURL = user.photoURL;

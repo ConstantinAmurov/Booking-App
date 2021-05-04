@@ -3,13 +3,13 @@ import { useHistory } from "react-router-dom";
 import { addNewUser, addNewSocialUser } from "../../contexts/DatabaseContext";
 export async function login(props) {
   const { email, password } = props;
-  debugger;
+
   firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
     .then((userCredential) => {
       // Signed in
-      debugger;
+
       return userCredential.user;
       // ...
     })
@@ -21,7 +21,7 @@ export async function login(props) {
 
 export async function register(props) {
   const { email, password } = props;
-  debugger;
+
   firebase
     .auth()
     .createUserWithEmailAndPassword(email, password)
