@@ -5,3 +5,9 @@ export const SIGNUP_ERROR = "SIGNUP_ERROR";
 //SIGN IN
 export const SIGNIN_SUCCESS = "SIGNIN_SUCCESS";
 export const SIGNIN_ERROR = "SIGNIN_ERROR";
+
+// SIGN UP
+export const SIGNIN = "SIGNIN";
+export const SIGNUP = "SIGNUP";
+
+export const SIGNSTATE_CHANGED = "SIGNSTATE_CHANGED";

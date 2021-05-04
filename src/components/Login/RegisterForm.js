@@ -7,7 +7,10 @@ import FormInput from "../FormInput";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { facebookProvider, googleProvider } from "../../Firebase";
 import { useAuth } from "../../contexts/AuthContext";
-
+import {
+  register,
+  signUpWithSocialMedia,
+} from "../../store/actions/authActions";
 import {
   validateForm,
   validateRegister,
@@ -37,8 +40,8 @@ const CreateAccount = () => {
     passwordError: "",
   };
   const [checkbox, setCheckbox] = useState();
-  const { signup } = useAuth();
-  const { signUpWithSocialMedia } = useAuth();
+  // const { signup } = useAuth();
+
   const [loading, setLoading] = useState(false);
   const history = useHistory();
   const onChange = (e) => {
@@ -63,7 +66,7 @@ const CreateAccount = () => {
           email,
           password,
         };
-        await signup(newUser);
+        await register(newUser);
 
         history.push("/");
         console.log(newUser);
@@ -87,7 +90,9 @@ const CreateAccount = () => {
         </button>
         <button
           class={styles.btnfacebook}
-          onClick={() => signUpWithSocialMedia(facebookProvider)}
+          onClick={() => {
+            signUpWithSocialMedia(facebookProvider);
+          }}
         >
           {" "}
           <img className={styles.icon} src={facebookLogo}></img> sign up with

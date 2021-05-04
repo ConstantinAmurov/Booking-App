@@ -31,7 +31,6 @@ form a {
 }
 
 .btnLogin {
-  margin: 2rem auto 1rem;
   display: block;
   text-align: center;
   width: 100%;
@@ -68,4 +67,17 @@ span {
   position: absolute;
   right: 20px;
   transform: translateY(-30px);
+}
+.socialMedia {
+  text-align: right;
+}
+.socialMedia p {
+  margin: 0;
+}
+.socialMedia img {
+  display: inline;
+  position: relative;
+  right: 0px;
+  width: 35px;
+  padding: 5px;
 }

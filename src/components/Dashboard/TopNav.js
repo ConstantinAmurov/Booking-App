@@ -3,20 +3,17 @@ import styles from "../../css/Dashboard/Dashboard.module.css";
 import { Container, Row, Col } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { signOut } from "../../store/actions/authActions";
 const TopNav = () => {
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const history = useHistory();
-  const { currentUser, logout } = useAuth();
-  const userName = currentUser.displayName;
-  const photoURL = currentUser.photoURL;
-
-  async function handleLogout() {
-    try {
-      await logout();
-      history.push("/login");
-    } catch {
-      console.log("error in logging out");
-    }
-  }
+  debugger;
+  console.log(user);
+  const userName = user.displayName;
+  const photoURL = user.photoURL;
+  //merge userul
 
   return (
     <div className={styles.topNav}>
@@ -25,11 +22,11 @@ const TopNav = () => {
           <img src={photoURL} className={styles.userImg}></img>
         </div>
         <div className={styles.userInfo}>
-          <p>{currentUser.displayName}</p>
+          <p>{userName}</p>
           <p className={styles.role}>Admin</p>
         </div>
         <div>
-          <button className={styles.btnLogOut} onClick={handleLogout}>
+          <button className={styles.btnLogOut} onClick={signOut}>
             Log Out
           </button>
         </div>

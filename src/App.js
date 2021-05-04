@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import Login from "./components/Login/Login";
 import ForgotPassword from "./components/Login/ForgotPassword";
@@ -12,14 +12,25 @@ import AuthProvider from "./contexts/AuthContext";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 // Add the Firebase products that you want to use
-
+import { auth } from "./Firebase";
 import "./css/App.css";
+import { useDispatch, useSelector } from "react-redux";
+import store from "./store/app";
+import { SIGNSTATE_CHANGED } from "./store/actions/actionTypes";
 
-function App() {
+function App(props) {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      dispatch({ type: "SIGNSTATE_CHANGED", user: user });
+    });
+    return unsubscribe;
+  }, []);
   return (
     <>
       <Router>
-        {/* <AuthProvider> */}
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard}></PrivateRoute>
           <Route path="/signup" component={Register}></Route>
@@ -28,7 +39,6 @@ function App() {
           <Route path="/service" component={Service}></Route>
           <Route path="/booking" component={Booking}></Route>
         </Switch>
-        {/* </AuthProvider> */}
       </Router>
     </>
   );
