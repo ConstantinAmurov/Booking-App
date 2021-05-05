@@ -42,7 +42,7 @@ const LoginAccount = () => {
   async function handleSocialMediaSignIn(provider) {
     try {
       await signUpWithSocialMedia(provider);
-      debugger;
+
       history.push("/");
     }
     catch {
@@ -65,10 +65,8 @@ const LoginAccount = () => {
           email,
           password,
         };
-        debugger;
-        const loggedUser = login(user);
 
-        dispatch({ type: SIGNIN, user: loggedUser });
+        dispatch({ type: SIGNIN, user: user });
         history.push("/");
       }
     } catch {

@@ -157,3 +157,223 @@
 
   color: #333333;
 }
+
+/* COMPANIES CSS */
+.companies {
+  margin: 2rem 0;
+  display: flex;
+}
+.company {
+  padding: 24px 32px;
+  margin-right: 32px;
+  border-radius: 10px;
+  width: 519px;
+  height: 320px;
+  background-color: white;
+}
+.company img {
+  border-radius: 15px;
+  width: 140px;
+  height: 140px;
+  display: inline-block;
+}
+.company .info {
+  padding: 0 1rem;
+  display: inline-block;
+}
+.company h1 {
+  color: #333333;
+  font-size: 18px;
+  display: block;
+  font-weight: 600;
+  padding: 0;
+}
+.company p {
+  font-size: 14px;
+  font-weight: 400;
+  display: block;
+}
+
+.buttons {
+  margin: 24px 0 16px 0;
+}
+.editButton,
+.deleteButton {
+  border: 1px solid #bdbdbd;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #333333;
+  background-color: transparent;
+  width: 218px;
+  height: 46px;
+}
+.editButton {
+  margin-right: 19px;
+}
+
+.viewButton {
+  width: 455px;
+  height: 46px;
+  margin-top: 16px;
+  background: #4149b9;
+  color: white;
+  border-radius: 8px;
+}
+
+.active {
+  color: green;
+}
+.notActive {
+  color: red;
+}
+
+/* MODAL WINDOW */
+
+.topButtons {
+  margin-top: 32px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.topButtons button {
+  padding: 15px;
+  color: #333333;
+  font-weight: bold;
+  background-color: transparent;
+}
+
+.topButtons button:hover {
+  color: #ef6313;
+  background-color: transparent;
+  border-bottom: #ef6313 2px solid;
+}
+
+.addLogo {
+  border: 1px dashed #bdbdbd;
+  display: block;
+  box-sizing: border-box;
+  border-radius: 10px;
+  width: 75px;
+  height: 75px;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.addCompanyForm > div > input,
+.addServicesForm > div > input {
+  padding: 10px;
+  width: 502px;
+  height: 44px;
+  font-size: 14px;
+  color: #bdbdbd;
+  /* Gray 4 */
+
+  border: 1px solid #bdbdbd;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.addCompanyForm > div,
+.addServicesForm > div {
+  margin: 24px 0;
+}
+.addCompanyForm > div > p,
+.addServicesForm > div > p {
+  display: block;
+  margin-bottom: 11px !important;
+  padding: 0 !important;
+}
+
+.submitForm {
+  font-weight: bold;
+  width: 502px;
+  height: 64px;
+  background: #4149b9;
+  border-radius: 10px;
+  color: white;
+  margin: 24px 0;
+}
+
+/* Availabity table CSS */
+.table {
+  width: 498px;
+  height: auto;
+  background: #fafafa;
+  border-radius: 10px;
+  padding: 24px;
+  position: relative;
+  margin-bottom: 11px;
+}
+.editAvailabityButton {
+  background: transparent;
+  font-weight: bold;
+  color: #ef6313;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}
+.weeklyTable {
+  margin-top: 52px;
+}
+
+.day {
+  position: relative;
+  margin: 7px 0;
+}
+.day .hour {
+  position: absolute;
+  display: inline;
+  right: 0;
+}
+
+.durations,
+.prices,
+.capacities {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.manualInput {
+  width: 265px !important;
+  height: 44px !important;
+}
+
+.addButton {
+  margin-left: 18px;
+  display: inline;
+  width: 219px;
+  height: 44px;
+  background: #ef6313;
+  border-radius: 10px;
+  color: white;
+}
+
+.addServiceButton {
+  margin: 7px;
+  font-weight: bold;
+  background: transparent;
+  color: #4149b9;
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.daySelector {
+  display: flex;
+  position: relative;
+}
+
+.details {
+  position: absolute;
+  right: 0;
+}
+.details > div {
+  display: inline-block;
+  margin: 0 32px;
+}
+.workingSwitch p,
+.openHours p,
+.closeHours p {
+  font-size: 14px;
+  margin: 0;
+}

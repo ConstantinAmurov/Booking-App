@@ -12,7 +12,7 @@ export function addNewUser(props, user) {
 export function addNewSocialUser(user) {
   const firstName = user.displayName.split(" ").slice(0, -1).join(" ");
   const lastName = user.displayName.split(" ").slice(-1).join(" ");
-  debugger;
+
   db.collection("users").doc(user.uid).set({
     userId: user.uid,
     firstName: firstName,
@@ -21,13 +21,20 @@ export function addNewSocialUser(user) {
   });
 }
 
-export function getCompanies(setCompanies, companies) {
-  db.collection("companies")
+export async function getCompanies() {
+  debugger;
+  var companies = [];
+  await db
+    .collection("companies")
     .get()
     .then((snapshot) => {
       snapshot.docs.forEach((doc) => {
-        console.log(true);
-        setCompanies({ ...companies }, doc.data());
+        debugger;
+        const company = doc.data();
+        debugger;
+        companies.push(company);
       });
     });
+
+  return companies;
 }

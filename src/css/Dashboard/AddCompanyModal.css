@@ -1,0 +1,25 @@
+.modal-dialog,
+.modal-content {
+  max-width: 702px;
+  width: 702px;
+  max-height: 2000px;
+}
+.modal-body {
+  margin: 0 80px;
+}
+.modal-header {
+  display: block;
+  padding-bottom: 0;
+}
+.modal-header > button {
+  position: absolute;
+  right: 32px;
+}
+.modal-title {
+  display: inline;
+}
+
+/* Dayselector */
+#edit-time-modal .modal-body {
+  margin: 0;
+}

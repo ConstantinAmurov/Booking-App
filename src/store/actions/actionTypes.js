@@ -10,4 +10,11 @@ export const SIGNIN_ERROR = "SIGNIN_ERROR";
 export const SIGNIN = "SIGNIN";
 export const SIGNUP = "SIGNUP";
 
+//LOGOUT
+export const LOGOUT = "LOGOUT";
+
 export const SIGNSTATE_CHANGED = "SIGNSTATE_CHANGED";
+
+//COMPANIES
+
+export const GETCOMPANIES = "GETCOMPANIES";
