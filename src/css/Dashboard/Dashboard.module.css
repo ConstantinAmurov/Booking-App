@@ -1,0 +1,159 @@
+/* Menu styles  */
+
+.menu {
+  width: 240px;
+  height: 100vh;
+  background-color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  float: left;
+}
+.appName {
+  margin: 0;
+  height: 80px;
+}
+.appName p {
+  margin: 0;
+}
+.menu button {
+  background-color: transparent;
+  text-align: left;
+  width: 70%;
+  padding: 1rem;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 18px;
+  /* identical to box height, or 112% */
+
+  /* Gray 1 */
+
+  color: #333333;
+  float: right;
+}
+
+.menu div:hover {
+  background-color: #f1f5f8;
+}
+.menu svg {
+  padding-right: 5px;
+  font-size: 20px;
+}
+.selected {
+  background-color: #f1f5f8;
+  border-left: 3px solid #4149b9;
+}
+
+.sideBar {
+  display: inline;
+}
+/* topNav styles  */
+.topNav {
+  background-color: white;
+  height: 80px;
+  width: 100%;
+}
+.topNav > div {
+  display: flex;
+  float: right;
+  padding-right: 4rem;
+}
+.topNav div {
+  margin: 0.5rem;
+}
+.userInfo > p {
+  margin: 0;
+}
+.btnLogOut {
+  background-color: #4149b9;
+  width: 91px;
+  height: 42px;
+  color: white;
+  box-shadow: 0px 4px 8px rgba(65, 73, 185, 0.14);
+  border-radius: 10px;
+  font-size: 14px;
+  font-family: "Rubik", sans-serif;
+}
+.userImg {
+  border-radius: 10px;
+  display: inline;
+
+  background-color: black;
+  width: 47px;
+  height: 47px;
+}
+.role {
+  font-size: 14px;
+}
+
+/* Main Dashboard styles  */
+
+.main {
+  display: inline-block;
+  height: 100vh;
+  width: calc(100% - 240px);
+  padding: 2rem;
+  padding-right: 4rem;
+  background-color: #f1f5f8;
+}
+.addCompany {
+  position: relative;
+  margin-top: 2rem;
+  padding: 1rem;
+  width: 519px;
+  height: 94px;
+  background: white;
+  border-radius: 10px;
+  display: flex;
+  box-shadow: 0px 4px 30px rgba(24, 28, 75, 0.09);
+  border-radius: 10px;
+}
+.addCompany p {
+  margin: 0.5rem;
+}
+
+.addCompany button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 1.5rem;
+  width: 48px;
+  height: 48px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 32px;
+  background: #4149b9;
+  color: #f2f2f2;
+  /* btn-sm shadow */
+  font-size: 25px;
+  box-shadow: 0px 4px 8px rgba(65, 73, 185, 0.14);
+  border-radius: 8px;
+}
+
+.text {
+  font-size: 14px;
+  line-height: 20px;
+  /* identical to box height, or 143% */
+
+  letter-spacing: 0.001em;
+
+  /* Gray 3 */
+
+  color: #828282;
+}
+.header {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height, or 122% */
+
+  letter-spacing: 0.001em;
+
+  /* Gray 1 */
+
+  color: #333333;
+}

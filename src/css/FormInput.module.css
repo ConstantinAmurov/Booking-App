@@ -3,6 +3,7 @@
   float: left;
   color: var(--gray-1);
   margin: 0.5rem;
+  font-family: "Roboto", sans-serif;
 }
 .input {
   margin: auto;
@@ -13,7 +14,8 @@
   top: 343px;
   border: 2px solid #bdbdbd;
   padding: 1rem;
-
+  font-family: "Rubik", sans-serif;
+  color: var(--gray-4);
   box-sizing: border-box;
   border-radius: 10px;
 }
@@ -22,9 +24,6 @@ input[type="checkbox"] {
   height: 16px;
   left: 871px;
   top: 669px;
-
-  /* Gray 3 */
-
   border: 1px solid #828282;
   box-sizing: border-box;
   border-radius: 5px;
@@ -32,4 +31,10 @@ input[type="checkbox"] {
   border: 1px solid #828282;
   box-sizing: border-box;
   border-radius: 5px;
+}
+
+button {
+  border: 0;
+  font-family: "Rubik", sans-serif;
+  color: var(--gray-4);
 }

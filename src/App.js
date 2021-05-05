@@ -1,28 +1,45 @@
-import React, { useState } from "react";
-import Register from "./components/Register";
-import Login from "./components/Login";
-import firebase from "firebase/app";
-// If you are using v7 or any earlier version of the JS SDK, you should import firebase using namespace import
-// import * as firebase from "firebase/app"
+import React, { useState, useEffect } from "react";
 
-// If you enabled Analytics in your project, add the Firebase SDK for Analytics
-import "firebase/analytics";
+import Login from "./components/Login/Login";
+import ForgotPassword from "./components/Login/ForgotPassword";
+import Register from "./components/Login/Register";
+import Dashboard from "./components/Dashboard/Dashboard";
+import Service from "./components/Dashboard/Service";
+import Booking from "./components/Dashboard/Booking";
+import PrivateRoute from "./components/PrivateRoute";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import AuthProvider from "./contexts/AuthContext";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 // Add the Firebase products that you want to use
-import "firebase/auth";
-import "firebase/firestore";
-import "./App.css";
+import { auth } from "./Firebase";
+import "./css/App.css";
+import { useDispatch, useSelector } from "react-redux";
+import store from "./store/app";
+import { SIGNSTATE_CHANGED } from "./store/actions/actionTypes";
 
-function App() {
-  const [loading, setLoading] = useState(false);
+function App(props) {
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
-  if (loading) {
-    return <h1>Loading...</h1>;
-  }
-
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      dispatch({ type: "SIGNSTATE_CHANGED", user: user });
+    });
+    return unsubscribe;
+  }, []);
   return (
     <>
-      <Login></Login>
+      <Router>
+        <Switch>
+          <PrivateRoute exact path="/" component={Dashboard}></PrivateRoute>
+          <Route path="/signup" component={Register}></Route>
+          <Route path="/login" component={Login}></Route>
+          <Route path="/forgot-password" component={ForgotPassword}></Route>
+          <Route path="/service" component={Service}></Route>
+          <Route path="/booking" component={Booking}></Route>
+        </Switch>
+      </Router>
     </>
   );
 }
