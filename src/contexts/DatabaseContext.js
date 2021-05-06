@@ -38,3 +38,19 @@ export async function getCompanies() {
 
   return companies;
 }
+
+export async function addCompany(props) {
+  var added = false;
+  await db
+    .collection("companies")
+    .add(props)
+    .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+      added = true;
+    })
+    .catch((error) => {
+      console.error("Error adding document: ", error);
+    });
+
+  return added;
+}

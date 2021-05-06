@@ -10,7 +10,7 @@ import Services from "./Sections/Services";
 
 const AddCompanyModalWindow = () => {
   const [isOpen, setIsOpen] = React.useState(false);
-  const [activeSection, setActiveSection] = useState(undefined);
+  const [activeSection, setActiveSection] = useState(<Profile></Profile>);
 
   const showModal = () => {
     setIsOpen(true);

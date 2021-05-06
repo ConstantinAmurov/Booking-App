@@ -160,12 +160,15 @@
 
 /* COMPANIES CSS */
 .companies {
-  margin: 2rem 0;
+  margin-top: 24px;
   display: flex;
+  flex-wrap: wrap;
 }
 .company {
   padding: 24px 32px;
   margin-right: 32px;
+  margin-top: 32px;
+
   border-radius: 10px;
   width: 519px;
   height: 320px;
@@ -250,12 +253,15 @@
 .addLogo {
   border: 1px dashed #bdbdbd;
   display: block;
+  padding-top: 10px;
+  text-align: center;
   box-sizing: border-box;
   border-radius: 10px;
   width: 75px;
   height: 75px;
   font-size: 32px;
   font-weight: bold;
+  color: #bdbdbd;
 }
 
 .addCompanyForm > div > input,
@@ -316,7 +322,11 @@
 
 .day {
   position: relative;
-  margin: 7px 0;
+}
+.day h4 {
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
 }
 .day .hour {
   position: absolute;
@@ -360,20 +370,34 @@
 }
 .daySelector {
   display: flex;
+  justify-content: space-between;
   position: relative;
+  border-bottom: 1px solid #dee2e6;
+  padding: 16px 0 16px 0;
 }
 
 .details {
-  position: absolute;
-  right: 0;
 }
 .details > div {
   display: inline-block;
-  margin: 0 32px;
+  margin: 0 16px;
 }
 .workingSwitch p,
 .openHours p,
 .closeHours p {
   font-size: 14px;
   margin: 0;
+}
+
+.saveButton {
+  position: absolute;
+  background-color: transparent;
+  color: #4149b9;
+  font-size: 24px;
+  right: 32px;
+  bottom: 40px;
+}
+
+input[type="file"] {
+  display: none !important;
 }

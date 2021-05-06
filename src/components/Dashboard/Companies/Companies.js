@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useSelector } from "react-redux";
 
-import Company from "./Company"
+import Company from "./Company";
 const Companies = () => {
-    const companies = useSelector((state) => state.company.companies);
-    return (
-        <Company companies={companies} />
-    );
+  const companies = useSelector((state) => state.company.companies);
+
+  return <Company companies={companies} />;
 };
 
 export default Companies;

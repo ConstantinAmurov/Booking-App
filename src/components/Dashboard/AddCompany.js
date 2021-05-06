@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "../../css/Dashboard/Dashboard.module.css";
-import { getCompanies } from "../../contexts/DatabaseContext";
+
 import AddCompanyModalWindow from "./Companies/AddCompanyModalWindow";
 const AddCompany = () => {
   return (

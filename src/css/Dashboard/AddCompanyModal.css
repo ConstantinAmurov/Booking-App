@@ -1,7 +1,7 @@
 .modal-dialog,
 .modal-content {
-  max-width: 702px;
-  width: 702px;
+  min-width: 702px;
+  min-height: 720px;
   max-height: 2000px;
 }
 .modal-body {
