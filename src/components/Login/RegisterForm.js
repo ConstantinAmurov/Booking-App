@@ -141,6 +141,7 @@ const CreateAccount = () => {
           <div className={styles.error}>{errors.passwordError}</div>
           <div className={styles.termsagree}>
             <FormInput
+              id="termsAgree"
               labelText=""
               type="checkbox"
               name="termsagree"

@@ -252,9 +252,10 @@
 
 .addLogo {
   border: 1px dashed #bdbdbd;
-  display: block;
-  padding-top: 10px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
   box-sizing: border-box;
   border-radius: 10px;
   width: 75px;
@@ -263,7 +264,11 @@
   font-weight: bold;
   color: #bdbdbd;
 }
-
+.addLogo img {
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%;
+}
 .addCompanyForm > div > input,
 .addServicesForm > div > input {
   padding: 10px;
@@ -321,6 +326,7 @@
 }
 
 .day {
+  display: flex;
   position: relative;
 }
 .day h4 {
@@ -334,13 +340,14 @@
   right: 0;
 }
 
-.durations,
+/* .durations,
 .prices,
 .capacities {
   display: flex;
   flex-direction: row;
-  justify-content: space-around;
-}
+  align-items: center;
+  justify-content: stretch;
+} */
 
 .manualInput {
   width: 265px !important;
@@ -396,6 +403,24 @@
   font-size: 24px;
   right: 32px;
   bottom: 40px;
+}
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonContainer {
+  padding: 12px 14px;
+  background-color: transparent;
+  border-color: #bdbdbd;
+  color: #bdbdbd;
+  border: 1px solid #bdbdbd;
+  border-radius: 10px;
+  position: relative;
+}
+.activeButtonContainer {
+  border-color: #ef6313;
+  color: #ef6313;
 }
 
 input[type="file"] {

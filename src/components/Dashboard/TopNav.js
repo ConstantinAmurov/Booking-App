@@ -12,7 +12,7 @@ const TopNav = () => {
   //get companies
   useEffect(async () => {
     const companies = await getCompanies();
-    debugger;
+
     dispatch({ type: GETCOMPANIES, companies: companies });
   }, []);
 

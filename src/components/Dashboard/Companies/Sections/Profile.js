@@ -1,16 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "../../../../css/Dashboard/Dashboard.module.css";
 import app from "../../../../Firebase";
 import { addCompany } from "../../../../contexts/DatabaseContext";
 import { useDispatch } from "react-redux";
 import { ADDCOMPANY } from "../../../../store/actions/actionTypes";
-
+import SaveModal from "../Modal";
 const Profile = () => {
   //States
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [selectedFile, setSelectedFile] = useState(null);
   const [fileDownloadURL, setFileDownloadURL] = useState("");
+  const imgLabel = useRef();
+  // const saveModal = useRef();
   const dispatch = useDispatch();
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,7 +25,6 @@ const Profile = () => {
     };
 
     const successfulAdd = await addCompany(newCompany);
-    debugger;
 
     if (successfulAdd) {
       dispatch({ type: ADDCOMPANY, company: newCompany });
@@ -31,14 +32,18 @@ const Profile = () => {
   };
   const setFile = async (e) => {
     var file = e.target.files[0];
+    debugger;
     const storageRef = app.storage().ref();
     const fileRef = storageRef.child(file.name);
 
-    fileRef.put(file).then(() => console.log("file uploaded succesfully"));
-    const fileURL = await fileRef.getDownloadURL();
-    setFileDownloadURL(fileURL);
-    console.log(fileDownloadURL);
-    debugger;
+    fileRef.put(file).then(async () => {
+      console.log("file uploaded succesfully");
+
+      const fileURL = await fileRef.getDownloadURL();
+
+      setFileDownloadURL(fileURL);
+      debugger;
+    });
   };
 
   return (
@@ -47,8 +52,8 @@ const Profile = () => {
         <div>
           <p>Company logo</p>
 
-          <label for="file-upload" className={styles.addLogo}>
-            +
+          <label ref={imgLabel} for="file-upload" className={styles.addLogo}>
+            {fileDownloadURL ? <img src={fileDownloadURL}></img> : "+"}
           </label>
           <input
             id="file-upload"
@@ -76,6 +81,12 @@ const Profile = () => {
           ></input>
         </div>
         <button className={styles.submitForm}>Save button</button>
+        {/* <SaveModal
+          ref={saveModal}
+          buttonText={"Save"}
+          headerText={"Save Company"}
+          bodyText={"Do you want to add a company without services?"}
+        ></SaveModal> */}
       </form>
     </div>
   );

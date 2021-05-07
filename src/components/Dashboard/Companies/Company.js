@@ -2,8 +2,6 @@ import React from "react";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 const Company = (props) => {
-  debugger;
-
   return (
     <div className={styles.companies}>
       {props.companies.length &&

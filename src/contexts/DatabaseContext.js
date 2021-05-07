@@ -22,16 +22,14 @@ export function addNewSocialUser(user) {
 }
 
 export async function getCompanies() {
-  debugger;
   var companies = [];
   await db
     .collection("companies")
     .get()
     .then((snapshot) => {
       snapshot.docs.forEach((doc) => {
-        debugger;
         const company = doc.data();
-        debugger;
+
         companies.push(company);
       });
     });

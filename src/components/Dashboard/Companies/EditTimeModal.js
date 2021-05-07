@@ -35,6 +35,7 @@ const EditTimeModal = () => {
           <DaySelector day="MONDAY"></DaySelector>
           <DaySelector day="TUESDAY"></DaySelector>
           <DaySelector day="WEDNESDAY"></DaySelector>
+          <DaySelector day="THURSDAY"></DaySelector>
           <DaySelector day="FRIDAY"></DaySelector>
           <DaySelector day="SATURDAY"></DaySelector>
           <button className={styles.saveButton}>SAVE</button>
