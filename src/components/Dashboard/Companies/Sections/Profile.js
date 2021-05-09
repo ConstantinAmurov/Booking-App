@@ -32,7 +32,7 @@ const Profile = () => {
   };
   const setFile = async (e) => {
     var file = e.target.files[0];
-    debugger;
+
     const storageRef = app.storage().ref();
     const fileRef = storageRef.child(file.name);
 
@@ -42,7 +42,6 @@ const Profile = () => {
       const fileURL = await fileRef.getDownloadURL();
 
       setFileDownloadURL(fileURL);
-      debugger;
     });
   };
 
@@ -81,12 +80,6 @@ const Profile = () => {
           ></input>
         </div>
         <button className={styles.submitForm}>Save button</button>
-        {/* <SaveModal
-          ref={saveModal}
-          buttonText={"Save"}
-          headerText={"Save Company"}
-          bodyText={"Do you want to add a company without services?"}
-        ></SaveModal> */}
       </form>
     </div>
   );

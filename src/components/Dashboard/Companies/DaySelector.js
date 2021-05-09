@@ -1,35 +1,53 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
-//import Switch from "react-switch"
-
+import {
+  filterOpenTime,
+  filterCloseTime,
+  setWorking,
+} from "../../../contexts/TimeContext";
 import { DragSwitch } from "react-dragswitch";
 import "react-dragswitch/dist/index.css";
 
-import { ADDOPENTIME } from "../../../store/actions/actionTypes";
+import { ADDTIME } from "../../../store/actions/actionTypes";
+import { useSelector } from "react-redux";
 
 const DaySelector = ({ day }) => {
-  const [checked, setChecked] = useState(false);
-  const [openTime, setOpenTime] = useState("09:00");
-  const [closeTime, setCloseTime] = useState("21:00");
+  const days = useSelector((state) => state.day.days);
+  const specificDay = days.filter((weekDay) => weekDay.day === day);
 
-  const [isWorking, setIsWorking] = useState(false);
+  const [isWorking, setIsWorking] = useState(specificDay[0].working);
+
+  const openTimeRef = useRef();
+  const closeTimeRef = useRef();
 
   const dispatch = useDispatch();
 
-  function handleChange(checked) {
-    setChecked(checked);
+  function handleSwitchChange(isWorking) {
+    openTimeRef.current.disabled = !isWorking;
+    closeTimeRef.current.disabled = !isWorking;
+    var filteredState = null;
+    setIsWorking(isWorking);
+    filteredState = setWorking(days, day, isWorking);
+    dispatch({
+      type: ADDTIME,
+      filteredState: filteredState,
+    });
   }
 
   function handleTimeChange(e, setTime) {
     const { name, value } = e.target;
-    debugger;
-    setTime(e.target.value);
-    debugger;
-    dispatch({ type: ADDOPENTIME, day: day, openTime: e.target.value });
-  }
-  function handleCloseTimeChange(e) {
-    setCloseTime(e.target.value);
+    var filteredState = null;
+
+    if (name === "openTime") {
+      filteredState = filterOpenTime(days, day, value);
+    } else {
+      filteredState = filterCloseTime(days, day, value);
+    }
+    dispatch({
+      type: ADDTIME,
+      filteredState: filteredState,
+    });
   }
 
   return (
@@ -44,24 +62,26 @@ const DaySelector = ({ day }) => {
             checked={isWorking}
             onColor="#F29F57"
             handleColor={isWorking ? "#EF6313" : "#4F4F4F"}
-            onChange={(e) => {
-              setIsWorking(e);
-            }}
+            onChange={(e) => handleSwitchChange(e)}
           />
         </div>
         <div className={styles.openHours}>
           <p>OPEN</p>{" "}
           <input
+            ref={openTimeRef}
+            value={specificDay[0].openTime}
             name="openTime"
-            onChange={(e) => handleTimeChange(e, setOpenTime)}
+            onChange={(e) => handleTimeChange(e)}
             type="time"
           ></input>
         </div>
         <div className={styles.closeHours}>
           <p>CLOSE</p>{" "}
           <input
+            ref={closeTimeRef}
+            value={specificDay[0].closeTime}
             name="closeTime"
-            onChange={(e) => handleTimeChange(e, setCloseTime)}
+            onChange={(e) => handleTimeChange(e)}
             type="time"
           ></input>
         </div>

@@ -1,34 +1,21 @@
-import { ADDOPENTIME } from "../actions/actionTypes";
+import { ADDTIME } from "../actions/actionTypes";
 
-const initialState = { days: [] };
+const initialState = {
+  days: [
+    { day: "SUNDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    { day: "MONDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    { day: "TUESDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    { day: "WEDNESDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    { day: "THURSDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    { day: "FRIDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    { day: "SATURDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+  ],
+};
 
 const dayReducer = (state = initialState, action) => {
-  if (action.type === ADDOPENTIME) {
-    console.log(state.days);
-
-    debugger;
-    var foundDay = state.days.filter((day) => {
-      return day.day === action.day;
-    });
-    var otherDays = state.days.filter((day) => {
-      return day.day != action.day;
-    });
-    debugger;
-    if (foundDay.length != 0) {
-      foundDay[0] = { ...foundDay[0], openTime: action.openTime };
-    }
-
-    // days: {day: action.day, openTime: action.openTime }
-    //  state.map();
-    return {
-      ...state,
-      days:
-        foundDay.length > 0
-          ? [...otherDays, foundDay[0]]
-          : [...state.days, { day: action.day, openTime: action.openTime }],
-    };
+  if (action.type === ADDTIME) {
+    return { ...state, days: action.filteredState };
   }
-
   return state;
 };
 

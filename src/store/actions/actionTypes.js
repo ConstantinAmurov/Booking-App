@@ -21,4 +21,4 @@ export const GETCOMPANIES = "GETCOMPANIES";
 export const ADDCOMPANY = "ADDCOMPANY";
 
 //DAYS
-export const ADDOPENTIME = "ADDOPENTIME";
+export const ADDTIME = "ADDTIME";

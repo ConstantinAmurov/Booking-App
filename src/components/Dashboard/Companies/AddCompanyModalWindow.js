@@ -18,7 +18,7 @@ const AddCompanyModalWindow = () => {
 
   const hideModal = () => {
     setIsOpen(false);
-    setActiveSection(undefined);
+    setActiveSection(<Profile></Profile>);
   };
   function setProfileSection() {
     activeSection = <Profile></Profile>;

@@ -14,7 +14,7 @@ const TemplateModal = (props) => {
   };
 
   const { buttonText, headerText, bodyText } = props;
-  debugger;
+
   return (
     <>
       <Modal show={isOpen} onHide={hideModal} centered>
