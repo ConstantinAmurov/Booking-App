@@ -14,7 +14,8 @@ const initialState = {
 
 const dayReducer = (state = initialState, action) => {
   if (action.type === ADDTIME) {
-    return { ...state, days: action.filteredState };
+    debugger;
+    return action.filteredState;
   }
   return state;
 };

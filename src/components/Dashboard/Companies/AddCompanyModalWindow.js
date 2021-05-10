@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -16,6 +16,8 @@ const AddCompanyModalWindow = () => {
     setIsOpen(true);
   };
 
+  const [servicesNumber, setServicesNumber] = useState(65);
+
   const hideModal = () => {
     setIsOpen(false);
     setActiveSection(<Profile></Profile>);
@@ -27,8 +29,17 @@ const AddCompanyModalWindow = () => {
     setActiveSection(<Profile></Profile>);
   }
   function setServicesSection() {
-    setActiveSection(<Services></Services>);
+    setActiveSection(<Services addService={addService}></Services>);
   }
+
+  function addService() {
+    console.log(servicesNumber);
+    setServicesNumber(servicesNumber + 1);
+  }
+
+  // useEffect(() => {
+  //   setServicesNumber(servicesNumber);
+  // }, [servicesNumber]);
 
   return (
     <>

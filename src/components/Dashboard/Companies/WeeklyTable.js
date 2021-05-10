@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
 import { useSelector } from "react-redux";
 const WeeklyTable = () => {
-  debugger;
   const days = useSelector((state) => state.day.days);
   return (
     <div className={styles.weeklyTable}>

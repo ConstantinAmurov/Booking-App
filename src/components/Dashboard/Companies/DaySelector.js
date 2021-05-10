@@ -14,6 +14,7 @@ import { useSelector } from "react-redux";
 
 const DaySelector = ({ day }) => {
   const days = useSelector((state) => state.day.days);
+  debugger;
   const specificDay = days.filter((weekDay) => weekDay.day === day);
 
   const [isWorking, setIsWorking] = useState(specificDay[0].working);
@@ -46,7 +47,7 @@ const DaySelector = ({ day }) => {
     }
     dispatch({
       type: ADDTIME,
-      filteredState: filteredState,
+      payload: filteredState,
     });
   }
 
