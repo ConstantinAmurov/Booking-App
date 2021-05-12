@@ -269,6 +269,9 @@
   min-width: 100%;
   min-height: 100%;
 }
+.formInput {
+  margin: 12px 0;
+}
 .addCompanyForm > div > input,
 .formInput > input {
   padding: 10px;

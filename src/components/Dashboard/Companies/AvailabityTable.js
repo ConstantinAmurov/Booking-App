@@ -3,13 +3,13 @@ import styles from "../../../css/Dashboard/Dashboard.module.css";
 import EditTimeModal from "./EditTimeModal";
 import WeeklyTable from "./WeeklyTable";
 
-const AvailabityTable = () => {
+const AvailabityTable = ({ index }) => {
   return (
     <div>
       <p>Availability</p>
       <div className={styles.table}>
-        <EditTimeModal></EditTimeModal>
-        <WeeklyTable></WeeklyTable>
+        <EditTimeModal index={index}></EditTimeModal>
+        <WeeklyTable index={index}></WeeklyTable>
       </div>
     </div>
   );

@@ -38,12 +38,13 @@ export function filterCloseTime(days, weekDay, value) {
 }
 
 export function setWorking(days, day, value) {
-  for (var i in days) {
-    if (days[i].day === day) {
-      days[i].working = value;
+  const copyDays = [...days];
+  for (var i in copyDays) {
+    if (copyDays[i].day === day) {
+      copyDays[i].working = value;
       if (value === false) {
-        days[i].openTime = "09:00:00";
-        days[i].closeTime = "18:00:00";
+        copyDays[i].openTime = "09:00:00";
+        copyDays[i].closeTime = "18:00:00";
       }
 
       break;
@@ -52,5 +53,5 @@ export function setWorking(days, day, value) {
 
   //return { ...days, days }; nu mergea
 
-  return { ...days, days: [...days] }; // merge
+  return copyDays; // merge
 }

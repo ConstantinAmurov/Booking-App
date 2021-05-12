@@ -9,9 +9,10 @@ const companyReducer = (state = initialState, action) => {
     };
   }
   if (action.type === ADDCOMPANY) {
+    debugger;
     return {
       ...state,
-      companies: [...state.companies, action.company],
+      companies: [...state.companies, action.newCompany],
     };
   }
 

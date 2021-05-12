@@ -9,12 +9,16 @@ import {
 import { DragSwitch } from "react-dragswitch";
 import "react-dragswitch/dist/index.css";
 
-import { ADDTIME } from "../../../store/actions/actionTypes";
+import {
+  UPDATEWORKINGSTATE,
+  UPDATEOPENTIMESTATE,
+  UPDATECLOSETIMESTATE,
+} from "../../../store/actions/actionTypes";
 import { useSelector } from "react-redux";
 
-const DaySelector = ({ day }) => {
-  const days = useSelector((state) => state.day.days);
-  debugger;
+const DaySelector = ({ index, day }) => {
+  const days = useSelector((state) => state.day[index]);
+
   const specificDay = days.filter((weekDay) => weekDay.day === day);
 
   const [isWorking, setIsWorking] = useState(specificDay[0].working);
@@ -27,12 +31,10 @@ const DaySelector = ({ day }) => {
   function handleSwitchChange(isWorking) {
     openTimeRef.current.disabled = !isWorking;
     closeTimeRef.current.disabled = !isWorking;
-    var filteredState = null;
     setIsWorking(isWorking);
-    filteredState = setWorking(days, day, isWorking);
     dispatch({
-      type: ADDTIME,
-      filteredState: filteredState,
+      type: UPDATEWORKINGSTATE,
+      payload: { index, day, isWorking },
     });
   }
 
@@ -41,14 +43,15 @@ const DaySelector = ({ day }) => {
     var filteredState = null;
 
     if (name === "openTime") {
-      filteredState = filterOpenTime(days, day, value);
+      dispatch({ type: UPDATEOPENTIMESTATE, payload: { index, day, value } });
     } else {
-      filteredState = filterCloseTime(days, day, value);
+      dispatch({ type: UPDATECLOSETIMESTATE, payload: { index, day, value } });
     }
-    dispatch({
-      type: ADDTIME,
-      payload: filteredState,
-    });
+    // dispatch({
+    //   type: UPDATESTATE,
+    //   index,
+    //   specificDay,
+    // });
   }
 
   return (

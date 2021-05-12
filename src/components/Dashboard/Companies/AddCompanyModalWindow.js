@@ -16,8 +16,6 @@ const AddCompanyModalWindow = () => {
     setIsOpen(true);
   };
 
-  const [servicesNumber, setServicesNumber] = useState(65);
-
   const hideModal = () => {
     setIsOpen(false);
     setActiveSection(<Profile></Profile>);
@@ -29,17 +27,8 @@ const AddCompanyModalWindow = () => {
     setActiveSection(<Profile></Profile>);
   }
   function setServicesSection() {
-    setActiveSection(<Services addService={addService}></Services>);
+    setActiveSection(<Services></Services>);
   }
-
-  function addService() {
-    console.log(servicesNumber);
-    setServicesNumber(servicesNumber + 1);
-  }
-
-  // useEffect(() => {
-  //   setServicesNumber(servicesNumber);
-  // }, [servicesNumber]);
 
   return (
     <>

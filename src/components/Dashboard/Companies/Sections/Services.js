@@ -5,6 +5,11 @@ import Selector from "../Selector";
 import ButtonGroup from "@ramonak/react-button-group";
 import { useFormik } from "formik";
 import { Formik, Form, Field, FieldArray, getIn } from "formik";
+import {
+  ADDNEWSERVICE,
+  ADDSERVICES,
+} from "../../../../store/actions/actionTypes";
+import { useDispatch } from "react-redux";
 
 import * as yup from "yup";
 
@@ -18,20 +23,46 @@ const Services = (props) => {
   const [price, setPrice] = useState();
   const [capacity, setCapacity] = useState();
   const [servicesNumber, setServicesNumber] = useState(1);
-
+  const dispatch = useDispatch();
   const handleSubmit = (e) => {
     console.log(serviceName, description, duration, price, capacity);
     e.preventDefault();
   };
 
+  const newService = [
+    { day: "SUNDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    { day: "MONDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    {
+      day: "TUESDAY",
+      working: true,
+      openTime: "09:00",
+      closeTime: "18:00",
+    },
+    {
+      day: "WEDNESDAY",
+      working: true,
+      openTime: "09:00",
+      closeTime: "18:00",
+    },
+    {
+      day: "THURSDAY",
+      working: true,
+      openTime: "09:00",
+      closeTime: "18:00",
+    },
+    { day: "FRIDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    {
+      day: "SATURDAY",
+      working: true,
+      openTime: "09:00",
+      closeTime: "18:00",
+    },
+  ];
   const handleButtonSelection = (e) => {
     e.preventDefault();
     console.log(e.target.name);
   };
 
-  const addNewServiceSection = () => {
-    setServicesNumber(servicesNumber + 1);
-  };
   //FORMIK INITIALIZATION
 
   // const formik = useFormik({
@@ -58,14 +89,24 @@ const Services = (props) => {
 
   return (
     <Formik
-      initialValues={{ services: [{ serviceName: "", description: "" }] }}
+      initialValues={{
+        services: [
+          {
+            serviceName: "",
+            description: "",
+            duration: "",
+            price: "",
+            capacity: "",
+          },
+        ],
+      }}
       onSubmit={() => {}}
       validationSchema={validationSchema}
     >
       {({ values, errors }) => (
         <Form>
           <FieldArray name="services">
-            {({ push }) => (
+            {({ push, replace }) => (
               <>
                 {values.services.map((service, index) => {
                   //service name
@@ -77,6 +118,16 @@ const Services = (props) => {
                     errors,
                     descriptionName
                   );
+                  //duration name
+                  const durationName = `services[${index}].duration`;
+                  const durationErrorMessage = getIn(errors, duration);
+                  //price name
+                  const priceName = `services[${index}].price`;
+                  const priceErrorMessage = getIn(errors, price);
+                  //capacity name
+                  const capacityName = `services[${index}].capacity`;
+                  const capacityErrorMessage = getIn(errors, capacity);
+
                   return (
                     <div key={index}>
                       <div className={styles.formInput}>
@@ -99,13 +150,110 @@ const Services = (props) => {
                           {descriptionErrorMessage}
                         </div>
                       </div>
+                      <div className={styles.formInput}>
+                        <AvailabityTable index={index}></AvailabityTable>
+                      </div>
+                      <div className={styles.formInput}>
+                        <ButtonGroup
+                          containerClassName={styles.container}
+                          buttonClassName={styles.buttonContainer}
+                          activeButtonClassName={styles.activeButtonContainer}
+                          buttons={[
+                            "30",
+                            "60",
+                            "90",
+                            "120",
+                            "150",
+                            "180",
+                            "210",
+                          ]}
+                          onButtonClick={(e) => {
+                            e.preventDefault();
+                            replace(index, {
+                              ...service,
+                              duration: e.target.name,
+                            });
+                          }}
+                        />{" "}
+                        {/* <div style={{ color: "red" }}>
+                          {durationErrorMessage}
+                        </div> */}
+                        <p>Add duration manually</p>
+                        <Field
+                          className={styles.manualInput}
+                          type="text"
+                          name={durationName}
+                          value={service.duration}
+                        ></Field>
+                        <button type="button" className={styles.addButton}>
+                          {" "}
+                          Add duration
+                        </button>
+                      </div>
+                      <div className={styles.formInput}>
+                        <p>Price(RON)</p>
+                        <ButtonGroup
+                          containerClassName={styles.container}
+                          buttonClassName={styles.buttonContainer}
+                          activeButtonClassName={styles.activeButtonContainer}
+                          buttons={["10", "20", "30", "40", "50", "60", "70"]}
+                          onButtonClick={(e) => {
+                            e.preventDefault();
+                            replace(index, {
+                              ...service,
+                              price: e.target.name,
+                            });
+                          }}
+                        />
+                        <p>Add duration manually</p>
+                        <Field
+                          className={styles.manualInput}
+                          type="text"
+                          name={priceName}
+                          value={service.price}
+                        ></Field>
+                        <button type="button" className={styles.addButton}>
+                          {" "}
+                          Add price
+                        </button>
+                      </div>
+                      <div className={styles.formInput}>
+                        <p>Capacity(person)</p>
+
+                        <ButtonGroup
+                          containerClassName={styles.container}
+                          buttonClassName={styles.buttonContainer}
+                          activeButtonClassName={styles.activeButtonContainer}
+                          buttons={[
+                            "1",
+                            "2",
+                            "3",
+                            "4",
+                            "5",
+                            "6",
+                            "7",
+                            "8",
+                            "9",
+                          ]}
+                          onButtonClick={(e) => {
+                            e.preventDefault();
+                            replace(index, {
+                              ...service,
+                              capacity: e.target.name,
+                            });
+                          }}
+                        />
+                      </div>
                     </div>
                   );
                 })}
                 <button
                   type="button"
                   className={styles.addServiceButton}
-                  onClick={() => push({ serviceName: "", description: "" })}
+                  onClick={() => {
+                    push({ serviceName: "", description: "" });
+                    dispatch({ type: ADDNEWSERVICE });
+                  }}
                 >
                   Add Service
                 </button>
@@ -113,12 +261,20 @@ const Services = (props) => {
             )}
           </FieldArray>
 
-          <button type="submit" className={styles.submitForm}>
+          <button
+            onClick={() => {
+              const newServices = values.services;
+              debugger;
+              dispatch({ type: ADDSERVICES, payload: newServices });
+            }}
+            type="submit"
+            className={styles.submitForm}
+          >
             Save services
           </button>
-          <pre>{JSON.stringify(values, null, 2)}</pre>
+          {/* <pre>{JSON.stringify(values, null, 2)}</pre>
 
-          <pre>{JSON.stringify(errors, null, 2)}</pre>
+          <pre>{JSON.stringify(errors, null, 2)}</pre> */}
         </Form>
       )}
     </Formik>
@@ -163,7 +319,7 @@ const Services = (props) => {
     //         e.preventDefault();
     //         formik.setFieldValue("duration", e.target.name);
     //         console.log(formik.errors);
-    //         debugger;
+    //
     //       }}
     //     />
     //     {formik.errors.duration ? <div>{formik.errors.duration}</div> : null}

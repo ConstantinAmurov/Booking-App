@@ -38,17 +38,32 @@ export async function getCompanies() {
 }
 
 export async function addCompany(props) {
-  var added = false;
+  const { newCompany, AddedServicesIDs } = props;
+  debugger;
   await db
     .collection("companies")
-    .add(props)
-    .then((docRef) => {
-      console.log("Document written with ID: ", docRef.id);
-      added = true;
+    .add({
+      name: newCompany.name,
+      description: newCompany.description,
+      imgURL: newCompany.imgURL === undefined ? null : newCompany.imgURL,
+      status: newCompany.status,
+      services: AddedServicesIDs === undefined ? null : AddedServicesIDs,
     })
-    .catch((error) => {
-      console.error("Error adding document: ", error);
+    .then((docRef) => {
+      console.log("Written Company with ID of ", docRef.id);
     });
+}
 
-  return added;
+export async function addServices(props) {
+  const doc_ref = await db.collection("services").add({
+    serviceName: props.serviceDetails.serviceName,
+    description: props.serviceDetails.description,
+    duration: props.serviceDetails.duration,
+    price: props.serviceDetails.price,
+    capacity: props.serviceDetails.capacity,
+    workingDays: props.serviceDayWorking,
+  });
+  debugger;
+
+  return doc_ref.id;
 }

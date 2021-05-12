@@ -7,7 +7,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 import DaySelector from "./DaySelector";
 
-const EditTimeModal = () => {
+const EditTimeModal = ({ index }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const showModal = () => {
     setIsOpen(true);
@@ -31,13 +31,13 @@ const EditTimeModal = () => {
           </button>
         </Modal.Header>
         <Modal.Body className={styles.modalBody}>
-          <DaySelector day="SUNDAY"></DaySelector>
-          <DaySelector day="MONDAY"></DaySelector>
-          <DaySelector day="TUESDAY"></DaySelector>
-          <DaySelector day="WEDNESDAY"></DaySelector>
-          <DaySelector day="THURSDAY"></DaySelector>
-          <DaySelector day="FRIDAY"></DaySelector>
-          <DaySelector day="SATURDAY"></DaySelector>
+          <DaySelector index={index} day="SUNDAY"></DaySelector>
+          <DaySelector index={index} day="MONDAY"></DaySelector>
+          <DaySelector index={index} day="TUESDAY"></DaySelector>
+          <DaySelector index={index} day="WEDNESDAY"></DaySelector>
+          <DaySelector index={index} day="THURSDAY"></DaySelector>
+          <DaySelector index={index} day="FRIDAY"></DaySelector>
+          <DaySelector index={index} day="SATURDAY"></DaySelector>
         </Modal.Body>
       </Modal>
     </>
