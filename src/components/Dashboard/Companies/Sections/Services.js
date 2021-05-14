@@ -63,21 +63,6 @@ const Services = (props) => {
     console.log(e.target.name);
   };
 
-  //FORMIK INITIALIZATION
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     serviceName: "",
-  //     description: "",
-  //     duration: "",
-  //     price: "",
-  //     capacity: "",
-  //   },
-  //   validate,
-  //   onSubmit: (values) => {
-  //     console.log(values);
-  //   },
-  // });
   const validationSchema = yup.object().shape({
     services: yup.array().of(
       yup.object().shape({
@@ -100,10 +85,16 @@ const Services = (props) => {
           },
         ],
       }}
-      onSubmit={() => {}}
+      onSubmit={(values) => {
+        const newServices = values.services;
+
+        dispatch({ type: ADDSERVICES, payload: newServices });
+
+        console.log("submit");
+      }}
       validationSchema={validationSchema}
     >
-      {({ values, errors }) => (
+      {({ values, errors, validateForm }) => (
         <Form>
           <FieldArray name="services">
             {({ push, replace }) => (
@@ -261,15 +252,7 @@ const Services = (props) => {
             )}
           </FieldArray>
 
-          <button
-            onClick={() => {
-              const newServices = values.services;
-              debugger;
-              dispatch({ type: ADDSERVICES, payload: newServices });
-            }}
-            type="submit"
-            className={styles.submitForm}
-          >
+          <button type="submit" className={styles.submitForm}>
             Save services
           </button>
           {/* <pre>{JSON.stringify(values, null, 2)}</pre>
@@ -278,117 +261,6 @@ const Services = (props) => {
         </Form>
       )}
     </Formik>
-
-    // <form className={styles.addServicesForm} onSubmit={formik.handleSubmit}>
-    //   <div>
-    //     <p>Services name</p>
-    //     <input
-    //       type="text"
-    //       name="serviceName"
-    //       value={formik.values.serviceName}
-    //       onChange={formik.handleChange}
-    //       onBlur={formik.handleBlur}
-    //     ></input>
-    //     {formik.touched.serviceName && formik.errors.serviceName ? (
-    //       <div>{formik.errors.serviceName}</div>
-    //     ) : null}
-    //   </div>
-    //   <div>
-    //     <p>Description</p>
-    //     <input
-    //       onChange={formik.handleChange}
-    //       type="text"
-    //       name="description"
-    //       value={formik.values.description}
-    //       onBlur={formik.handleBlur}
-    //     ></input>
-    //     {formik.touched.description && formik.errors.description ? (
-    //       <div>{formik.errors.description}</div>
-    //     ) : null}
-    //   </div>
-    //   <AvailabityTable></AvailabityTable>
-    //   <div>
-    //     <p>Duration(min)</p>
-
-    //     <ButtonGroup
-    //       containerClassName={styles.container}
-    //       buttonClassName={styles.buttonContainer}
-    //       activeButtonClassName={styles.activeButtonContainer}
-    //       buttons={["30", "60", "90", "120", "150", "180", "210"]}
-    //       onButtonClick={(e) => {
-    //         e.preventDefault();
-    //         formik.setFieldValue("duration", e.target.name);
-    //         console.log(formik.errors);
-    //
-    //       }}
-    //     />
-    //     {formik.errors.duration ? <div>{formik.errors.duration}</div> : null}
-    //   </div>
-    //   <div>
-    //     <p>Add duration manually</p>
-    //     <input
-    //       className={styles.manualInput}
-    //       type="text"
-    //       name="duration"
-    //       value={formik.values.duration}
-    //       onChange={formik.handleChange}
-    //     ></input>
-    //     <button className={styles.addButton}> Add duration</button>
-    //   </div>
-    //   <div>
-    //     <p>Price(RON)</p>
-
-    //     <ButtonGroup
-    //       containerClassName={styles.container}
-    //       buttonClassName={styles.buttonContainer}
-    //       activeButtonClassName={styles.activeButtonContainer}
-    //       buttons={["10", "20", "30", "40", "50", "60", "70"]}
-    //       onButtonClick={(e) => {
-    //         e.preventDefault();
-    //         formik.setFieldValue("price", e.target.name);
-    //       }}
-    //     />
-    //     {formik.errors.price ? <div>{formik.errors.price}</div> : null}
-    //   </div>
-    //   <div>
-    //     <p>Add price manually</p>
-    //     <input
-    //       className={styles.manualInput}
-    //       type="text"
-    //       name="price"
-    //       value={formik.values.price}
-    //       onChange={formik.handleChange}
-    //     ></input>
-    //     <button className={styles.addButton}> Add price</button>
-    //   </div>
-    //   <div>
-    //     <p>Capacity(person)</p>
-
-    //     <ButtonGroup
-    //       containerClassName={styles.container}
-    //       buttonClassName={styles.buttonContainer}
-    //       activeButtonClassName={styles.activeButtonContainer}
-    //       buttons={["1", "2", "3", "4", "5", "6", "7", "8", "9"]}
-    //       onButtonClick={(e) => {
-    //         e.preventDefault();
-    //         formik.setFieldValue("capacity", e.target.name);
-    //         formik.setFieldTouched("capacity", true, true);
-    //       }}
-    //     />
-    //     {formik.errors.capacity ? <div>{formik.errors.capacity}</div> : null}
-    //   </div>
-
-    //   <button type="submit" className={styles.submitForm}>
-    //     Save services
-    //   </button>
-    //   <button
-    //     onClick={() => addNewServiceSection()}
-    //     className={styles.addServiceButton}
-    //     type="button"
-    //   >
-    //     Add other service
-    //   </button>
-    // </form>
   );
 };
 

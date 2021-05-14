@@ -1,4 +1,8 @@
-import { GETCOMPANIES, ADDCOMPANY } from "../actions/actionTypes";
+import {
+  GETCOMPANIES,
+  ADDCOMPANY,
+  DELETECOMPANY,
+} from "../actions/actionTypes";
 
 const initialState = { companies: [] };
 
@@ -9,10 +13,16 @@ const companyReducer = (state = initialState, action) => {
     };
   }
   if (action.type === ADDCOMPANY) {
-    debugger;
     return {
       ...state,
       companies: [...state.companies, action.newCompany],
+    };
+  }
+  if (action.type === DELETECOMPANY) {
+    return {
+      companies: state.companies.filter(
+        (company) => company.id != action.companyID
+      ),
     };
   }
 

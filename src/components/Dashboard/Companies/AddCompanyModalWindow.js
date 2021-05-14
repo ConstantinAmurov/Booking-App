@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
-import "../../../css/Dashboard/AddCompanyModal.css";
+//import "../../../css/Dashboard/AddCompanyModal.css";
 import { FiX } from "react-icons/fi";
 import Profile from "./Sections/Profile";
 import Services from "./Sections/Services";
@@ -24,7 +24,7 @@ const AddCompanyModalWindow = () => {
     activeSection = <Profile></Profile>;
   }
   function setProfileSection() {
-    setActiveSection(<Profile></Profile>);
+    setActiveSection(<Profile mode={"add-company"}></Profile>);
   }
   function setServicesSection() {
     setActiveSection(<Services></Services>);

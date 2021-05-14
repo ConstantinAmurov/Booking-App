@@ -1,0 +1,68 @@
+.main {
+  display: inline-block;
+  height: 100vh;
+  width: calc(100% - 240px);
+  padding: 2rem;
+  padding-right: 4rem;
+  background-color: #f1f5f8;
+}
+
+.services {
+  margin-top: 2rem;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.service {
+}
+.companyServices {
+  width: 519px;
+  height: 680px;
+  overflow: auto;
+  background: #ffffff;
+  /* card-shadow */
+  padding: 24px 32px;
+  margin-right: 32px;
+  margin-top: 32px;
+
+  box-shadow: 0px 4px 30px rgba(24, 28, 75, 0.09);
+  border-radius: 10px;
+}
+.companyServices h1 {
+  font-size: 28px;
+  margin-bottom: 32px;
+}
+
+.companyServices .info p {
+  font-size: 16px;
+}
+
+.companyServices .info hr {
+  border: 1px dashed #bdbdbd;
+}
+.buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 24px 0 16px 0;
+}
+.info .editButton,
+.info .deleteButton {
+  border: 1px solid #bdbdbd;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #333333;
+  background-color: transparent;
+  width: 218px;
+  height: 46px;
+}
+.submitButton {
+  font-weight: bold;
+  width: 502px;
+  height: 64px;
+  background: #4149b9;
+  border-radius: 10px;
+  color: white;
+  margin: 24px 0;
+}

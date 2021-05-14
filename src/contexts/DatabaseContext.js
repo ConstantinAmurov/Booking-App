@@ -1,4 +1,5 @@
 import { db } from "../Firebase";
+import firebase from "firebase/app";
 
 export function addNewUser(props, user) {
   const { firstName, lastName, email, password } = props;
@@ -28,7 +29,7 @@ export async function getCompanies() {
     .get()
     .then((snapshot) => {
       snapshot.docs.forEach((doc) => {
-        const company = doc.data();
+        const company = { ...doc.data(), id: doc.id };
 
         companies.push(company);
       });
@@ -36,10 +37,22 @@ export async function getCompanies() {
 
   return companies;
 }
+export async function deleteCompany(id) {
+  await db
+    .collection("companies")
+    .doc(id)
+    .delete()
+    .then(() => {
+      console.log("Document successfully deleted with id :" + id);
+    })
+    .catch((error) => {
+      console.error("Error removing document: ", error);
+    });
+}
 
 export async function addCompany(props) {
   const { newCompany, AddedServicesIDs } = props;
-  debugger;
+
   await db
     .collection("companies")
     .add({
@@ -47,7 +60,7 @@ export async function addCompany(props) {
       description: newCompany.description,
       imgURL: newCompany.imgURL === undefined ? null : newCompany.imgURL,
       status: newCompany.status,
-      services: AddedServicesIDs === undefined ? null : AddedServicesIDs,
+      services: AddedServicesIDs,
     })
     .then((docRef) => {
       console.log("Written Company with ID of ", docRef.id);
@@ -63,7 +76,52 @@ export async function addServices(props) {
     capacity: props.serviceDetails.capacity,
     workingDays: props.serviceDayWorking,
   });
-  debugger;
 
   return doc_ref.id;
+}
+
+export async function getServices(props) {
+  //props = array of IDS or one ID
+  var services = [];
+  if (props.length > 0) {
+    await db
+      .collection("services")
+      .where(firebase.firestore.FieldPath.documentId(), "in", props)
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          services.push({ id: doc.id, data: doc.data() });
+        });
+      });
+  }
+  return services;
+}
+export async function getAllServices() {
+  var services = [];
+
+  await db
+    .collection("services")
+    .get()
+    .then((snapshot) => {
+      snapshot.docs.forEach((doc) => {
+        const service = { ...doc.data(), id: doc.id };
+
+        services.push(service);
+      });
+    });
+
+  return services;
+}
+
+export async function deleteService(id) {
+  await db
+    .collection("services")
+    .doc(id)
+    .delete()
+    .then(() => {
+      console.log("Service successfully deleted with id :" + id);
+    })
+    .catch((error) => {
+      console.error("Error removing document: ", error);
+    });
 }

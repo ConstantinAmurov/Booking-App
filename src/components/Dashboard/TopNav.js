@@ -4,17 +4,14 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "../../store/actions/authActions";
-import { LOGOUT, GETCOMPANIES } from "../../store/actions//actionTypes";
-import { getCompanies } from "../../contexts/DatabaseContext";
+
+import { LOGOUT } from "../../store/actions//actionTypes";
+
 const TopNav = () => {
   const dispatch = useDispatch();
 
-  //get companies
-  useEffect(async () => {
-    const companies = await getCompanies();
-
-    dispatch({ type: GETCOMPANIES, companies: companies });
-  }, []);
+  //get companies and services from database
+  useEffect(async () => {}, []);
 
   const user = useSelector((state) => state.user.user);
 

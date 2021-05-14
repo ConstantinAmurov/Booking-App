@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { ADDCOMPANY } from "../../../../store/actions/actionTypes";
 import { useFormik } from "formik";
 import { validateCompanyForm as validate } from "../../../../services/ValidateAddCompanyForm.service";
-import { confirmAlert } from "react-confirm-alert"; // Import
-import "react-confirm-alert/src/react-confirm-alert.css"; // Import css
-const Profile = () => {
+import SaveModal from "../../Modals/SaveModal";
+import { saveCompany } from "../../../../contexts/ProfileContext";
+const Profile = ({ mode }) => {
   //States
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
@@ -38,7 +38,10 @@ const Profile = () => {
       setFileDownloadURL(fileURL);
     });
   };
-
+  const confirmSave = () => {
+    console.log("ConfirmSave");
+    formik.handleSubmit();
+  };
   //FORMIK SETUP
 
   const formik = useFormik({
@@ -49,38 +52,19 @@ const Profile = () => {
     },
     validate,
     onSubmit: async (values) => {
-      const newCompany = {
-        name: values.companyName,
-        description: values.description,
-        imgURL: fileDownloadURL,
-        status: false,
-      };
-      debugger;
-      console.log(services);
-      if (services === undefined) {
-        alert("Are you sure you want to add company without services?");
-      }
-      const arrayOfServices = [null];
-
-      for (var i = 0; i < services.length; i++) {
-        debugger;
-        arrayOfServices[i] = {
-          serviceDetails: services[i],
-          serviceDayWorking: servicesDayWorking[i],
+      if ((mode = "add-company")) {
+        const newCompany = {
+          name: values.companyName,
+          description: values.description,
+          imgURL: fileDownloadURL,
+          status: false,
         };
-      }
-      var AddedServicesIDs = [];
-
-      for (const service of arrayOfServices) {
-        const extractedID = await addServices(service);
-
-        AddedServicesIDs.push(extractedID);
-      }
-      try {
-        await addCompany({ newCompany, AddedServicesIDs });
-        dispatch({ type: ADDCOMPANY, newCompany });
-      } catch (error) {
-        console.log("ERROR AT ADDING COMPANY");
+        try {
+          await saveCompany(newCompany, services, servicesDayWorking);
+          dispatch({ type: ADDCOMPANY, newCompany });
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
   });
@@ -133,9 +117,12 @@ const Profile = () => {
             <div>{formik.errors.description}</div>
           ) : null}
         </div>
-        <button type="submit" className={styles.submitForm}>
-          Save button
-        </button>
+        <SaveModal
+          services={services}
+          errors={formik.errors}
+          touched={formik.touched}
+          confirmSave={confirmSave}
+        ></SaveModal>
       </form>
     </div>
   );

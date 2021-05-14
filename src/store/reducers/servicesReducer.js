@@ -1,13 +1,12 @@
-import { ADDSERVICES } from "../actions/actionTypes";
+import {
+  ADDSERVICES,
+  GETSERVICES,
+  DELETESERVICE,
+} from "../actions/actionTypes";
 
-const initialState = { services: [] };
+const initialState = { services: [], allServices: [] };
 
 const serviceReducer = (state = initialState, action) => {
-  //   if (action.type === GETCOMPANIES) {
-  //     return {
-  //       companies: action.companies,
-  //     };
-  //   }
   if (action.type === ADDSERVICES) {
     return {
       ...state,
@@ -15,6 +14,21 @@ const serviceReducer = (state = initialState, action) => {
     };
   }
 
+  if (action.type === GETSERVICES) {
+    return {
+      ...state,
+      allServices: [...action.payload],
+    };
+  }
+
+  if (action.type === DELETESERVICE) {
+    return {
+      ...state,
+      allServices: state.allServices.filter(
+        (service) => service.id != action.serviceID
+      ),
+    };
+  }
   return state;
 };
 
