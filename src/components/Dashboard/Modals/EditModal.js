@@ -2,12 +2,13 @@ import React from "react";
 import Modal from "react-bootstrap/Modal";
 import { FiEdit2, FiX } from "react-icons/fi";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
-import moduleStyles from "./css/EditModal.module.css";
+import "./css/EditModal.css";
 import { useDispatch, useSelector } from "react-redux";
 import EditCompanyForm from "./EditCompanyForm";
+import Profile from "../Companies/Sections/Profile";
 const EditModal = ({ company }) => {
   const [isOpen, setIsOpen] = React.useState(false);
-  debugger;
+
   const showModal = () => {
     setIsOpen(true);
   };
@@ -30,7 +31,7 @@ const EditModal = ({ company }) => {
           </button>
         </Modal.Header>
         <Modal.Body className={styles.modalBody}>
-          <EditCompanyForm company={company}></EditCompanyForm>
+          <Profile mode="edit-company" company={company}></Profile>
         </Modal.Body>
       </Modal>
     </>

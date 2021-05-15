@@ -18,11 +18,9 @@ const AddCompanyModalWindow = () => {
 
   const hideModal = () => {
     setIsOpen(false);
-    setActiveSection(<Profile></Profile>);
+    setActiveSection(<Profile mode={"add-company"}></Profile>);
   };
-  function setProfileSection() {
-    activeSection = <Profile></Profile>;
-  }
+
   function setProfileSection() {
     setActiveSection(<Profile mode={"add-company"}></Profile>);
   }

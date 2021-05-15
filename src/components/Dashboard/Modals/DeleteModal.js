@@ -3,10 +3,15 @@ import Modal from "react-bootstrap/Modal";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
 import "../Companies/css/deletemodal.css";
 import { FiEdit2, FiTrash2, FiX } from "react-icons/fi";
-import { deleteCompany, getCompanies } from "../../../contexts/DatabaseContext";
+import {
+  deleteCompany,
+  deleteService,
+  getCompanies,
+} from "../../../contexts/DatabaseContext";
 import {
   DELETECOMPANY,
   GETCOMPANIES,
+  DELETESERVICE,
 } from "../../../store/actions/actionTypes";
 import { useDispatch, useSelector } from "react-redux";
 const deleteImg = require("../../../img/delete.png").default;
@@ -24,6 +29,10 @@ const DeleteModal = ({ company }) => {
   async function handleClick() {
     await deleteCompany(company.id);
     dispatch({ type: DELETECOMPANY, companyID: company.id });
+    for (const serviceID of company.services) {
+      await deleteService(serviceID);
+      dispatch({ type: DELETESERVICE, serviceID: serviceID });
+    }
   }
   return (
     <>

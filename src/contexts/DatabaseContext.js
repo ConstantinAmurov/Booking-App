@@ -67,6 +67,18 @@ export async function addCompany(props) {
     });
 }
 
+export async function editCompany(id, editedCompany) {
+  await db
+    .collection("companies")
+    .doc(id)
+    .update({
+      name: editedCompany.name,
+      description: editedCompany.description,
+      imgURL: editedCompany.imgURL === undefined ? null : editedCompany.imgURL,
+      status: editedCompany.status,
+    });
+}
+
 export async function addServices(props) {
   const doc_ref = await db.collection("services").add({
     serviceName: props.serviceDetails.serviceName,
@@ -82,7 +94,9 @@ export async function addServices(props) {
 
 export async function getServices(props) {
   //props = array of IDS or one ID
+
   var services = [];
+
   if (props.length > 0) {
     await db
       .collection("services")

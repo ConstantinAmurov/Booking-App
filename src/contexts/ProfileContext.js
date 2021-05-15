@@ -2,10 +2,7 @@ import { addCompany } from "./DatabaseContext";
 import { addServices } from "./DatabaseContext";
 
 export async function saveCompany(newCompany, services, servicesDayWorking) {
-  debugger;
-  debugger;
   var AddedServicesIDs = [];
-
   if (services === undefined) {
     await addCompany({ newCompany, AddedServicesIDs });
   } else {
@@ -16,6 +13,7 @@ export async function saveCompany(newCompany, services, servicesDayWorking) {
         serviceDayWorking: servicesDayWorking[i],
       };
     }
+
     for (const service of arrayOfServices) {
       const extractedID = await addServices(service);
       AddedServicesIDs.push(extractedID);

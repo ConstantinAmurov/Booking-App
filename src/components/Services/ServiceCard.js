@@ -5,16 +5,19 @@ import DeleteButton from "./Modals/DeleteServiceModal";
 import ViewCompany from "../Dashboard/Modals/ViewCompanyModal";
 import EditButton from "../Dashboard/Modals/EditModal";
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
+import { getWorkingDays } from "../../contexts/CompanyContext";
 
 const ServiceCard = ({ company }) => {
   const [services, setServices] = useState(null);
-
+  const [workingDays, setWorkingDays] = useState(null);
+  debugger;
   useEffect(async () => {
     const services = await getServices(company.services);
     setServices(services);
+    const workingDays = getWorkingDays(services);
+    setWorkingDays(workingDays);
   }, []);
 
-  console.log(services);
   return (
     <div id={company.id} className={styles.companyServices}>
       {company != null && (
@@ -28,7 +31,7 @@ const ServiceCard = ({ company }) => {
                 <h3>Description</h3>
                 <p>{service.data.description}</p>
                 <h3>Availability</h3>
-                <p>Sun,Mon</p>
+                <p> {workingDays != null && workingDays[index].join(", ")}</p>
                 <h3>Capacity</h3>
                 <p>
                   {service.data.capacity}{" "}

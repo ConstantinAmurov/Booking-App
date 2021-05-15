@@ -2,6 +2,7 @@ import {
   GETCOMPANIES,
   ADDCOMPANY,
   DELETECOMPANY,
+  EDITCOMPANY,
 } from "../actions/actionTypes";
 
 const initialState = { companies: [] };
@@ -23,6 +24,16 @@ const companyReducer = (state = initialState, action) => {
       companies: state.companies.filter(
         (company) => company.id != action.companyID
       ),
+    };
+  }
+  if (action.type === EDITCOMPANY) {
+    return {
+      ...state,
+      companies: state.companies.map((company) => {
+        if (company.id == action.id) {
+          return action.editedCompany;
+        } else return company;
+      }),
     };
   }
 

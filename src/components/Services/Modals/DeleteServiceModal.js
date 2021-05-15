@@ -21,7 +21,7 @@ const DeleteButtonModal = ({ serviceId }) => {
   };
   async function handleClick() {
     await deleteService(serviceId);
-    debugger;
+
     dispatch({ type: DELETESERVICE, serviceID: serviceId });
   }
   return (

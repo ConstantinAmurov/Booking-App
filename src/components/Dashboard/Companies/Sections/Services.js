@@ -24,10 +24,6 @@ const Services = (props) => {
   const [capacity, setCapacity] = useState();
   const [servicesNumber, setServicesNumber] = useState(1);
   const dispatch = useDispatch();
-  const handleSubmit = (e) => {
-    console.log(serviceName, description, duration, price, capacity);
-    e.preventDefault();
-  };
 
   const newService = [
     { day: "SUNDAY", working: true, openTime: "09:00", closeTime: "18:00" },
@@ -58,10 +54,6 @@ const Services = (props) => {
       closeTime: "18:00",
     },
   ];
-  const handleButtonSelection = (e) => {
-    e.preventDefault();
-    console.log(e.target.name);
-  };
 
   const validationSchema = yup.object().shape({
     services: yup.array().of(
@@ -89,8 +81,6 @@ const Services = (props) => {
         const newServices = values.services;
 
         dispatch({ type: ADDSERVICES, payload: newServices });
-
-        console.log("submit");
       }}
       validationSchema={validationSchema}
     >

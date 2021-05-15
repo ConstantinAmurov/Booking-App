@@ -1,6 +1,6 @@
 .main {
   display: inline-block;
-  height: 100vh;
+
   width: calc(100% - 240px);
   padding: 2rem;
   padding-right: 4rem;

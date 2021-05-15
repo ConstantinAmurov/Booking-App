@@ -5,8 +5,6 @@ import ServiceCard from "./ServiceCard";
 const Services = () => {
   const companies = useSelector((state) => state.company.companies);
 
-  debugger;
-
   return (
     <>
       {" "}

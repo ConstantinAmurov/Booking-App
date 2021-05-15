@@ -25,7 +25,7 @@ function App(props) {
     const services = await getAllServices();
 
     dispatch({ type: GETCOMPANIES, companies: companies });
-    debugger;
+
     dispatch({ type: GETSERVICES, payload: services });
 
     const unsubscribe = auth.onAuthStateChanged((user) => {
