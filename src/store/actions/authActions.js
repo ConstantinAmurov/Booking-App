@@ -20,7 +20,7 @@ export async function login(props) {
 }
 
 export async function register(props) {
-  const { email, password } = props;
+  const { firstName, lastName, email, password } = props;
 
   firebase
     .auth()
@@ -28,6 +28,7 @@ export async function register(props) {
     .then((userCredential) => {
       // Signed in
       var user = userCredential.user;
+      addNewUser(props);
       // ...
     })
     .catch((error) => {

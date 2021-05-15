@@ -4,25 +4,30 @@ import Login from "./components/Login/Login";
 import ForgotPassword from "./components/Login/ForgotPassword";
 import Register from "./components/Login/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
-import Service from "./components/Dashboard/Service";
+import Service from "./components/Services/Service";
 import Booking from "./components/Dashboard/Booking";
 import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import AuthProvider from "./contexts/AuthContext";
-
+import { useSelector, useDispatch } from "react-redux";
+import { getCompanies, getAllServices } from "./contexts/DatabaseContext";
+import { GETCOMPANIES, GETSERVICES } from "./store/actions/actionTypes";
 import "bootstrap/dist/css/bootstrap.min.css";
 // Add the Firebase products that you want to use
 import { auth } from "./Firebase";
 import "./css/App.css";
-import { useDispatch, useSelector } from "react-redux";
-import store from "./store/app";
-import { SIGNSTATE_CHANGED } from "./store/actions/actionTypes";
 
 function App(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  useEffect(() => {
+  useEffect(async () => {
+    const companies = await getCompanies();
+    const services = await getAllServices();
+
+    dispatch({ type: GETCOMPANIES, companies: companies });
+
+    dispatch({ type: GETSERVICES, payload: services });
+
     const unsubscribe = auth.onAuthStateChanged((user) => {
       dispatch({ type: "SIGNSTATE_CHANGED", user: user });
     });

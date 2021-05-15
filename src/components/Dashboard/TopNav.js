@@ -1,19 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../../css/Dashboard/Dashboard.module.css";
-import { Container, Row, Col } from "react-bootstrap";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "../../store/actions/authActions";
+
+import { LOGOUT } from "../../store/actions//actionTypes";
+
 const TopNav = () => {
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
+
+  //get companies and services from database
+  useEffect(async () => {}, []);
+
+  const user = useSelector((state) => state.user.user);
+
   const history = useHistory();
 
-  console.log(user);
   const userName = user.displayName;
   const photoURL = user.photoURL;
-  //merge userul
+
+  function handleSignOut() {
+    dispatch({ type: LOGOUT });
+  }
 
   return (
     <div className={styles.topNav}>
@@ -26,7 +35,7 @@ const TopNav = () => {
           <p className={styles.role}>Admin</p>
         </div>
         <div>
-          <button className={styles.btnLogOut} onClick={signOut}>
+          <button className={styles.btnLogOut} onClick={handleSignOut}>
             Log Out
           </button>
         </div>

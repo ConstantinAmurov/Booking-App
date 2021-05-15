@@ -1,0 +1,65 @@
+.modal-view .modal-content {
+  min-height: 924px;
+  min-width: 702px;
+  max-height: max-content;
+}
+.modal-view .modal-content .modal-body {
+  position: relative;
+  min-height: 924px;
+}
+.company-info {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* margin: 0 auto; */
+  width: 406px;
+  top: 50%;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0px 4px 25px rgba(24, 28, 75, 0.1);
+  border-radius: 8px;
+}
+.img {
+  width: 406px;
+  height: 205px;
+}
+.company-info img {
+  height: 100%;
+}
+.details {
+  padding: 15px;
+  margin: 15px;
+}
+.details svg {
+  margin-right: 10px;
+}
+
+.details {
+  box-shadow: 0px 4px 25px rgba(24, 28, 75, 0.1);
+  border-radius: 8px;
+}
+.info {
+  padding: 24px;
+}
+
+.modal-header {
+  display: block;
+  padding-bottom: 0;
+}
+.modal-header > button {
+  position: absolute;
+  right: 32px;
+}
+.modal-title {
+  display: inline;
+}
+
+.book-button {
+  width: 100%;
+  height: 60px;
+
+  background: #4149b9;
+  color: white;
+  border-radius: 8px;
+}

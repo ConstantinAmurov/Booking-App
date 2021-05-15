@@ -16,6 +16,13 @@ h1 {
   font-family: "Rubik", sans-serif;
   font-size: 32px;
 }
+h3 {
+  color: var(--gray-1);
+  font-family: "Roboto", sans-serif;
+  font-size: 18px !important;
+  font-weight: bolder;
+  letter-spacing: 0.001em;
+}
 p {
   font-family: "Roboto", sans-serif;
   color: var(--gray-2);

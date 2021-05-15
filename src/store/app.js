@@ -1,21 +1,19 @@
-import { createStore } from "redux";
-import { SIGNIN, SIGNSTATE_CHANGED } from "./actions/actionTypes";
-const initialState = { isLogged: false, user: {} };
+import { combineReducers, createStore } from "redux";
 
-const loginReducer = (state = initialState, action) => {
-  if (action.type === SIGNIN)
-    return {
-      isLogged: true,
-      user: action.user,
-    };
-  if (action.type === SIGNSTATE_CHANGED) {
-    return {
-      isLogged: !state.isLogged,
-      user: action.user,
-    };
-  }
-  return state;
-};
-const store = createStore(loginReducer);
+import loginReducer from "./reducers/loginReducer";
+import companyReducer from "./reducers/companyReducer";
+import dayReducer from "./reducers/dayReducer";
+import serviceReducer from "./reducers/servicesReducer";
+const rootReducer = combineReducers({
+  user: loginReducer,
+  company: companyReducer,
+  day: dayReducer,
+  services: serviceReducer,
+});
+
+const store = createStore(
+  rootReducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default store;

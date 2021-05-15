@@ -19,19 +19,6 @@
   box-sizing: border-box;
   border-radius: 10px;
 }
-input[type="checkbox"] {
-  width: 16px;
-  height: 16px;
-  left: 871px;
-  top: 669px;
-  border: 1px solid #828282;
-  box-sizing: border-box;
-  border-radius: 5px;
-  display: inline;
-  border: 1px solid #828282;
-  box-sizing: border-box;
-  border-radius: 5px;
-}
 
 button {
   border: 0;
