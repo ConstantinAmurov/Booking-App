@@ -7,17 +7,29 @@ import ViewCompany from "../Dashboard/Modals/ViewCompanyModal";
 
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { getWorkingDays } from "../../contexts/CompanyContext";
-
+import { useDispatch } from "react-redux";
+import {
+  SETEDITSERVICEMODE,
+  SETADDSERVICEMODE,
+} from "../../store/actions/actionTypes";
 const ServiceCard = ({ company }) => {
+  const dispatch = useDispatch();
   const [services, setServices] = useState(null);
   const [workingDays, setWorkingDays] = useState(null);
-  debugger;
+
   useEffect(async () => {
     const services = await getServices(company.services);
     setServices(services);
     const workingDays = getWorkingDays(services);
     setWorkingDays(workingDays);
   }, []);
+  debugger;
+
+  services != null &&
+    dispatch({
+      type: SETEDITSERVICEMODE,
+      services: services.map((service) => [...service.data.workingDays]),
+    });
 
   return (
     <div id={company.id} className={styles.companyServices}>
@@ -43,7 +55,7 @@ const ServiceCard = ({ company }) => {
                 <h3>Price</h3>
                 <p>{service.data.price} RON</p>
                 <div className={styles.buttons}>
-                  <EditButton service={service}></EditButton>
+                  <EditButton index={index} service={service}></EditButton>
                   <DeleteButton serviceId={service.id}></DeleteButton>
                   {/* <button className={styles.viewButton}> View company</button> */}
                 </div>

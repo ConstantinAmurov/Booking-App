@@ -88,7 +88,10 @@ const Services = () => {
                         </div>
                       </div>
                       <div className={styles.formInput}>
-                        <AvailabityTable index={index}></AvailabityTable>
+                        <AvailabityTable
+                          index={index}
+                          mode="add-service"
+                        ></AvailabityTable>
                       </div>
                       <div className={styles.formInput}>
                         <p>Duration</p>

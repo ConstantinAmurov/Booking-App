@@ -5,11 +5,9 @@ import styles from "../../../css/Services/EditService.module.css";
 import AvailabilityTable from "../../Dashboard/Companies/AvailabityTable";
 import { validationServiceFormSchema as validationSchema } from "../../../services/ValidateAddCompanyForm.service";
 import ButtonGroup from "@ramonak/react-button-group";
-const EditServiceForm = ({ service }) => {
-  const dispatch = useDispatch();
-
+const EditServiceForm = ({ index, service }) => {
   //FORMIK SETUP
-  debugger;
+
   const formik = useFormik({
     initialValues: {
       serviceName: service.data.serviceName,
@@ -64,7 +62,11 @@ const EditServiceForm = ({ service }) => {
         </div>
         <div className={styles.formInput}>
           <p>Availability</p>
-          {/* Here Should be updated AvailabilityTable */}
+          <AvailabilityTable
+            index={index}
+            service={service}
+            mode="edit-service"
+          ></AvailabilityTable>
         </div>
         <div className={styles.formInput}>
           <p>Duration</p>

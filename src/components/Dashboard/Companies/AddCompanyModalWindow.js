@@ -7,8 +7,10 @@ import styles from "../../../css/Dashboard/Dashboard.module.css";
 import { FiX } from "react-icons/fi";
 import Profile from "./Sections/Profile";
 import Services from "./Sections/Services";
-
+import { RESETSTATE } from "../../../store/actions/actionTypes";
+import { useDispatch } from "react-redux";
 const AddCompanyModalWindow = () => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = React.useState(false);
   const [activeSection, setActiveSection] = useState(<Profile></Profile>);
 
@@ -19,6 +21,7 @@ const AddCompanyModalWindow = () => {
   const hideModal = () => {
     setIsOpen(false);
     setActiveSection(<Profile mode={"add-company"}></Profile>);
+    dispatch({ type: RESETSTATE });
   };
 
   function setProfileSection() {
