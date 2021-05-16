@@ -1,0 +1,97 @@
+.modal-dialog,
+.modal-content {
+  min-width: 702px;
+  min-height: 720px;
+}
+
+.editButton {
+  border: 1px solid #bdbdbd;
+  box-sizing: border-box;
+  border-radius: 8px;
+  color: #333333;
+  background-color: transparent;
+  width: 218px;
+  height: 46px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.buttonContainer {
+  padding: 12px 14px;
+  background-color: transparent;
+  border-color: #bdbdbd;
+  color: #bdbdbd;
+  border: 1px solid #bdbdbd;
+  border-radius: 10px;
+  position: relative;
+}
+.activeButtonContainer {
+  border-color: #ef6313;
+  color: #ef6313;
+}
+.manualInput {
+  width: 265px !important;
+  height: 44px !important;
+}
+
+.addButton {
+  margin-left: 18px;
+  display: inline;
+  width: 187px;
+  height: 44px;
+  background: #ef6313;
+  border-radius: 10px;
+  color: white;
+}
+
+.addServiceButton {
+  margin: 7px;
+  font-weight: bold;
+  background: transparent;
+  color: #4149b9;
+  display: inline-block;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.submitForm {
+  font-weight: bold;
+  width: 502px;
+  height: 64px;
+  background: #4149b9;
+  border-radius: 10px;
+  color: white;
+  margin: 24px 0;
+}
+
+.formInput {
+  margin: 12px 0;
+}
+.formInput > input {
+  padding: 10px;
+  width: 502px;
+  height: 44px;
+  font-size: 14px;
+  color: #bdbdbd;
+  /* Gray 4 */
+
+  border: 1px solid #bdbdbd;
+  box-sizing: border-box;
+  border-radius: 10px;
+}
+.formInput > p {
+  display: block;
+  margin-bottom: 11px !important;
+  padding: 0 !important;
+}
+.error {
+  margin-top: 5px;
+}
+.error p {
+  color: red;
+}

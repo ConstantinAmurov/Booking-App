@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../../../css/Dashboard/Dashboard.module.css";
 import AvailabityTable from "../AvailabityTable";
-import Selector from "../Selector";
+
 import ButtonGroup from "@ramonak/react-button-group";
 import { useFormik } from "formik";
 import { Formik, Form, Field, FieldArray, getIn } from "formik";
@@ -10,59 +10,15 @@ import {
   ADDSERVICES,
 } from "../../../../store/actions/actionTypes";
 import { useDispatch } from "react-redux";
+import { validationAddServiceFormSchema as validationSchema } from "../../../../services/ValidateAddCompanyForm.service";
 
 import * as yup from "yup";
 
-import { validateServiceForm as validate } from "../../../../services/ValidateAddCompanyForm.service";
-
-const Services = (props) => {
-  const [serviceName, setServiceName] = useState();
-  const [description, setDescription] = useState();
-  const [availability, setAvailability] = useState();
+const Services = () => {
   const [duration, setDuration] = useState();
   const [price, setPrice] = useState();
   const [capacity, setCapacity] = useState();
-  const [servicesNumber, setServicesNumber] = useState(1);
   const dispatch = useDispatch();
-
-  const newService = [
-    { day: "SUNDAY", working: true, openTime: "09:00", closeTime: "18:00" },
-    { day: "MONDAY", working: true, openTime: "09:00", closeTime: "18:00" },
-    {
-      day: "TUESDAY",
-      working: true,
-      openTime: "09:00",
-      closeTime: "18:00",
-    },
-    {
-      day: "WEDNESDAY",
-      working: true,
-      openTime: "09:00",
-      closeTime: "18:00",
-    },
-    {
-      day: "THURSDAY",
-      working: true,
-      openTime: "09:00",
-      closeTime: "18:00",
-    },
-    { day: "FRIDAY", working: true, openTime: "09:00", closeTime: "18:00" },
-    {
-      day: "SATURDAY",
-      working: true,
-      openTime: "09:00",
-      closeTime: "18:00",
-    },
-  ];
-
-  const validationSchema = yup.object().shape({
-    services: yup.array().of(
-      yup.object().shape({
-        serviceName: yup.string().min(3),
-        description: yup.string().min(3),
-      })
-    ),
-  });
 
   return (
     <Formik
@@ -135,6 +91,7 @@ const Services = (props) => {
                         <AvailabityTable index={index}></AvailabityTable>
                       </div>
                       <div className={styles.formInput}>
+                        <p>Duration</p>
                         <ButtonGroup
                           containerClassName={styles.container}
                           buttonClassName={styles.buttonContainer}

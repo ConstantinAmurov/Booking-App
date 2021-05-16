@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import styles from "../../css/Services/Service.module.css";
 import { getServices } from "../../contexts/DatabaseContext";
 import DeleteButton from "./Modals/DeleteServiceModal";
+import EditButton from "./Modals/EditServiceModal";
 import ViewCompany from "../Dashboard/Modals/ViewCompanyModal";
-import EditButton from "../Dashboard/Modals/EditModal";
+
 import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import { getWorkingDays } from "../../contexts/CompanyContext";
 
@@ -42,12 +43,8 @@ const ServiceCard = ({ company }) => {
                 <h3>Price</h3>
                 <p>{service.data.price} RON</p>
                 <div className={styles.buttons}>
-                  <button className={styles.editButton}>
-                    {" "}
-                    <FiEdit2 /> Edit
-                  </button>
+                  <EditButton service={service}></EditButton>
                   <DeleteButton serviceId={service.id}></DeleteButton>
-
                   {/* <button className={styles.viewButton}> View company</button> */}
                 </div>
                 <p>{services.length > 1 ? <hr /> : ""}</p>

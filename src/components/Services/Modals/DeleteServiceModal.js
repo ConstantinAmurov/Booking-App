@@ -1,7 +1,7 @@
 import React from "react";
 import Modal from "react-bootstrap/Modal";
 // import styles from "../../Dashboard/Companies/css/deletemodal.css";
-import styles from "../../../css/Services/Service.module.css";
+import styles from "../../../css/Services/DeleteService.module.css";
 import { FiEdit2, FiTrash2, FiX } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteService } from "../../../contexts/DatabaseContext";

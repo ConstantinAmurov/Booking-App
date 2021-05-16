@@ -4,7 +4,8 @@
   min-height: 720px;
 }
 .modal-body {
-  margin: 0 80px;
+  margin: 0 auto;
+  width: 502px;
 }
 .modal-header {
   display: block;
