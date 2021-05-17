@@ -4,8 +4,9 @@ import Login from "./components/Login/Login";
 import ForgotPassword from "./components/Login/ForgotPassword";
 import Register from "./components/Login/Register";
 import Dashboard from "./components/Dashboard/Dashboard";
+import PublicDashboard from "./components/Public Dashboard/Dashboard";
 import Service from "./components/Services/Service";
-import Booking from "./components/Dashboard/Booking";
+import Booking from "./components/Dashboard/Booking/Booking";
 import PrivateRoute from "./components/PrivateRoute";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -37,12 +38,17 @@ function App(props) {
     <>
       <Router>
         <Switch>
-          <PrivateRoute exact path="/" component={Dashboard}></PrivateRoute>
+          <PrivateRoute
+            exact
+            path="/dashboard"
+            component={Dashboard}
+          ></PrivateRoute>
           <Route path="/signup" component={Register}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/forgot-password" component={ForgotPassword}></Route>
-          <Route path="/service" component={Service}></Route>
-          <Route path="/booking" component={Booking}></Route>
+          <PrivateRoute path="/service" component={Service}></PrivateRoute>
+          <PrivateRoute path="/booking" component={Booking}></PrivateRoute>
+          <Route path="/" component={PublicDashboard}></Route>
         </Switch>
       </Router>
     </>

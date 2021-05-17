@@ -8,6 +8,7 @@ const initialState = { services: [], allServices: [] };
 
 const serviceReducer = (state = initialState, action) => {
   if (action.type === ADDSERVICES) {
+    debugger;
     return {
       ...state,
       services: [...state.services, [...action.payload]],

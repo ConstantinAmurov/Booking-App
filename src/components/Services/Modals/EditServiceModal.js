@@ -34,7 +34,11 @@ const EditServiceModal = ({ index, service }) => {
             <FiX></FiX>
           </button>
           <Modal.Body className="edit-modal-body">
-            <EditServiceForm index={index} service={service}></EditServiceForm>
+            <EditServiceForm
+              mode="edit-service"
+              index={index}
+              service={service}
+            ></EditServiceForm>
           </Modal.Body>
         </Modal.Header>
       </Modal>

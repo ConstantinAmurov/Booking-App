@@ -15,6 +15,8 @@ const EditTimeModal = ({ index, service, mode }) => {
     setIsOpen(true);
     if (mode == "edit-service") {
       document.getElementById("edit-service-modal").style.opacity = "0";
+    } else if (mode == "add-service") {
+      document.getElementById("add-service-modal").style.opacity = "0";
     } else {
       document.getElementById("company-modal").style.opacity = "0";
     }
@@ -24,6 +26,8 @@ const EditTimeModal = ({ index, service, mode }) => {
     setIsOpen(false);
     if (mode == "edit-service") {
       document.getElementById("edit-service-modal").style.opacity = "1";
+    } else if (mode == "add-service") {
+      document.getElementById("add-service-modal").style.opacity = "1";
     } else {
       document.getElementById("company-modal").style.opacity = "1";
     }

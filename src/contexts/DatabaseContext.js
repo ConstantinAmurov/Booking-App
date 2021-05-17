@@ -92,6 +92,46 @@ export async function addServices(props) {
   return doc_ref.id;
 }
 
+export async function addService(
+  company,
+  editedServiceWorkingDays,
+  editedService
+) {
+  //adding service to DB
+  debugger;
+  const service_doc_ref = await db.collection("services").add({
+    serviceName: editedService.serviceName,
+    description: editedService.description,
+    duration: editedService.duration,
+    price: editedService.price,
+    capacity: editedService.capacity,
+    workingDays: editedServiceWorkingDays,
+  });
+
+  //adding ID of the added service to company
+  company.services.push(service_doc_ref.id);
+  await db.collection("companies").doc(company.id).update({
+    services: company.services,
+  });
+}
+
+export async function editService(
+  id,
+
+  editedServiceWorkingDays,
+  editedService
+) {
+  debugger;
+  await db.collection("services").doc(id).update({
+    capacity: editedService.capacity,
+    description: editedService.description,
+    duration: editedService.duration,
+    price: editedService.price,
+    serviceName: editedService.serviceName,
+    workingDays: editedServiceWorkingDays,
+  });
+}
+
 export async function getServices(props) {
   //props = array of IDS or one ID
 

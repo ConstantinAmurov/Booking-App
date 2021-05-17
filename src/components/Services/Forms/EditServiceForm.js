@@ -5,21 +5,35 @@ import styles from "../../../css/Services/EditService.module.css";
 import AvailabilityTable from "../../Dashboard/Companies/AvailabityTable";
 import { validationServiceFormSchema as validationSchema } from "../../../services/ValidateAddCompanyForm.service";
 import ButtonGroup from "@ramonak/react-button-group";
-const EditServiceForm = ({ index, service }) => {
-  //FORMIK SETUP
+import { useSelector } from "react-redux";
+import { addService, editService } from "../../../contexts/DatabaseContext";
+import { ADDSERVICES } from "../../../store/actions/actionTypes";
 
+const EditServiceForm = ({ company, mode, index, service }) => {
+  const dispatch = useDispatch();
+  //FORMIK SETUP
+  const editedServiceWorkingDays = useSelector((state) => state.day[index]);
   const formik = useFormik({
     initialValues: {
-      serviceName: service.data.serviceName,
-      description: service.data.description,
-      duration: service.data.duration,
-      price: service.data.price,
-      capacity: service.data.capacity,
+      serviceName: mode === "edit-service" ? service.data.serviceName : "",
+      description: mode === "edit-service" ? service.data.description : "",
+      duration: mode === "edit-service" ? service.data.duration : "",
+      price: mode === "edit-service" ? service.data.price : "",
+      capacity: mode === "edit-service" ? service.data.capacity : "",
     },
     validationSchema,
-    onSubmit: (values, errors, touched) => {
-      console.log(values);
-      console.log(touched);
+    onSubmit: async (values) => {
+      //editedServicesWorkingDays in forma de array[]
+      //
+      const editedService = values;
+      if (mode == "add-service") {
+        await addService(company, editedServiceWorkingDays, editedService);
+        dispatch({
+          type: ADDSERVICES,
+          payload: { ...editedService, workingDays: editedServiceWorkingDays },
+        });
+      } else
+        await editService(service.id, editedServiceWorkingDays, editedService);
     },
   });
 
@@ -65,7 +79,7 @@ const EditServiceForm = ({ index, service }) => {
           <AvailabilityTable
             index={index}
             service={service}
-            mode="edit-service"
+            mode={mode}
           ></AvailabilityTable>
         </div>
         <div className={styles.formInput}>
@@ -153,7 +167,7 @@ const EditServiceForm = ({ index, service }) => {
           ) : null}
         </div>
         <button type="submit" className={styles.submitForm}>
-          Edit Service
+          {mode == "edit-service" ? "Edit Service" : "Add Service"}
         </button>
       </form>
     </div>

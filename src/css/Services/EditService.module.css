@@ -13,6 +13,14 @@
   width: 218px;
   height: 46px;
 }
+.viewButton {
+  width: 455px;
+  height: 46px;
+  margin-top: 16px;
+  background: #4149b9;
+  color: white;
+  border-radius: 8px;
+}
 
 .container {
   display: flex;
