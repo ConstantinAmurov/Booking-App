@@ -8,11 +8,10 @@ export default function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) => {
-        debugger;
         return currentUser != null ? (
           <Component {...props} />
         ) : (
-          <Redirect to="/" />
+          <Redirect to="/dashboard" />
         );
       }}
     ></Route>

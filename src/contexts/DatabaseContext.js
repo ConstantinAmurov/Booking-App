@@ -98,7 +98,7 @@ export async function addService(
   editedService
 ) {
   //adding service to DB
-  debugger;
+
   const service_doc_ref = await db.collection("services").add({
     serviceName: editedService.serviceName,
     description: editedService.description,
@@ -121,7 +121,6 @@ export async function editService(
   editedServiceWorkingDays,
   editedService
 ) {
-  debugger;
   await db.collection("services").doc(id).update({
     capacity: editedService.capacity,
     description: editedService.description,

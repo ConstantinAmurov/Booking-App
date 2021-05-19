@@ -3,8 +3,6 @@ import styles from "../../../css/Dashboard/Dashboard.module.css";
 import { useSelector } from "react-redux";
 const WeeklyTable = ({ index, service, mode }) => {
   var days = useSelector((state) => state.day[index]);
-  console.log(useSelector((state) => state));
-  debugger;
 
   return (
     <div className={styles.weeklyTable}>

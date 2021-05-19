@@ -108,7 +108,7 @@ const dayReducer = (state = [...initialState], action) => {
       } else return serviceDay;
     });
     state[index] = modifiedServiceState;
-    debugger;
+
     return [...state];
   }
 

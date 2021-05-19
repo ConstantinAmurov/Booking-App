@@ -1,0 +1,23 @@
+.react-datepicker__input-container {
+  width: 210px;
+  height: 56px;
+}
+
+.react-datepicker__input-container input {
+  width: 210px;
+  height: 56px;
+  background: #d6e8f5;
+  background-image: url(../img/Calendar.svg);
+
+  background-size: 22px;
+  background-repeat: no-repeat;
+  background-position: 13px 18px;
+  text-indent: 50px;
+  border-radius: 10px;
+  border: 0;
+  color: #4149b9;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+}

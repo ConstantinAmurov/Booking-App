@@ -22,6 +22,7 @@ const TopNav = () => {
 
   function handleSignOut() {
     dispatch({ type: LOGOUT });
+    history.push("/");
   }
 
   return (

@@ -19,7 +19,7 @@ h1 {
 h3 {
   color: var(--gray-1);
   font-family: "Roboto", sans-serif;
-  font-size: 18px !important;
+  font-size: 18px;
   font-weight: bolder;
   letter-spacing: 0.001em;
 }

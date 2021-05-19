@@ -13,6 +13,7 @@ const EditTimeModal = ({ index, service, mode }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const showModal = () => {
     setIsOpen(true);
+
     if (mode == "edit-service") {
       document.getElementById("edit-service-modal").style.opacity = "0";
     } else if (mode == "add-service") {

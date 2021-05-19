@@ -163,11 +163,10 @@
   margin-top: 24px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
 }
 .company {
   padding: 24px 32px;
-  margin-right: 32px;
-  margin-top: 32px;
 
   border-radius: 10px;
   width: 519px;
@@ -413,11 +412,14 @@
 }
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-wrap: wrap;
 }
 
 .buttonContainer {
-  padding: 12px 14px;
+  width: 48px;
+  margin: 8px;
+  height: 48px;
   background-color: transparent;
   border-color: #bdbdbd;
   color: #bdbdbd;
