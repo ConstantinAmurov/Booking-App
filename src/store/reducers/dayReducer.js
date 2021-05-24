@@ -124,7 +124,7 @@ const dayReducer = (state = [...initialState], action) => {
     return [...newState];
   }
   // if (action.type === SETADDSERVICEMODE) {
-  //   debugger;
+
   //   if (mode == "add-service") {
   //     return state;
   //   }

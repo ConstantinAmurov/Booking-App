@@ -24,8 +24,8 @@ const ViewCompanyModal = ({ company }) => {
     const services = await getServices(company.services);
     setServices(services);
 
-    setWorkingDays(getWorkingDays(services));
-    setWorkingHours(getWorkingHours(services));
+    setWorkingDays(getWorkingDays(services, "view-company"));
+    setWorkingHours(getWorkingHours(services, "view-company"));
   }, []);
 
   // const services = async (service) => {

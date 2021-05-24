@@ -21,18 +21,17 @@ const ServiceCard = ({ company }) => {
   useEffect(async () => {
     const services = await getServices(company.services);
     setServices(services);
-    const workingDays = getWorkingDays(services);
-    setWorkingDays(workingDays);
+    const workingDays = getWorkingDays(services, "view-company");
+    setWorkingDays(workingDays, "view-company");
     services != null &&
       dispatch({
         type: SETEDITSERVICEMODE,
         services: services.map((service) => [...service.data.workingDays]),
       });
   }, []);
-  debugger;
 
   return (
-    <div id={company.id} className={styles.companyServices}>
+    <section id={company.id} className={styles.companyServices}>
       {company != null && (
         <div className={styles.info}>
           <h1>{company.name}</h1>
@@ -65,7 +64,7 @@ const ServiceCard = ({ company }) => {
           <AddButton company={company} services={services}></AddButton>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

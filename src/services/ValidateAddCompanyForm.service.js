@@ -1,4 +1,8 @@
+import { yupToFormErrors } from "formik";
 import * as Yup from "yup";
+
+const phoneRegExp =
+  /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
 
 export const validateCompanyForm = (values) => {
   const errors = {};
@@ -95,6 +99,20 @@ export const validationServiceFormSchema = Yup.object({
     .typeError("Must be a number")
     .positive("Must be a positive number")
     .integer(),
+});
+
+export const validationUserInformationSchema = Yup.object({
+  firstName: Yup.string()
+    .min(2, "Must be 2 characters or more")
+    .required("Required"),
+  lastName: Yup.string()
+    .min(2, "Must be 2 characters or more")
+    .required("Required"),
+  phone: Yup.string()
+    .min(8, "Must be 8 numbers or more")
+    .matches(phoneRegExp, "Phone number is not valid")
+    .required("Required"),
+  email: Yup.string().email("Invalid Email").required("Required"),
 });
 
 // // initialValues: {

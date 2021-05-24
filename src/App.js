@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-
+import { init } from "emailjs-com";
 import Login from "./components/Login/Login";
 import ForgotPassword from "./components/Login/ForgotPassword";
 import Register from "./components/Login/Register";
@@ -20,12 +20,9 @@ import "./css/App.css";
 function App(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-
+  init("user_L0sCQKCJhZz227B29S0zM");
   useEffect(async () => {
-    const companies = await getCompanies();
     const services = await getAllServices();
-
-    dispatch({ type: GETCOMPANIES, companies: companies });
 
     dispatch({ type: GETSERVICES, payload: services });
 

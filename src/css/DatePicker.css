@@ -1,9 +1,9 @@
-.react-datepicker__input-container {
+.searchDatePicker {
   width: 210px;
   height: 56px;
 }
 
-.react-datepicker__input-container input {
+.searchDatePicker input {
   width: 210px;
   height: 56px;
   background: #d6e8f5;
@@ -20,4 +20,44 @@
   font-style: normal;
   font-weight: normal;
   font-size: 20px;
+}
+
+.timeDatePicker {
+  width: 115px;
+  height: 31px;
+  margin-right: 18px;
+}
+.timeDatePicker input {
+  width: 115px;
+  height: 31px;
+  border: 2px solid #828282;
+  box-sizing: border-box;
+  text-indent: 15px;
+  border-radius: 10px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  color: #828282;
+}
+
+.bookingDatePicker {
+  width: 162px;
+  height: 31px;
+}
+
+.bookingDatePicker input {
+  width: 162px;
+  height: 31px;
+  border: 2px solid #828282;
+  box-sizing: border-box;
+  text-indent: 15px;
+  border-radius: 10px;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 16px;
+  color: #828282;
 }

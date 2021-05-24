@@ -19,10 +19,10 @@ const Services = () => {
   const [price, setPrice] = useState("");
   const [capacity, setCapacity] = useState("");
   const [customPrice, setCustomPrice] = useState([
-    ["10", "20", "30", "40", "50", "60", "70"],
+    [10, 20, 30, 40, 50, 60, 70],
   ]);
   const [customDuration, setCustomDuration] = useState([
-    ["30", "60", "90", "120", "150", "180", "210"],
+    [30, 60, 90, 120, 150, 180, 210],
   ]);
   const dispatch = useDispatch();
 
@@ -66,15 +66,23 @@ const Services = () => {
           {
             serviceName: "",
             description: "",
-            duration: "",
-            price: "",
-            capacity: "",
+            duration: null,
+            price: null,
+            capacity: null,
           },
         ],
       }}
       onSubmit={(values) => {
-        const newServices = values.services;
-        debugger;
+        const newServices = [
+          {
+            serviceName: values.services[0].serviceName,
+            description: values.services[0].description,
+            duration: parseInt(values.services[0].duration),
+            price: parseInt(values.services[0].price),
+            capacity: parseInt(values.services[0].capacity),
+          },
+        ];
+
         console.log(newServices);
         dispatch({ type: ADDSERVICES, payload: newServices });
       }}
@@ -150,7 +158,7 @@ const Services = () => {
                         <p>Add duration manually</p>
                         <input
                           className={styles.manualInput}
-                          type="text"
+                          type="number"
                           name="durationName"
                           value={duration}
                           onChange={(e) => setDuration(e.target.value)}
@@ -193,7 +201,7 @@ const Services = () => {
                         ></Field> */}
                         <input
                           className={styles.manualInput}
-                          type="text"
+                          type="number"
                           name="priceName"
                           value={price}
                           onChange={(e) => setPrice(e.target.value)}

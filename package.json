@@ -9,6 +9,8 @@
     "@testing-library/user-event": "^12.8.3",
     "antd": "^4.15.4",
     "bootstrap": "^4.6.0",
+    "date-fns": "^2.21.3",
+    "emailjs-com": "^2.6.4",
     "firebase": "^8.4.1",
     "formik": "^2.2.6",
     "install": "^0.13.0",

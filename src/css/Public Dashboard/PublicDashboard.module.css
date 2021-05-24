@@ -1,6 +1,6 @@
 .wrapper {
   background: #e5e5e5;
-  height: 3000px;
+  min-height: auto;
 }
 .top {
   margin: 25px;

@@ -1,51 +1,28 @@
-import React from 'react'
-import styles from "../../css/Public Dashboard/Search.module.css"
-import { useFormik } from "formik"
-import DatePicker from "react-datepicker";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import "react-datepicker/dist/react-datepicker.css";
-import "../../css/DatePicker.css"
-
+import React, { useState, useEffect } from "react";
+import SearchContainer from "./SearchContainer";
+import SearchedCompanies from "./SearchedCompanies";
+import { useSelector } from "react-redux";
 const Search = () => {
-    const formik = useFormik({
-        initialValues: {
-            serviceName: "",
-            date: new Date()
-        },
-        onSubmit: (values) => {
-            debugger;
-            console.log(values);
-        }
-    })
-    return (
-        <div style={{ position: "relative", width: "100%" }}>
-            <div className={styles.searchContainer}>
-                <form className={styles.customForm} onSubmit={formik.handleSubmit}>
-                    <div className={styles.input}>
-                        <label className="text-left" for="serviceName">Service</label>
-                        <input type="text" className={styles.customInput} id="serviceName" name="serviceName" value={formik.values.serviceName} onChange={formik.handleChange}></input>
-                    </div>
-                    <div className={styles.input}>
-                        <label className="text-left" for="date">Date</label>
+  const [foundServices, setFoundServices] = useState();
 
-                        <DatePicker selected={formik.values.date}
-                            onChange={date => formik.setFieldValue("date", date)}
-                            minDate={new Date()}
-                            placeholderText="Select a day">
+  const handleSearchSubmit = (filteredServices) => {
+    setFoundServices(filteredServices);
+  };
 
-                        </DatePicker>
-                    </div>
-                    <div className={styles.input}>
-                        <button className={styles.customButton} type="submit" > Search</button>
-                    </div>
+  useEffect(() => {
+    console.log(foundServices);
+  }, [foundServices]);
 
-                </form>
-            </div>
-        </div >
+  return (
+    <>
+      <SearchContainer
+        handleSearchSubmit={handleSearchSubmit}
+      ></SearchContainer>
+      {foundServices != undefined && (
+        <SearchedCompanies services={foundServices}></SearchedCompanies>
+      )}
+    </>
+  );
+};
 
-    )
-}
-
-export default Search
+export default Search;

@@ -1,0 +1,82 @@
+.searchedCompanies {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.companyInfo {
+  width: 30%;
+  height: 677px;
+  margin: 32px;
+  margin-left: 0;
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0px 4px 25px rgba(24, 28, 75, 0.1);
+  border-radius: 8px;
+}
+.companyInfo img {
+  margin-top: 24px;
+  width: 50%;
+  height: 50%;
+}
+.info {
+  padding: 24px;
+}
+.info h1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 40px;
+  /* identical to box height, or 125% */
+
+  letter-spacing: 0.001em;
+
+  /* Gray 1 */
+
+  color: #333333;
+  margin-bottom: 12px;
+}
+.info > p {
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 28px;
+  /* or 140% */
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 140px;
+  letter-spacing: 0.001em;
+
+  /* Gray 3 */
+
+  color: #828282;
+  margin-bottom: 16px;
+}
+.details p {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: Rubik;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  /* identical to box height, or 140% */
+
+  margin-bottom: 8px;
+
+  /* Gray 3 */
+
+  color: #828282;
+}
+.details svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
