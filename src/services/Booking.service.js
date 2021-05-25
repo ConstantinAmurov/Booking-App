@@ -83,7 +83,6 @@ export function verifyAvailabity(
   totalCapacity,
   requestCapacity
 ) {
-  debugger;
   var tempCapacity = [];
   var valid = false;
   newReservationIntervals.map(async (interval, index) => {

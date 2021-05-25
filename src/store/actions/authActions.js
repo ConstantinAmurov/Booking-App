@@ -1,5 +1,5 @@
 import firebase from "../../Firebase";
-import { useHistory } from "react-router-dom";
+import { useFirebase } from "react-redux-firebase";
 import { addNewUser, addNewSocialUser } from "../../contexts/DatabaseContext";
 export async function login(props) {
   const { email, password } = props;
@@ -19,24 +19,9 @@ export async function login(props) {
     });
 }
 
-export async function register(props) {
-  const { firstName, lastName, email, password } = props;
-
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      // Signed in
-      var user = userCredential.user;
-      addNewUser(props);
-      // ...
-    })
-    .catch((error) => {
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      // ..
-    });
-}
+export const createNewUser = async ({ email, password, username }) => {
+  return await firebase.createUser({ email, password }, { username, email });
+};
 
 export async function signOut() {
   firebase
@@ -51,20 +36,8 @@ export async function signOut() {
 }
 
 export async function signUpWithSocialMedia(provider) {
-  try {
-    await firebase
-      .auth()
-      .signInWithPopup(provider)
-      .then((cred) => {
-        addNewSocialUser(cred.user);
-      });
-  } catch (error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    // The email of the user's account used.
-    var email = error.email;
-    // The firebase.auth.AuthCredential type that was used.
-    var credential_1 = error.credential;
-  }
+  await firebase.login({
+    provider: provider,
+    type: "popup",
+  });
 }

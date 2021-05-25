@@ -7,8 +7,10 @@ import FormInput from "../FormInput";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { facebookProvider, googleProvider } from "../../Firebase";
 import { useAuth } from "../../contexts/AuthContext";
+import { app } from "../../Firebase";
+import firebase from "../../Firebase";
 import {
-  register,
+  createNewUser,
   signUpWithSocialMedia,
 } from "../../store/actions/authActions";
 import {
@@ -66,10 +68,20 @@ const CreateAccount = () => {
           email,
           password,
         };
-        await register(newUser);
 
-        history.push("/");
-        console.log(newUser);
+        const createdUser = await createNewUser({
+          email: email,
+          password: password,
+          username: firstName,
+        });
+        createdUser != null
+          ? firebase.login({
+              email: createdUser.email,
+              password: password,
+            })
+          : console.log("Error at creating acount");
+
+        history.push("/dashboard");
       }
     } catch {
       console.log("Failed to create an account");
@@ -83,15 +95,19 @@ const CreateAccount = () => {
         <h1>Create Account</h1>
         <button
           class={styles.btngoogle}
-          onClick={() => signUpWithSocialMedia(googleProvider)}
+          onClick={async () => {
+            await signUpWithSocialMedia("google");
+            history.push("/dashboard");
+          }}
         >
           <img className={styles.icon} src={googleLogo}></img>sign up with
           google
         </button>
         <button
           class={styles.btnfacebook}
-          onClick={() => {
-            signUpWithSocialMedia(facebookProvider);
+          onClick={async () => {
+            await signUpWithSocialMedia("facebook");
+            history.push("/dashboard");
           }}
         >
           {" "}

@@ -22,7 +22,7 @@ const Confirmation = ({ values }) => {
     date: format(values.startTime, "MM/dd/yyyy"),
     hour: getHours(values.startTime) + ":" + getMinutes(values.startTime),
   };
-  debugger;
+
   emailjs
     .send(
       emailjsParams.SERVICE_ID,

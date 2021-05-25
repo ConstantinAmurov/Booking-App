@@ -4,6 +4,7 @@ import FormInput from "../FormInput";
 import styles from "../../css/forgotpassword.module.css";
 import { useAuth } from "../../contexts/AuthContext";
 import { validateReset } from "../../services/ValidateForm.service";
+import { firebaseReducer, useFirebase } from "react-redux-firebase";
 const forgotPassImg = require("../../img/forgot-password.svg").default;
 
 const ForgotPassword = () => {
@@ -13,7 +14,7 @@ const ForgotPassword = () => {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   var [emailError, setEmailError] = useState("");
-  const { resetPassword } = useAuth();
+  const firebase = useFirebase();
   const onChange = (e) => {
     setEmail(e.target.value);
   };
@@ -24,9 +25,8 @@ const ForgotPassword = () => {
 
     try {
       setMessage("");
-      console.log(email);
       setLoading(true);
-      await resetPassword(email);
+      firebase.auth().sendPasswordResetEmail(email);
       setMessage("Check your inbox for further instructions");
     } catch {
       console.log("Failed to reset password");

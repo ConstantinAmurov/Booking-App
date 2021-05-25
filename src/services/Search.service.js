@@ -62,7 +62,7 @@ export async function filterCompaniesByServices(foundServices) {
 
   const promises = foundServices.map(async (service) => {
     const foundCompany = await getCompanyById(service.companyId);
-
+    debugger;
     return {
       ...service,
       companyName: foundCompany.name,
@@ -70,6 +70,7 @@ export async function filterCompaniesByServices(foundServices) {
       imgURL: foundCompany.imgURL,
     };
   });
+  debugger;
   const filteredServices = await Promise.all(promises);
   return filteredServices;
 }

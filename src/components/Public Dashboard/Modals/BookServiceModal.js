@@ -7,7 +7,6 @@ import UserInformation from "../Forms/UserInformationForm";
 import Confirmation from "../Confirmation";
 import addMinutes from "date-fns/addMinutes";
 const BookServiceModal = ({ service }) => {
-  debugger;
   const handleSectionChange = (section, values) => {
     if (section == "user-information") {
       setSection(
@@ -24,7 +23,6 @@ const BookServiceModal = ({ service }) => {
       );
     }
     if (section == "confirmation") {
-      debugger;
       setSection(
         <Confirmation
           values={{

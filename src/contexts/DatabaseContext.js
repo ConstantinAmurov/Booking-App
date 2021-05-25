@@ -25,17 +25,29 @@ export function addNewSocialUser(user) {
 }
 export async function getCompanyById(id) {
   var company = null;
-
-  const response = await db
+  debugger;
+  await db
     .collection("companies")
     .doc(id)
     .get()
     .then((snapshot) => {
       company = snapshot.data();
-
-      console.log("succesfuly  found comapany with id " + snapshot.id);
+      debugger;
+      console.log("succesfuly  found company with id " + snapshot.id);
     });
+
   return company;
+}
+export async function getUserCompanies(companies) {
+  var extractedCompanies = [];
+  await db
+    .collection("companies")
+    .where(firebase.firestore.FieldPath.documentId(), "in", companies)
+    .get()
+    .then((querySnapshots) => {
+      querySnapshots.forEach((doc) => extractedCompanies.push(doc.data()));
+    });
+  return extractedCompanies;
 }
 export async function getCompanies() {
   var companies = [];
