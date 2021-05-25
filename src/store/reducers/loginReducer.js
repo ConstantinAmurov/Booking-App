@@ -11,6 +11,7 @@ const loginReducer = (state = initialState, action) => {
       user: action.user,
     };
   }
+
   if (action.type === SIGNSTATE_CHANGED) {
     return {
       isLogged: !state.isLogged,

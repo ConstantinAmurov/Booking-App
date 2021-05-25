@@ -17,4 +17,7 @@ export var facebookProvider = new firebase.auth.FacebookAuthProvider();
 const app = firebase.initializeApp(firebaseConfig);
 export const auth = app.auth();
 export const db = firebase.firestore();
+export const rrfConfig = {
+  userProfile: "users",
+};
 export default app;

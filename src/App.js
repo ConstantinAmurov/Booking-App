@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { init } from "emailjs-com";
+
 import Login from "./components/Login/Login";
 import ForgotPassword from "./components/Login/ForgotPassword";
 import Register from "./components/Login/Register";
@@ -20,19 +20,19 @@ import "./css/App.css";
 function App(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
-  init("user_L0sCQKCJhZz227B29S0zM");
+  debugger;
   useEffect(async () => {
     const services = await getAllServices();
 
     dispatch({ type: GETSERVICES, payload: services });
 
-    const unsubscribe = auth.onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       dispatch({ type: "SIGNSTATE_CHANGED", user: user });
     });
-    return unsubscribe;
   }, []);
+
   return (
-    <>
+    <div>
       <Router>
         <Switch>
           <PrivateRoute
@@ -48,7 +48,7 @@ function App(props) {
           <Route path="/" component={PublicDashboard}></Route>
         </Switch>
       </Router>
-    </>
+    </div>
   );
 }
 

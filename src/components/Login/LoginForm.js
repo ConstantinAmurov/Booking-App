@@ -44,8 +44,7 @@ const LoginAccount = () => {
       await signUpWithSocialMedia(provider);
 
       history.push("/");
-    }
-    catch {
+    } catch {
       console.log("Failed to log in with social media");
     }
   }
@@ -67,7 +66,7 @@ const LoginAccount = () => {
         };
 
         dispatch({ type: SIGNIN, user: user });
-        history.push("/");
+        history.push("/dashboard");
       }
     } catch {
       console.log("user not found");
@@ -109,9 +108,16 @@ const LoginAccount = () => {
         </form>
         <div className={styles.socialMedia}>
           <p>Login with social media</p>
-          <img onClick={() => handleSocialMediaSignIn(googleProvider)} className={styles.icon} src={googleLogo}></img>
-          <img onClick={() => handleSocialMediaSignIn(facebookProvider)} className={styles.icon} src={facebookLogo}></img>
-
+          <img
+            onClick={() => handleSocialMediaSignIn(googleProvider)}
+            className={styles.icon}
+            src={googleLogo}
+          ></img>
+          <img
+            onClick={() => handleSocialMediaSignIn(facebookProvider)}
+            className={styles.icon}
+            src={facebookLogo}
+          ></img>
         </div>
         <div>
           <span>
