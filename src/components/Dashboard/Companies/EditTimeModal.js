@@ -4,19 +4,34 @@ import { FiX } from "react-icons/fi";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
 import "../../../css/Dashboard/AddCompanyModal.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import { useDispatch } from "react-redux";
+import { RESETSTATE } from "../../../store/actions/actionTypes";
 import DaySelector from "./DaySelector";
 
-const EditTimeModal = ({ index }) => {
+const EditTimeModal = ({ index, service, mode }) => {
+  const dispatch = useDispatch();
   const [isOpen, setIsOpen] = React.useState(false);
   const showModal = () => {
     setIsOpen(true);
-    document.getElementById("company-modal").style.opacity = "0";
+
+    if (mode == "edit-service") {
+      document.getElementById("edit-service-modal").style.opacity = "0";
+    } else if (mode == "add-service") {
+      document.getElementById("add-service-modal").style.opacity = "0";
+    } else {
+      document.getElementById("company-modal").style.opacity = "0";
+    }
   };
 
   const hideModal = () => {
     setIsOpen(false);
-    document.getElementById("company-modal").style.opacity = "1";
+    if (mode == "edit-service") {
+      document.getElementById("edit-service-modal").style.opacity = "1";
+    } else if (mode == "add-service") {
+      document.getElementById("add-service-modal").style.opacity = "1";
+    } else {
+      document.getElementById("company-modal").style.opacity = "1";
+    }
   };
   return (
     <>
@@ -31,13 +46,48 @@ const EditTimeModal = ({ index }) => {
           </button>
         </Modal.Header>
         <Modal.Body className={styles.modalBody}>
-          <DaySelector index={index} day="SUNDAY"></DaySelector>
-          <DaySelector index={index} day="MONDAY"></DaySelector>
-          <DaySelector index={index} day="TUESDAY"></DaySelector>
-          <DaySelector index={index} day="WEDNESDAY"></DaySelector>
-          <DaySelector index={index} day="THURSDAY"></DaySelector>
-          <DaySelector index={index} day="FRIDAY"></DaySelector>
-          <DaySelector index={index} day="SATURDAY"></DaySelector>
+          <DaySelector
+            index={index}
+            service={service}
+            mode={mode}
+            day="SUNDAY"
+          ></DaySelector>
+          <DaySelector
+            index={index}
+            service={service}
+            mode={mode}
+            day="MONDAY"
+          ></DaySelector>
+          <DaySelector
+            index={index}
+            service={service}
+            mode={mode}
+            day="TUESDAY"
+          ></DaySelector>
+          <DaySelector
+            index={index}
+            service={service}
+            mode={mode}
+            day="WEDNESDAY"
+          ></DaySelector>
+          <DaySelector
+            index={index}
+            service={service}
+            mode={mode}
+            day="THURSDAY"
+          ></DaySelector>
+          <DaySelector
+            index={index}
+            service={service}
+            mode={mode}
+            day="FRIDAY"
+          ></DaySelector>
+          <DaySelector
+            index={index}
+            service={service}
+            mode={mode}
+            day="SATURDAY"
+          ></DaySelector>
         </Modal.Body>
       </Modal>
     </>

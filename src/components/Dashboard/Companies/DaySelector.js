@@ -16,7 +16,7 @@ import {
 } from "../../../store/actions/actionTypes";
 import { useSelector } from "react-redux";
 
-const DaySelector = ({ index, day }) => {
+const DaySelector = ({ index, day, service, mode }) => {
   const days = useSelector((state) => state.day[index]);
 
   const specificDay = days.filter((weekDay) => weekDay.day === day);

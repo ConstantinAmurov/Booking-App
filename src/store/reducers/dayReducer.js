@@ -1,8 +1,11 @@
 import {
   UPDATEWORKINGSTATE,
   ADDNEWSERVICE,
+  SETEDITSERVICEMODE,
+  SETADDSERVICEMODE,
   UPDATEOPENTIMESTATE,
   UPDATECLOSETIMESTATE,
+  RESETSTATE,
 } from "../actions/actionTypes";
 
 //initialState = day
@@ -68,10 +71,12 @@ const initialState = [
   ],
 ];
 
+// var mode = "add-service";
+
 const dayReducer = (state = [...initialState], action) => {
   if (action.type === UPDATEWORKINGSTATE) {
     const { index, day, isWorking } = action.payload;
-    console.log("UPDATE STATE", initialState);
+
     const modifiedServiceState = state[index].map((serviceDay) => {
       if (serviceDay.day === day) {
         serviceDay.working = isWorking;
@@ -103,13 +108,39 @@ const dayReducer = (state = [...initialState], action) => {
       } else return serviceDay;
     });
     state[index] = modifiedServiceState;
+
     return [...state];
   }
 
   if (action.type === ADDNEWSERVICE) {
     const newService = [];
+
     newState.forEach((day) => newService.push({ ...day }));
     return [...state, [...newService]];
+  }
+  if (action.type === SETEDITSERVICEMODE) {
+    const newState = [];
+    action.services.forEach((service) => newState.push(service));
+    return [...newState];
+  }
+  // if (action.type === SETADDSERVICEMODE) {
+
+  //   if (mode == "add-service") {
+  //     return state;
+  //   }
+  //   mode = "add-service";
+  //   const newService = [];
+
+  //   newState.forEach((day) => newService.push({ ...day }));
+
+  //   return [[...newService]];
+  // }
+
+  if (action.type === RESETSTATE) {
+    const newService = [];
+
+    newState.forEach((day) => newService.push({ ...day }));
+    return [[...newService]];
   }
 
   return state;

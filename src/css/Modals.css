@@ -1,0 +1,9 @@
+#book-service-modal {
+  min-height: 620px;
+}
+#book-service-modal .modal-content {
+  min-height: 620px;
+}
+#book-service-modal form > div {
+  margin-bottom: 32px;
+}

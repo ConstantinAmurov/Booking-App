@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styles from "../../css/login.module.css";
 import FormInput from "../FormInput";
-import firebase from "../../Firebase";
 import { facebookProvider, googleProvider } from "../../Firebase";
-import { authActions } from "../../store/app";
+import { signUpWithSocialMedia } from "../../store/actions/authActions";
 import { useSelector, useDispatch } from "react-redux";
-
+import { firebaseReducer, useFirebase } from "react-redux-firebase";
 // import { useAuth } from "../../contexts/AuthContext";
 import {
   validateForm,
@@ -15,11 +14,12 @@ import {
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import googleLogo from "../../img/google-icon.svg";
 import facebookLogo from "../../img/facebook-icon.svg";
-import { login, signUpWithSocialMedia } from "../../store/actions/authActions";
+
 import { SIGNIN } from "../../store/actions/actionTypes";
 const LoginAccount = () => {
   const dispatch = useDispatch();
-
+  const firebase = useFirebase();
+  const history = useHistory();
   const [visible, setVisible] = useState(false);
   const [, updateState] = useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -37,18 +37,7 @@ const LoginAccount = () => {
   // const { login } = useAuth();
 
   const [loading, setLoading] = useState(false);
-  const history = useHistory();
 
-  async function handleSocialMediaSignIn(provider) {
-    try {
-      await signUpWithSocialMedia(provider);
-
-      history.push("/");
-    }
-    catch {
-      console.log("Failed to log in with social media");
-    }
-  }
   const onChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
@@ -61,13 +50,13 @@ const LoginAccount = () => {
     try {
       if (validateForm(errors)) {
         setLoading(true);
-        const user = {
-          email,
-          password,
-        };
 
-        dispatch({ type: SIGNIN, user: user });
-        history.push("/");
+        firebase.login({
+          email: email,
+          password: password,
+        });
+
+        history.push("/dashboard");
       }
     } catch {
       console.log("user not found");
@@ -109,9 +98,24 @@ const LoginAccount = () => {
         </form>
         <div className={styles.socialMedia}>
           <p>Login with social media</p>
-          <img onClick={() => handleSocialMediaSignIn(googleProvider)} className={styles.icon} src={googleLogo}></img>
-          <img onClick={() => handleSocialMediaSignIn(facebookProvider)} className={styles.icon} src={facebookLogo}></img>
-
+          <img
+            onClick={async () => {
+              await signUpWithSocialMedia("google");
+              debugger;
+              history.push("/dashboard");
+            }}
+            className={styles.icon}
+            src={googleLogo}
+          ></img>
+          <img
+            onClick={() =>
+              signUpWithSocialMedia("facebook").then(() =>
+                history.push("/dashboard")
+              )
+            }
+            className={styles.icon}
+            src={facebookLogo}
+          ></img>
         </div>
         <div>
           <span>

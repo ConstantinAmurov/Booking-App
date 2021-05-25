@@ -14,7 +14,11 @@ const firebaseConfig = {
 };
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
 export var facebookProvider = new firebase.auth.FacebookAuthProvider();
-const app = firebase.initializeApp(firebaseConfig);
+export const app = firebase.initializeApp(firebaseConfig);
 export const auth = app.auth();
 export const db = firebase.firestore();
-export default app;
+export const rrfConfig = {
+  userProfile: "users",
+  useFirestoreForProfile: true, // Firestore for Profile instead of Realtime DB
+};
+export default firebase;

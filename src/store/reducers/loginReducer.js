@@ -1,7 +1,7 @@
 import { SIGNIN, SIGNSTATE_CHANGED, LOGOUT } from "../actions/actionTypes";
 import { signOut } from "../actions/authActions";
 import { login } from "../../store/actions/authActions";
-const initialState = { isLogged: false, user: {} };
+const initialState = { isLogged: false, user: null };
 
 const loginReducer = (state = initialState, action) => {
   if (action.type === SIGNIN) {
@@ -11,6 +11,7 @@ const loginReducer = (state = initialState, action) => {
       user: action.user,
     };
   }
+
   if (action.type === SIGNSTATE_CHANGED) {
     return {
       isLogged: !state.isLogged,

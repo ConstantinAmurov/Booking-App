@@ -1,0 +1,59 @@
+.companyName {
+  margin-bottom: 32px;
+}
+.companyName h1 {
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 38px;
+}
+.companyName p {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.fields {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+
+  width: 1026px;
+  height: 46px;
+  padding: 16px 40px;
+  background: #f1f5f8;
+  border-radius: 10px;
+}
+
+.fields p {
+  font-weight: 500;
+  font-size: 14px;
+  width: 16.6%;
+}
+.appointment {
+  padding: 24px 40px;
+  display: flex;
+  flex-direction: row;
+}
+.appointment .info {
+  width: 16.6%;
+}
+.appointment .info h3 {
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+.appointment .info p {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #828282;
+  margin-bottom: 4px;
+  padding: 0;
+}
+.customHr {
+  /* Gray 4 */
+  margin: 0;
+
+  border: 1px dashed #bdbdbd;
+}

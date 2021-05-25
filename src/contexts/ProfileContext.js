@@ -1,8 +1,10 @@
-import { addCompany } from "./DatabaseContext";
-import { addServices } from "./DatabaseContext";
+import { addCompany, addServices, addReservation } from "./DatabaseContext";
+
+import { createIntervals } from "../services/Booking.service";
 
 export async function saveCompany(newCompany, services, servicesDayWorking) {
   var AddedServicesIDs = [];
+  var generatedIntervals = [];
   if (services === undefined) {
     await addCompany({ newCompany, AddedServicesIDs });
   } else {
@@ -17,6 +19,13 @@ export async function saveCompany(newCompany, services, servicesDayWorking) {
     for (const service of arrayOfServices) {
       const extractedID = await addServices(service);
       AddedServicesIDs.push(extractedID);
+      generatedIntervals = createIntervals(
+        service.serviceDetails.capacity,
+        service.serviceDetails.duration,
+        service.serviceDayWorking
+      );
+
+      // await addReservation(extractedID, generatedIntervals);
     }
     try {
       await addCompany({ newCompany, AddedServicesIDs });

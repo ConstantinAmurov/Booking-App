@@ -4,24 +4,24 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "../../store/actions/authActions";
-
+import { useFirebase } from "react-redux-firebase";
 import { LOGOUT } from "../../store/actions//actionTypes";
 
 const TopNav = () => {
   const dispatch = useDispatch();
+  const firebase = useFirebase();
 
   //get companies and services from database
   useEffect(async () => {}, []);
-
-  const user = useSelector((state) => state.user.user);
-
+  const user = useSelector((state) => state.firebase.auth);
   const history = useHistory();
 
   const userName = user.displayName;
   const photoURL = user.photoURL;
 
   function handleSignOut() {
-    dispatch({ type: LOGOUT });
+    firebase.logout();
+    history.push("/");
   }
 
   return (

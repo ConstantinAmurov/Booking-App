@@ -4,11 +4,16 @@ import { FiEdit2, FiTrash2 } from "react-icons/fi";
 import DeleteButton from "../Modals/DeleteModal";
 import EditButton from "../Modals/EditModal";
 import ViewCompany from "../Modals/ViewCompanyModal";
-const Company = (props) => {
+import { useSelector } from "react-redux";
+
+const Company = () => {
+  const companies = useSelector((state) => state.company.companies);
+
+  debugger;
   return (
     <div className={styles.companies}>
-      {props.companies.length &&
-        props.companies.map((company, index) => (
+      {companies.length != 0 &&
+        companies.map((company, index) => (
           <div key={index} className={styles.company}>
             <div className={styles.details}>
               <div>
@@ -37,6 +42,7 @@ const Company = (props) => {
             </div>
           </div>
         ))}
+      {companies.length == 0 && <h3>You have no registered companies</h3>}
     </div>
   );
 };

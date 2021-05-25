@@ -45,7 +45,7 @@
 form p {
   display: block;
   color: var(--gray-2);
-  padding-left: 0.5rem;
+  /* padding-left: 0.5rem; */
 }
 .sign-up-form {
   background: #ffffff;

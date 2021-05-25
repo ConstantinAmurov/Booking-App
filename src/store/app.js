@@ -4,12 +4,15 @@ import loginReducer from "./reducers/loginReducer";
 import companyReducer from "./reducers/companyReducer";
 import dayReducer from "./reducers/dayReducer";
 import serviceReducer from "./reducers/servicesReducer";
+import { firebaseReducer } from "react-redux-firebase";
 const rootReducer = combineReducers({
-  user: loginReducer,
+  firebase: firebaseReducer,
   company: companyReducer,
   day: dayReducer,
   services: serviceReducer,
 });
+
+// react-redux-firebase config
 
 const store = createStore(
   rootReducer,

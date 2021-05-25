@@ -14,7 +14,7 @@ const Menu = ({ selected }) => {
           <p>Booking.app</p>
         </div>
         <div id="dashboard">
-          <Link to="/">
+          <Link to="/dashboard">
             <button>
               <FiGrid></FiGrid> Dashboard
             </button>

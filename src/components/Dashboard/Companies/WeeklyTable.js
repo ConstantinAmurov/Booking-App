@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
 import { useSelector } from "react-redux";
-const WeeklyTable = ({ index }) => {
-  const days = useSelector((state) => state.day[index]);
+const WeeklyTable = ({ index, service, mode }) => {
+  var days = useSelector((state) => state.day[index]);
 
   return (
     <div className={styles.weeklyTable}>

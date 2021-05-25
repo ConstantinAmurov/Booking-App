@@ -1,6 +1,8 @@
 import { db } from "../Firebase";
 import firebase from "firebase/app";
-
+import { addMilliseconds, addMinutes, isEqual } from "date-fns";
+import { createIntervals, verifyAvailabity } from "../services/Booking.service";
+import setMilliseconds from "date-fns/setMilliseconds";
 export function addNewUser(props, user) {
   const { firstName, lastName, email, password } = props;
   db.collection("users").doc(user.uid).set({
@@ -21,7 +23,32 @@ export function addNewSocialUser(user) {
     email: user.email,
   });
 }
+export async function getCompanyById(id) {
+  var company = null;
+  debugger;
+  await db
+    .collection("companies")
+    .doc(id)
+    .get()
+    .then((snapshot) => {
+      company = snapshot.data();
+      debugger;
+      console.log("succesfuly  found company with id " + snapshot.id);
+    });
 
+  return company;
+}
+export async function getUserCompanies(companies) {
+  var extractedCompanies = [];
+  await db
+    .collection("companies")
+    .where(firebase.firestore.FieldPath.documentId(), "in", companies)
+    .get()
+    .then((querySnapshots) => {
+      querySnapshots.forEach((doc) => extractedCompanies.push(doc.data()));
+    });
+  return extractedCompanies;
+}
 export async function getCompanies() {
   var companies = [];
   await db
@@ -52,7 +79,7 @@ export async function deleteCompany(id) {
 
 export async function addCompany(props) {
   const { newCompany, AddedServicesIDs } = props;
-
+  var docRef_id;
   await db
     .collection("companies")
     .add({
@@ -64,9 +91,19 @@ export async function addCompany(props) {
     })
     .then((docRef) => {
       console.log("Written Company with ID of ", docRef.id);
+      docRef_id = docRef.id;
     });
+
+  for (const serviceId of AddedServicesIDs) {
+    await editServices(serviceId, docRef_id);
+  }
 }
 
+export async function editServices(serviceId, companyId) {
+  await db.collection("services").doc(serviceId).update({
+    companyId: companyId,
+  });
+}
 export async function editCompany(id, editedCompany) {
   await db
     .collection("companies")
@@ -92,6 +129,45 @@ export async function addServices(props) {
   return doc_ref.id;
 }
 
+export async function addService(
+  company,
+  editedServiceWorkingDays,
+  editedService
+) {
+  //adding service to DB
+
+  const service_doc_ref = await db.collection("services").add({
+    serviceName: editedService.serviceName,
+    description: editedService.description,
+    duration: editedService.duration,
+    price: editedService.price,
+    capacity: editedService.capacity,
+    workingDays: editedServiceWorkingDays,
+  });
+
+  //adding ID of the added service to company
+  company.services.push(service_doc_ref.id);
+  await db.collection("companies").doc(company.id).update({
+    services: company.services,
+  });
+}
+
+export async function editService(
+  id,
+
+  editedServiceWorkingDays,
+  editedService
+) {
+  await db.collection("services").doc(id).update({
+    capacity: editedService.capacity,
+    description: editedService.description,
+    duration: editedService.duration,
+    price: editedService.price,
+    serviceName: editedService.serviceName,
+    workingDays: editedServiceWorkingDays,
+  });
+}
+
 export async function getServices(props) {
   //props = array of IDS or one ID
 
@@ -110,6 +186,23 @@ export async function getServices(props) {
   }
   return services;
 }
+
+export async function getServicesByName(serviceName) {
+  var foundServices = [];
+
+  await db
+    .collection("services")
+    .where("serviceName", ">=", serviceName)
+    .where("serviceName", "<", serviceName + "z")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        foundServices.push({ id: doc.id, data: doc.data() });
+      });
+    });
+
+  return foundServices;
+}
 export async function getAllServices() {
   var services = [];
 
@@ -119,7 +212,6 @@ export async function getAllServices() {
     .then((snapshot) => {
       snapshot.docs.forEach((doc) => {
         const service = { ...doc.data(), id: doc.id };
-
         services.push(service);
       });
     });
@@ -138,4 +230,116 @@ export async function deleteService(id) {
     .catch((error) => {
       console.error("Error removing document: ", error);
     });
+}
+
+export async function isValidReservation(
+  serviceId,
+  serviceDuration,
+  serviceCapacity,
+  values
+) {
+  const { duration, capacity, hour } = values;
+
+  const startTimeStamp = firebase.firestore.Timestamp.fromDate(hour);
+  const endTimeStamp = firebase.firestore.Timestamp.fromDate(
+    addMinutes(hour, duration)
+  );
+
+  var foundReservationIntervals = [];
+
+  await db
+    .collection("reservations")
+    .where("serviceId", "==", serviceId)
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        var reservation = doc.data();
+        var createdIntervals = createIntervals(
+          serviceDuration,
+          reservation.startTime.toDate(),
+          reservation.endTime.toDate()
+        );
+
+        foundReservationIntervals.push({
+          intervals: createdIntervals,
+          capacity: reservation.capacity,
+        });
+      });
+    });
+
+  if (foundReservationIntervals == null) {
+    // const reservation = await db
+    //   .collection("reservations")
+    //   .add({
+    //     serviceId: serviceId,
+    //     startTime: startTimeStamp,
+    //     endTime: endTimeStamp,
+    //     capacity: capacity,
+    //   })
+    //   .then((docRef) => {
+    //     console.log("Written Reservation with ID of ", docRef.id);
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error adding reservation: ", error);
+    //   });
+  } else {
+    //algorithm for finding similar reservations and verifying their capcity
+
+    var newReservationIntervals = createIntervals(
+      serviceDuration,
+      hour,
+      addMinutes(hour, duration)
+    );
+    var valid = verifyAvailabity(
+      newReservationIntervals,
+      foundReservationIntervals,
+      serviceCapacity,
+      capacity
+    );
+    // if (valid) {
+    //   const reservation = await db
+    //     .collection("reservations")
+    //     .add({
+    //       serviceId: serviceId,
+    //       startTime: startTimeStamp,
+    //       endTime: endTimeStamp,
+    //       capacity: capacity,
+    //     })
+    //     .then((docRef) => {
+    //       console.log("Written Reservation with ID of ", docRef.id);
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error adding reservation: ", error);
+    //     });
+    // } else {
+    //   console.log("No places left for the inserted interval");
+    // }
+    return valid;
+  }
+}
+
+export async function addReservation(reservation) {
+  const { capacity, serviceId, startTime, endTime, values } = reservation;
+  const startTimeStamp = firebase.firestore.Timestamp.fromDate(startTime);
+  const endTimeStamp = firebase.firestore.Timestamp.fromDate(endTime);
+
+  var reservationId = null;
+  await db
+    .collection("reservations")
+    .add({
+      serviceId: serviceId,
+      startTime: startTimeStamp,
+      endTime: endTimeStamp,
+      capacity: capacity,
+      clientInfo: values,
+    })
+    .then((docRef) => {
+      console.log("Written Reservation with ID of ", docRef.id);
+      reservationId = docRef.id;
+    })
+    .catch((error) => {
+      console.error("Error adding reservation: ", error);
+    });
+
+  return reservationId;
 }
