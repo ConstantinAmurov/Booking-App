@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import { addMilliseconds, addMinutes, isEqual } from "date-fns";
 import { createIntervals, verifyAvailabity } from "../services/Booking.service";
 import setMilliseconds from "date-fns/setMilliseconds";
+import format from "date-fns/format";
 export function addNewUser(props, user) {
   const { firstName, lastName, email, password } = props;
   db.collection("users").doc(user.uid).set({
@@ -284,7 +285,6 @@ export async function isValidReservation(
     //   });
   } else {
     //algorithm for finding similar reservations and verifying their capcity
-
     var newReservationIntervals = createIntervals(
       serviceDuration,
       hour,
@@ -301,7 +301,9 @@ export async function isValidReservation(
 }
 
 export async function addReservation(reservation) {
-  const { capacity, serviceId, startTime, endTime, values } = reservation;
+  debugger;
+  const { capacity, totalPrice, serviceId, startTime, endTime, values } =
+    reservation;
   const startTimeStamp = firebase.firestore.Timestamp.fromDate(startTime);
   const endTimeStamp = firebase.firestore.Timestamp.fromDate(endTime);
 
@@ -314,6 +316,7 @@ export async function addReservation(reservation) {
       endTime: endTimeStamp,
       capacity: capacity,
       clientInfo: values,
+      price: totalPrice,
     })
     .then((docRef) => {
       console.log("Written Reservation with ID of ", docRef.id);
@@ -348,25 +351,43 @@ export async function getReservations() {
 
   var extractedCompanies = await getUserCompanies(extractedCompaniesIds);
 
-  var filteredReservations = extractedReservations.map((reservation) => {
-    var serviceName = extractedServices.map((service) => {
-      if (service.id === reservation.serviceId) {
-        return service.data.serviceName;
-      }
-    });
+  // var filteredReservations = extractedReservations.map((reservation) => {
+  //   var serviceName = extractedServices.map((service) => {
+  //     if (service.id === reservation.serviceId) {
+  //       return service.data.serviceName;
+  //     }
+  //   });
 
-    var companyName = extractedCompanies.map((company) => {
-      if (company.services.includes(reservation.serviceId)) {
-        return company.name;
-      }
+  //   var companyName = extractedCompanies.map((company) => {
+  //     if (company.services.includes(reservation.serviceId)) {
+  //       return company.name;
+  //     }
+  //   });
+
+  //   return {
+  //     ...reservation,
+  //     serviceName: serviceName,
+  //     companyName: companyName,
+  //   };
+  // });
+
+  var filteredReservations = extractedCompanies.map((company) => {
+    var reservations = extractedReservations.map((reservation) => {
+      return {
+        ...reservation,
+        serviceName: extractedServices
+          .map((service) => {
+            if (service.id === reservation.serviceId)
+              return service.data.serviceName;
+          })
+          .toString(),
+      };
     });
 
     return {
-      ...reservation,
-      serviceName: serviceName,
-      companyName: companyName,
+      companyName: company.name,
+      reservations: reservations,
     };
   });
-
   return filteredReservations;
 }

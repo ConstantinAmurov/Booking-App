@@ -18,6 +18,7 @@ const BookServiceModal = ({ service }) => {
             startTime: values.hour,
             endTime: addMinutes(values.hour, values.duration),
             capacity: values.capacity,
+            totalPrice: values.totalPrice,
           }}
         />
       );

@@ -77,6 +77,11 @@ export function createIntervals(serviceDuration, startTime, endTime) {
 
   return generatedInterval;
 }
+export function getIntervalsNumber(serviceDuration, startTime, endTime) {
+  var generatedInterval = [];
+  var minutesTotalWorking = differenceInMinutes(endTime, startTime);
+  return minutesTotalWorking / serviceDuration;
+}
 export function verifyAvailabity(
   newReservationIntervals,
   foundReservationIntervals,
@@ -110,4 +115,10 @@ export function verifyAvailabity(
   });
 
   return valid == true ? tempCapacity.some((el) => el < totalCapacity) : false;
+}
+
+export function calculatePrice(duration, startTime, endTime, price, capacity) {
+  var intervals = getIntervalsNumber(duration, startTime, endTime);
+
+  return intervals * price * capacity;
 }
