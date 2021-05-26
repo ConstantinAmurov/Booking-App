@@ -296,24 +296,6 @@ export async function isValidReservation(
       serviceCapacity,
       capacity
     );
-    // if (valid) {
-    //   const reservation = await db
-    //     .collection("reservations")
-    //     .add({
-    //       serviceId: serviceId,
-    //       startTime: startTimeStamp,
-    //       endTime: endTimeStamp,
-    //       capacity: capacity,
-    //     })
-    //     .then((docRef) => {
-    //       console.log("Written Reservation with ID of ", docRef.id);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error adding reservation: ", error);
-    //     });
-    // } else {
-    //   console.log("No places left for the inserted interval");
-    // }
     return valid;
   }
 }
@@ -342,4 +324,49 @@ export async function addReservation(reservation) {
     });
 
   return reservationId;
+}
+
+export async function getReservations() {
+  var extractedReservations = [];
+  await db
+    .collection("reservations")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc, index) => {
+        extractedReservations.push(doc.data());
+      });
+    });
+
+  var extractedServicesIds = extractedReservations.map(
+    (reservation) => reservation.serviceId
+  );
+  var extractedServices = await getServices(extractedServicesIds);
+
+  var extractedCompaniesIds = extractedServices.map(
+    (service) => service.data.companyId
+  );
+
+  var extractedCompanies = await getUserCompanies(extractedCompaniesIds);
+
+  var filteredReservations = extractedReservations.map((reservation) => {
+    var serviceName = extractedServices.map((service) => {
+      if (service.id === reservation.serviceId) {
+        return service.data.serviceName;
+      }
+    });
+
+    var companyName = extractedCompanies.map((company) => {
+      if (company.services.includes(reservation.serviceId)) {
+        return company.name;
+      }
+    });
+
+    return {
+      ...reservation,
+      serviceName: serviceName,
+      companyName: companyName,
+    };
+  });
+
+  return filteredReservations;
 }
