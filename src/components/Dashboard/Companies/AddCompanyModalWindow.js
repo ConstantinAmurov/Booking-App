@@ -12,7 +12,9 @@ import { useDispatch } from "react-redux";
 const AddCompanyModalWindow = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = React.useState(false);
-  const [activeSection, setActiveSection] = useState(<Profile></Profile>);
+  const [activeSection, setActiveSection] = useState(
+    <Profile mode={"add-company"}></Profile>
+  );
 
   const showModal = () => {
     setIsOpen(true);

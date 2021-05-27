@@ -11,7 +11,8 @@ export default function Dashboard() {
 
   useEffect(async () => {
     var userCompanies = [];
-    if (profile.companies != null) {
+
+    if (profile.companies != undefined) {
       userCompanies = await getUserCompanies(profile.companies);
     }
 
@@ -19,7 +20,7 @@ export default function Dashboard() {
 
     dispatch({ type: RESETSTATE });
   }, [profile.companies]);
-  debugger;
+
   return (
     <>
       <LeftMenu selected="dashboard"></LeftMenu>

@@ -1,13 +1,13 @@
 import React, { useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import styles from "../../../css/Dashboard/Dashboard.module.css";
-import {
-  filterOpenTime,
-  filterCloseTime,
-  setWorking,
-} from "../../../contexts/TimeContext";
+
 import { DragSwitch } from "react-dragswitch";
 import "react-dragswitch/dist/index.css";
+
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "../../../css/DatePicker.css";
 
 import {
   UPDATEWORKINGSTATE,
@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 
 const DaySelector = ({ index, day, service, mode }) => {
   const days = useSelector((state) => state.day[index]);
-
+  debugger;
   const specificDay = days.filter((weekDay) => weekDay.day === day);
 
   const [isWorking, setIsWorking] = useState(specificDay[0].working);
@@ -26,32 +26,25 @@ const DaySelector = ({ index, day, service, mode }) => {
   const openTimeRef = useRef();
   const closeTimeRef = useRef();
 
+  const [openTime, setOpenTime] = useState();
+  const [closeTime, setCloseTime] = useState();
   const dispatch = useDispatch();
 
   function handleSwitchChange(isWorking) {
-    openTimeRef.current.disabled = !isWorking;
-    closeTimeRef.current.disabled = !isWorking;
     setIsWorking(isWorking);
+
     dispatch({
       type: UPDATEWORKINGSTATE,
       payload: { index, day, isWorking },
     });
   }
 
-  function handleTimeChange(e, setTime) {
-    const { name, value } = e.target;
-    var filteredState = null;
-
+  function handleTimeChange(date, name) {
     if (name === "openTime") {
-      dispatch({ type: UPDATEOPENTIMESTATE, payload: { index, day, value } });
+      dispatch({ type: UPDATEOPENTIMESTATE, payload: { index, day, date } });
     } else {
-      dispatch({ type: UPDATECLOSETIMESTATE, payload: { index, day, value } });
+      dispatch({ type: UPDATECLOSETIMESTATE, payload: { index, day, date } });
     }
-    // dispatch({
-    //   type: UPDATESTATE,
-    //   index,
-    //   specificDay,
-    // });
   }
 
   return (
@@ -71,23 +64,41 @@ const DaySelector = ({ index, day, service, mode }) => {
         </div>
         <div className={styles.openHours}>
           <p>OPEN</p>{" "}
-          <input
-            ref={openTimeRef}
-            value={specificDay[0].openTime}
-            name="openTime"
-            onChange={(e) => handleTimeChange(e)}
-            type="time"
-          ></input>
+          <DatePicker
+            wrapperClassName="timeDatePicker"
+            selected={specificDay[0].openTime}
+            disabled={!isWorking}
+            placeholderText="Choose an hour"
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={15}
+            timeCaption="Time"
+            dateFormat="h:mm aa"
+            onChange={(date) => handleTimeChange(date, "openTime")}
+          />
         </div>
         <div className={styles.closeHours}>
           <p>CLOSE</p>{" "}
-          <input
+          {/* <input
             ref={closeTimeRef}
             value={specificDay[0].closeTime}
             name="closeTime"
             onChange={(e) => handleTimeChange(e)}
             type="time"
-          ></input>
+            step="900"
+          ></input> */}
+          <DatePicker
+            wrapperClassName="timeDatePicker"
+            selected={specificDay[0].closeTime}
+            placeholderText="Choose an hour"
+            disabled={!isWorking}
+            showTimeSelect
+            showTimeSelectOnly
+            timeIntervals={15}
+            timeCaption="Time"
+            dateFormat="h:mm aa"
+            onChange={(date) => handleTimeChange(date, "closeTime")}
+          />
         </div>
       </div>
     </div>

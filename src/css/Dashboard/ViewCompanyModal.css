@@ -42,14 +42,29 @@
 .info {
   padding: 24px;
 }
+.info h1 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 32px;
+  line-height: 40px;
+  /* identical to box height, or 125% */
+
+  letter-spacing: 0.001em;
+
+  /* Gray 1 */
+
+  color: #333333;
+}
 
 .modal-header {
   display: block;
   padding-bottom: 0;
 }
 .modal-header > button {
-  position: absolute;
-  right: 32px;
+  top: 0;
+  background: transparent;
+  font-size: 2rem;
 }
 .modal-title {
   display: inline;

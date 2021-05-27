@@ -1,7 +1,7 @@
-import toDate from "date-fns/toDate";
-import getTime from "date-fns/getTime";
-import { setSeconds } from "date-fns";
-
+import { min, setSeconds } from "date-fns";
+import getSeconds from "date-fns/getSeconds";
+import format from "date-fns/format";
+import { toDate } from "../services/Booking.service";
 export const getWorkingDays = (services, mode) => {
   const prepareString = (day) => {
     var temp = null;
@@ -37,44 +37,26 @@ export const getWorkingHours = (services, mode, day) => {
   var openHours = [];
   var closeHours = [];
 
-  function toDate(dStr, format) {
-    var time = new Date();
-    if (format == "h:m") {
-      time.setHours(dStr.substr(0, dStr.indexOf(":")));
-      time.setMinutes(dStr.substr(dStr.indexOf(":") + 1));
-      return time;
-    } else return "Invalid Format";
-  }
   if (mode === "view-company") {
     services.map((service) => {
       service.data.workingDays.map((weekDay) => {
-        weekDay.working == true &&
-          openHours.push(toDate(weekDay.openTime, "h:m").getHours());
-        weekDay.working == true &&
-          closeHours.push(toDate(weekDay.closeTime, "h:m").getHours());
+        weekDay.working == true && openHours.push(toDate(weekDay.openTime));
+        weekDay.working == true && closeHours.push(toDate(weekDay.closeTime));
       });
     });
   } else if (mode === "book-service") {
     services.workingDays.map((weekDay) => {
       weekDay.working == true &&
         weekDay.day == day &&
-        openHours.push(toDate(weekDay.openTime, "h:m").getTime()) &&
-        closeHours.push(toDate(weekDay.closeTime, "h:m").getTime());
+        openHours.push(toDate(weekDay.openTime)) &&
+        closeHours.push(toDate(weekDay.closeTime));
     });
   } else {
     services.workingDays.map((weekDay) => {
-      weekDay.working == true &&
-        openHours.push(toDate(weekDay.openTime, "h:m").getTime());
-      weekDay.working == true &&
-        closeHours.push(toDate(weekDay.closeTime, "h:m").getTime());
+      weekDay.working == true && openHours.push(toDate(weekDay.openTime));
+      weekDay.working == true && closeHours.push(toDate(weekDay.closeTime));
     });
   }
 
-  const minOpenHour = Math.min(...openHours);
-  const minCloseHour = Math.min(...closeHours);
-
-  return [
-    setSeconds(new Date(minOpenHour), 0),
-    setSeconds(new Date(minCloseHour), 0),
-  ];
+  return [min(openHours), min(closeHours)];
 };

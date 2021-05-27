@@ -122,3 +122,11 @@ export function calculatePrice(duration, startTime, endTime, price, capacity) {
 
   return intervals * price * capacity;
 }
+
+export function toDate(timeStamp) {
+  var time = new Date(
+    timeStamp.seconds * 1000 + timeStamp.nanoseconds / 100000
+  );
+
+  return time;
+}

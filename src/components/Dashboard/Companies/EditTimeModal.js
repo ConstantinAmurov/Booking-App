@@ -33,6 +33,7 @@ const EditTimeModal = ({ index, service, mode }) => {
       document.getElementById("company-modal").style.opacity = "1";
     }
   };
+
   return (
     <>
       <div className={styles.editAvailabityButton} onClick={showModal}>

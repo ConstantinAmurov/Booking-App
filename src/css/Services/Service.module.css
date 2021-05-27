@@ -37,6 +37,20 @@
 .companyServices .info p {
   font-size: 16px;
 }
+.companyServices .info h3 {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 22px;
+  /* identical to box height, or 122% */
+
+  letter-spacing: 0.001em;
+
+  /* Gray 1 */
+
+  color: #333333;
+}
 
 .companyServices .info hr {
   border: 1px dashed #bdbdbd;

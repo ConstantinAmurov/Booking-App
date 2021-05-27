@@ -101,7 +101,7 @@ const LoginAccount = () => {
           <img
             onClick={async () => {
               await signUpWithSocialMedia("google");
-              debugger;
+
               history.push("/dashboard");
             }}
             className={styles.icon}
