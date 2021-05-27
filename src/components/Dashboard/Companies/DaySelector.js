@@ -15,9 +15,21 @@ import {
   UPDATECLOSETIMESTATE,
 } from "../../../store/actions/actionTypes";
 import { useSelector } from "react-redux";
+import { toDate } from "../../../services/Booking.service";
 
 const DaySelector = ({ index, day, service, mode }) => {
-  const days = useSelector((state) => state.day[index]);
+  debugger;
+  var days = useSelector((state) => state.day[index]);
+  if (mode === "edit-service") {
+    debugger;
+    days = service.data.workingDays.map((workingDay) => {
+      return {
+        ...workingDay,
+        openTime: toDate(workingDay.openTime),
+        closeTime: toDate(workingDay.closeTime),
+      };
+    });
+  }
   debugger;
   const specificDay = days.filter((weekDay) => weekDay.day === day);
 

@@ -90,7 +90,7 @@ const BookServiceModal = ({ service }) => {
           </Modal.Title>
           <p className={styles.subTitle}>BOOKING SERVICE</p>
         </Modal.Header>
-        <Modal.Body className="edit-modal-body">{section}</Modal.Body>
+        <Modal.Body className={styles.editModalBody}>{section}</Modal.Body>
       </Modal>
     </>
   );

@@ -199,6 +199,7 @@ export async function getServices(props) {
         });
       });
   }
+  debugger;
   return services;
 }
 
