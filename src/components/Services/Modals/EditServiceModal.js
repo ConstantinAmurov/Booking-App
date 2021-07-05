@@ -14,7 +14,6 @@ const EditServiceModal = ({ index, service }) => {
   const hideModal = () => {
     setIsOpen(false);
   };
-  async function handleClick() {}
   return (
     <>
       <button

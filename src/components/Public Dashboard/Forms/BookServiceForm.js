@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useFormik } from "formik";
 import ButtonGroup from "@ramonak/react-button-group";
-import { setDuration, setHour } from "../../../services/Booking.service";
+import {
+  calculatePrice,
+  setDuration,
+  setHour,
+} from "../../../services/Booking.service";
 import styles from "../../../css/Services/EditService.module.css";
 
 import DatePicker from "react-datepicker";
@@ -17,6 +21,7 @@ import {
 import { getWorkingHours } from "../../../contexts/CompanyContext";
 import { isValidReservation } from "../../../contexts/DatabaseContext";
 import { setSeconds } from "date-fns";
+import addMinutes from "date-fns/addMinutes";
 const BookServiceForm = ({ service, handleSectionChange }) => {
   const handleDateChange = (date) => {
     var day = getDayName(date.getDay()).toUpperCase();
@@ -47,8 +52,18 @@ const BookServiceForm = ({ service, handleSectionChange }) => {
         service.capacity,
         values
       );
+      var totalPrice = calculatePrice(
+        service.duration,
+        values.hour,
+        addMinutes(values.hour, values.duration),
+        service.price,
+        values.capacity
+      );
       if (validReservation) {
-        handleSectionChange("user-information", values);
+        handleSectionChange("user-information", {
+          ...values,
+          totalPrice: totalPrice,
+        });
       }
     },
   });

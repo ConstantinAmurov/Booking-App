@@ -389,8 +389,6 @@
   padding: 16px 0 16px 0;
 }
 
-.details {
-}
 .details > div {
   display: inline-block;
   margin: 0 16px;
@@ -411,15 +409,16 @@
   bottom: 40px;
 }
 .container {
+  width: 502px;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
 }
 
 .buttonContainer {
-  width: 48px;
-  margin: 8px;
-  height: 48px;
+  width: 45px;
+  margin: 4px;
+  height: 45px;
   background-color: transparent;
   border-color: #bdbdbd;
   color: #bdbdbd;
@@ -461,4 +460,8 @@ input[type="file"] {
   border-radius: 10px;
   border: 1px solid #4149b9;
   color: #4149b9;
+}
+
+.serviceForm {
+  width: 502px;
 }

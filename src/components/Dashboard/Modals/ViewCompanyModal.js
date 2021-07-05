@@ -14,6 +14,7 @@ import {
   getWorkingDays,
   getWorkingHours,
 } from "../../../contexts/CompanyContext";
+import format from "date-fns/format";
 
 const ViewCompanyModal = ({ company }) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -22,18 +23,14 @@ const ViewCompanyModal = ({ company }) => {
   const [workingHours, setWorkingHours] = useState(null);
   useEffect(async () => {
     const services = await getServices(company.services);
-    setServices(services);
 
-    setWorkingDays(getWorkingDays(services, "view-company"));
-    setWorkingHours(getWorkingHours(services, "view-company"));
+    if (services != undefined) {
+      setServices(services);
+
+      setWorkingDays(getWorkingDays(services, "view-company"));
+      setWorkingHours(getWorkingHours(services, "view-company"));
+    }
   }, []);
-
-  // const services = async (service) => {
-
-  //     if (company.services.length > 0)
-  //         service = await getServices(company.services)
-  //     else service = [];
-  // }
 
   const showModal = () => {
     setIsOpen(true);
@@ -89,7 +86,9 @@ const ViewCompanyModal = ({ company }) => {
                         {" "}
                         <FiClock />{" "}
                         {workingHours != null &&
-                          workingHours[0] + " - " + workingHours[1]}
+                          format(workingHours[0], "kk : mm") +
+                            " - " +
+                            format(workingHours[1], "kk : mm")}
                       </p>
                       <p>
                         {" "}

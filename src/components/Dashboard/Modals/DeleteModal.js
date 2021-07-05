@@ -16,6 +16,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 const deleteImg = require("../../../img/delete.png").default;
 const DeleteModal = ({ company }) => {
+  const user = useSelector((state) => state.firebase.auth);
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -27,7 +28,7 @@ const DeleteModal = ({ company }) => {
     setIsOpen(false);
   };
   async function handleClick() {
-    await deleteCompany(company.id);
+    await deleteCompany(company.id, user.uid);
     dispatch({ type: DELETECOMPANY, companyID: company.id });
     for (const serviceID of company.services) {
       await deleteService(serviceID);

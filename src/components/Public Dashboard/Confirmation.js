@@ -39,7 +39,6 @@ const Confirmation = ({ values }) => {
       <img src={confirmImg}></img>
       <h1>Congratulations</h1>
       <p>
-        {" "}
         Hi {values.firstName}, Appointment confirmed with {values.companyName}{" "}
         on {getDayName(getDay(values.startTime))}{" "}
         {format(values.startTime, "MM/dd/yyyy")} at {getHours(values.startTime)}

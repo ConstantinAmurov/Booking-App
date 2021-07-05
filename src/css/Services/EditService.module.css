@@ -143,3 +143,8 @@
   color: #4149b9;
   display: flex;
 }
+
+.editServiceForm {
+  width: 502px;
+  margin: 0 auto;
+}

@@ -8,70 +8,101 @@ import {
   RESETSTATE,
 } from "../actions/actionTypes";
 
+const openTime = new Date(2021, 5, 27, 9, 0, 0);
+const closeTime = new Date(2021, 5, 27, 18, 0, 0);
+
 //initialState = day
 const newState = [
-  { day: "SUNDAY", working: true, openTime: "09:00", closeTime: "18:00" },
-  { day: "MONDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+  {
+    day: "SUNDAY",
+    working: true,
+    openTime: openTime,
+    closeTime: closeTime,
+  },
+  {
+    day: "MONDAY",
+    working: true,
+    openTime: openTime,
+    closeTime: closeTime,
+  },
   {
     day: "TUESDAY",
     working: true,
-    openTime: "09:00",
-    closeTime: "18:00",
+    openTime: openTime,
+    closeTime: closeTime,
   },
   {
     day: "WEDNESDAY",
     working: true,
-    openTime: "09:00",
-    closeTime: "18:00",
+    openTime: openTime,
+    closeTime: closeTime,
   },
   {
     day: "THURSDAY",
     working: true,
-    openTime: "09:00",
-    closeTime: "18:00",
+    openTime: openTime,
+    closeTime: closeTime,
   },
-  { day: "FRIDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+  {
+    day: "FRIDAY",
+    working: true,
+    openTime: openTime,
+    closeTime: closeTime,
+  },
   {
     day: "SATURDAY",
     working: true,
-    openTime: "09:00",
-    closeTime: "18:00",
+    openTime: openTime,
+    closeTime: closeTime,
   },
 ];
 
 const initialState = [
   [
-    { day: "SUNDAY", working: true, openTime: "09:00", closeTime: "18:00" },
-    { day: "MONDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    {
+      day: "SUNDAY",
+      working: true,
+      openTime: openTime,
+      closeTime: closeTime,
+    },
+    {
+      day: "MONDAY",
+      working: true,
+      openTime: openTime,
+      closeTime: closeTime,
+    },
     {
       day: "TUESDAY",
       working: true,
-      openTime: "09:00",
-      closeTime: "18:00",
+      openTime: openTime,
+      closeTime: closeTime,
     },
     {
       day: "WEDNESDAY",
       working: true,
-      openTime: "09:00",
-      closeTime: "18:00",
+      openTime: openTime,
+      closeTime: closeTime,
     },
     {
       day: "THURSDAY",
       working: true,
-      openTime: "09:00",
-      closeTime: "18:00",
+      openTime: openTime,
+      closeTime: closeTime,
     },
-    { day: "FRIDAY", working: true, openTime: "09:00", closeTime: "18:00" },
+    {
+      day: "FRIDAY",
+      working: true,
+      openTime: openTime,
+      closeTime: closeTime,
+    },
     {
       day: "SATURDAY",
       working: true,
-      openTime: "09:00",
-      closeTime: "18:00",
+      openTime: openTime,
+      closeTime: closeTime,
     },
   ],
 ];
-
-// var mode = "add-service";
 
 const dayReducer = (state = [...initialState], action) => {
   if (action.type === UPDATEWORKINGSTATE) {
@@ -88,10 +119,11 @@ const dayReducer = (state = [...initialState], action) => {
   }
 
   if (action.type === UPDATEOPENTIMESTATE) {
-    const { index, day, value } = action.payload;
+    const { index, day, date } = action.payload;
+
     const modifiedServiceState = state[index].map((serviceDay) => {
       if (serviceDay.day === day) {
-        serviceDay.openTime = value;
+        serviceDay.openTime = date;
         return serviceDay;
       } else return serviceDay;
     });
@@ -100,10 +132,10 @@ const dayReducer = (state = [...initialState], action) => {
   }
 
   if (action.type === UPDATECLOSETIMESTATE) {
-    const { index, day, value } = action.payload;
+    const { index, day, date } = action.payload;
     const modifiedServiceState = state[index].map((serviceDay) => {
       if (serviceDay.day === day) {
-        serviceDay.closeTime = value;
+        serviceDay.closeTime = date;
         return serviceDay;
       } else return serviceDay;
     });

@@ -84,7 +84,7 @@ const Services = () => {
         ];
 
         console.log(newServices);
-        dispatch({ type: ADDSERVICES, payload: newServices });
+        dispatch({ type: ADDSERVICES, payload: values.services });
       }}
       validationSchema={validationSchema}
     >
@@ -92,7 +92,7 @@ const Services = () => {
         <Form>
           <FieldArray name="services">
             {({ push, replace }) => (
-              <>
+              <div className={styles.serviceform}>
                 {values.services.map((service, index) => {
                   //service name
                   const serviceName = `services[${index}].serviceName`;
@@ -152,27 +152,36 @@ const Services = () => {
                             });
                           }}
                         />{" "}
-                        {/* <div style={{ color: "red" }}>
-                          {durationErrorMessage}
-                        </div> */}
                         <p>Add duration manually</p>
                         <input
                           className={styles.manualInput}
                           type="number"
                           name="durationName"
                           value={duration}
-                          onChange={(e) => setDuration(e.target.value)}
+                          onChange={(e) => {
+                            setDuration(e.target.value);
+                          }}
                         ></input>
                         <button
                           type="button"
                           className={styles.addButton}
                           onClick={() => {
-                            addCustomDuration(index, duration);
+                            {
+                              if (
+                                parseInt(duration) % 15 === 0 &&
+                                parseInt(duration) > 0
+                              ) {
+                                addCustomDuration(index, duration);
+                              }
+                            }
                           }}
                         >
                           {" "}
                           Add duration
                         </button>
+                        {/* <div style={{ color: "red" }}>
+                          {durationErrorMessage}
+                        </div> */}
                       </div>
                       <div className={styles.formInput}>
                         <p>Price(RON)</p>
@@ -192,7 +201,7 @@ const Services = () => {
                             }}
                           />
                         </div>
-                        <p>Add duration manually</p>
+                        <p>Add price manually</p>
                         {/* <Field
                           className={styles.manualInput}
                           type="text"
@@ -209,7 +218,9 @@ const Services = () => {
                         <button
                           type="button"
                           onClick={() => {
-                            addCustomPrice(index, price);
+                            if (price > 0 && price % 1 === 0) {
+                              addCustomPrice(index, price);
+                            }
                           }}
                           className={styles.addButton}
                         >
@@ -265,7 +276,7 @@ const Services = () => {
                 >
                   Add Service
                 </button>
-              </>
+              </div>
             )}
           </FieldArray>
 

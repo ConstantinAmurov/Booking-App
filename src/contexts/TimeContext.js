@@ -43,8 +43,8 @@ export function setWorking(days, day, value) {
     if (copyDays[i].day === day) {
       copyDays[i].working = value;
       if (value === false) {
-        copyDays[i].openTime = "09:00:00";
-        copyDays[i].closeTime = "18:00:00";
+        copyDays[i].openTime = new Date(2021, 5, 27, 9, 0, 0);
+        copyDays[i].closeTime = new Date(2021, 5, 27, 18, 0, 0);
       }
 
       break;

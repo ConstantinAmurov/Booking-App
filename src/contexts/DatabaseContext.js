@@ -3,6 +3,7 @@ import firebase from "firebase/app";
 import { addMilliseconds, addMinutes, isEqual } from "date-fns";
 import { createIntervals, verifyAvailabity } from "../services/Booking.service";
 import setMilliseconds from "date-fns/setMilliseconds";
+import format from "date-fns/format";
 export function addNewUser(props, user) {
   const { firstName, lastName, email, password } = props;
   db.collection("users").doc(user.uid).set({
@@ -25,14 +26,14 @@ export function addNewSocialUser(user) {
 }
 export async function getCompanyById(id) {
   var company = null;
-  debugger;
+
   await db
     .collection("companies")
     .doc(id)
     .get()
     .then((snapshot) => {
       company = snapshot.data();
-      debugger;
+
       console.log("succesfuly  found company with id " + snapshot.id);
     });
 
@@ -40,12 +41,15 @@ export async function getCompanyById(id) {
 }
 export async function getUserCompanies(companies) {
   var extractedCompanies = [];
+
   await db
     .collection("companies")
     .where(firebase.firestore.FieldPath.documentId(), "in", companies)
     .get()
     .then((querySnapshots) => {
-      querySnapshots.forEach((doc) => extractedCompanies.push(doc.data()));
+      querySnapshots.forEach((doc) =>
+        extractedCompanies.push({ ...doc.data(), id: doc.id })
+      );
     });
   return extractedCompanies;
 }
@@ -64,13 +68,19 @@ export async function getCompanies() {
 
   return companies;
 }
-export async function deleteCompany(id) {
+export async function deleteCompany(id, userId) {
   await db
     .collection("companies")
     .doc(id)
     .delete()
-    .then(() => {
+    .then(async () => {
       console.log("Document successfully deleted with id :" + id);
+      await db
+        .collection("users")
+        .doc(userId)
+        .update({
+          companies: firebase.firestore.FieldValue.arrayRemove(id),
+        });
     })
     .catch((error) => {
       console.error("Error removing document: ", error);
@@ -78,7 +88,7 @@ export async function deleteCompany(id) {
 }
 
 export async function addCompany(props) {
-  const { newCompany, AddedServicesIDs } = props;
+  const { newCompany, AddedServicesIDs, userId } = props;
   var docRef_id;
   await db
     .collection("companies")
@@ -97,6 +107,11 @@ export async function addCompany(props) {
   for (const serviceId of AddedServicesIDs) {
     await editServices(serviceId, docRef_id);
   }
+
+  await db
+    .collection("users")
+    .doc(userId)
+    .update({ companies: firebase.firestore.FieldValue.arrayUnion(docRef_id) });
 }
 
 export async function editServices(serviceId, companyId) {
@@ -184,6 +199,7 @@ export async function getServices(props) {
         });
       });
   }
+  debugger;
   return services;
 }
 
@@ -284,7 +300,6 @@ export async function isValidReservation(
     //   });
   } else {
     //algorithm for finding similar reservations and verifying their capcity
-
     var newReservationIntervals = createIntervals(
       serviceDuration,
       hour,
@@ -296,30 +311,13 @@ export async function isValidReservation(
       serviceCapacity,
       capacity
     );
-    // if (valid) {
-    //   const reservation = await db
-    //     .collection("reservations")
-    //     .add({
-    //       serviceId: serviceId,
-    //       startTime: startTimeStamp,
-    //       endTime: endTimeStamp,
-    //       capacity: capacity,
-    //     })
-    //     .then((docRef) => {
-    //       console.log("Written Reservation with ID of ", docRef.id);
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error adding reservation: ", error);
-    //     });
-    // } else {
-    //   console.log("No places left for the inserted interval");
-    // }
     return valid;
   }
 }
 
 export async function addReservation(reservation) {
-  const { capacity, serviceId, startTime, endTime, values } = reservation;
+  const { capacity, totalPrice, serviceId, startTime, endTime, values } =
+    reservation;
   const startTimeStamp = firebase.firestore.Timestamp.fromDate(startTime);
   const endTimeStamp = firebase.firestore.Timestamp.fromDate(endTime);
 
@@ -332,6 +330,7 @@ export async function addReservation(reservation) {
       endTime: endTimeStamp,
       capacity: capacity,
       clientInfo: values,
+      price: totalPrice,
     })
     .then((docRef) => {
       console.log("Written Reservation with ID of ", docRef.id);
@@ -342,4 +341,67 @@ export async function addReservation(reservation) {
     });
 
   return reservationId;
+}
+
+export async function getReservations() {
+  var extractedReservations = [];
+  await db
+    .collection("reservations")
+    .get()
+    .then((querySnapshot) => {
+      querySnapshot.forEach((doc, index) => {
+        extractedReservations.push(doc.data());
+      });
+    });
+  if (extractedReservations.length == 0) return extractedReservations;
+  var extractedServicesIds = extractedReservations.map(
+    (reservation) => reservation.serviceId
+  );
+  var extractedServices = await getServices(extractedServicesIds);
+
+  var extractedCompaniesIds = extractedServices.map(
+    (service) => service.data.companyId
+  );
+
+  var extractedCompanies = await getUserCompanies(extractedCompaniesIds);
+
+  // var filteredReservations = extractedReservations.map((reservation) => {
+  //   var serviceName = extractedServices.map((service) => {
+  //     if (service.id === reservation.serviceId) {
+  //       return service.data.serviceName;
+  //     }
+  //   });
+
+  //   var companyName = extractedCompanies.map((company) => {
+  //     if (company.services.includes(reservation.serviceId)) {
+  //       return company.name;
+  //     }
+  //   });
+
+  //   return {
+  //     ...reservation,
+  //     serviceName: serviceName,
+  //     companyName: companyName,
+  //   };
+  // });
+
+  var filteredReservations = extractedCompanies.map((company) => {
+    var reservations = extractedReservations.map((reservation) => {
+      return {
+        ...reservation,
+        serviceName: extractedServices
+          .map((service) => {
+            if (service.id === reservation.serviceId)
+              return service.data.serviceName;
+          })
+          .toString(),
+      };
+    });
+
+    return {
+      companyName: company.name,
+      reservations: reservations,
+    };
+  });
+  return filteredReservations;
 }

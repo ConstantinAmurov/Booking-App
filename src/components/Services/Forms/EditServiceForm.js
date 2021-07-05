@@ -39,7 +39,7 @@ const EditServiceForm = ({ company, mode, index, service }) => {
 
   return (
     <div>
-      <form onSubmit={formik.handleSubmit}>
+      <form className={styles.editServiceForm} onSubmit={formik.handleSubmit}>
         {" "}
         <div className={styles.formInput}>
           <p>Service name</p>

@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 const Company = () => {
   const companies = useSelector((state) => state.company.companies);
 
-  debugger;
   return (
     <div className={styles.companies}>
       {companies.length != 0 &&

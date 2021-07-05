@@ -12,6 +12,7 @@ import { DragSwitch } from "react-dragswitch";
 import "react-dragswitch/dist/index.css";
 const Profile = ({ mode, company }) => {
   //States
+  const userId = useSelector((state) => state.firebase.auth.uid);
   const [status, setStatus] = useState(
     company != undefined ? company.status : false
   );
@@ -59,8 +60,9 @@ const Profile = ({ mode, company }) => {
           imgURL: fileDownloadURL,
           status: false,
         };
+
         try {
-          await saveCompany(newCompany, services, servicesDayWorking);
+          await saveCompany(newCompany, services, servicesDayWorking, userId);
           dispatch({ type: ADDCOMPANY, newCompany });
         } catch (error) {
           console.log(error);
